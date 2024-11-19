@@ -1090,6 +1090,8 @@ CSS STRUCTURE:
   /* 4.1 Header
   /*----------------------------------------------*/
   .site-header {
+    background-color: red;
+    position: fixed;
     width: 100%;
     z-index: 10;
     transition: background 0.3s ease-out;
@@ -1145,6 +1147,7 @@ CSS STRUCTURE:
   }
   
   /*------------ Offcanvas -------------- */
+
   #header-nav .navbar-toggler:focus {
     box-shadow: none;
   }

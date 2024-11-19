@@ -15,3 +15,4 @@ public class HomeController {
 
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
+    
