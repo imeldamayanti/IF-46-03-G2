@@ -73,7 +73,7 @@ CSS STRUCTURE:
     --swiper-theme-color:       #4A4A4A;
     --swiper-pagination-color:  #4A4A4A;
     --bs-box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
-  
+    
     --bs-btn-font-size: 1rem;
   }
   
@@ -1089,8 +1089,14 @@ CSS STRUCTURE:
   
   /* 4.1 Header
   /*----------------------------------------------*/
+  .logo {
+    width: 157px;
+    height: 63px;
+    object-fit: contain;
+  }
+
   .site-header {
-    background-color: red;
+    background-color: #F1EFE3;
     position: fixed;
     width: 100%;
     z-index: 10;
@@ -1110,6 +1116,7 @@ CSS STRUCTURE:
   .navbar-nav .nav-item a.nav-link:focus, 
   .navbar-nav .nav-item a.nav-link:hover {
     color: var(--primary-color);
+    font-weight: bold;
   }
   .modal {
     --bs-modal-zindex: 99999;
@@ -1338,11 +1345,13 @@ CSS STRUCTURE:
     border: none;
   }
   .nav-tabs button.nav-link.active {
-    color: var(--primary-color);
+    color: var(--black-color);
     background: none;
+    font-weight: bold;
   }
   .nav-tabs button.nav-link:hover {
-    color: var(--primary-color);
+    color: var(--black-color);
+    font-weight: bold;
   }
   
   @media screen and (max-width: 991px) {
