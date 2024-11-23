@@ -1332,11 +1332,11 @@ CSS STRUCTURE:
 }
 
 /* Ensure Text is Visible */
-.book-information .details-header .p,
-.book-information .details-header .h2{
+.book-information .details-header p,
+.book-information .details-header h2{
   position: relative;
   color: var(--light-color) !important;
-  padding: 20px;
+  padding: 10px;
 }
 
 .book-information {
@@ -1347,16 +1347,25 @@ CSS STRUCTURE:
 }
 
 .details-header {
-  position: relative;
-  padding: 20px;
-  z-index: 1;
-  color: var(--light-color);
+  display: flex;
+  gap: 20px; /* Space between the cover and text */
+  align-items: flex-start; /* Align items at the top */
+}
+
+.book-info {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column; /* Stack title, writer, and rating vertically */
+  gap: 0px; /* Space between title, writer, and rating */
 }
 
 .book-header-text {
+  color: var(--light-color) !important;
+}
+
+.writer-name {
+  font-size: 1.2rem; /* Adjust font size for the writer's name */
   color: var(--light-color);
-  z-index: 1;
-  position: relative;
 }
 
 .description {
@@ -1366,7 +1375,17 @@ CSS STRUCTURE:
 }
 
 .rating {
+  display: flex;
+  align-items: center; /* Align stars and score */
+  gap: 5px;
   color: var(--star-color);
+}
+
+.cover {
+  width: 260px;
+  height: 400px;
+  margin: 10%;
+  margin-top: 5%;
 }
 
   /*----------------------------------------------*/

@@ -354,11 +354,15 @@
       <div class="background-container">
           <img src="assets/HorizontalBackground.png" class="book-detail-background" alt="Book background">
       </div>
-    
+
       <!-- Book Details -->
       <div class="details-header">
+        <div class="cover">
+          <img class="img-fluid rounded-3" th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1722456144i/43641.jpg}" alt="book cover">
+        </div>
+        <div class="book-info">
           <h2 class="book-header-text">Water for Elephants</h2>
-          <p class="book-header-text">SARA GRUEN</p>
+          <p class="book-header-text writer-name">SARA GRUEN</p>
           <div class="rating">
               <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
               <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
@@ -367,6 +371,7 @@
               <svg class="star"><use xlink:href="#star-outline"></use></svg>
               <span class="rating-score book-header-text">4.0</span>
           </div>
+        </div>
       </div>
     
       <!-- Book Description -->
