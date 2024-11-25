@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+$Recycle.Bin/
+Config.Msi/
+Documents and Settings/
+PerfLogs/
