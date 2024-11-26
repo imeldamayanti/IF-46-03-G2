@@ -1558,7 +1558,7 @@ CSS STRUCTURE:
   }
   .nav-tabs button.nav-link:hover {
     color: var(--black-color);
-    font-weight: bold;
+    font-weight: bold;/
   }
   
   @media screen and (max-width: 991px) {
@@ -1569,4 +1569,13 @@ CSS STRUCTURE:
     .product-tabs .review-item .image-holder{
       margin-bottom: 10px;
     }
+  }
+
+  .image-holder {
+    margin-top: 60px;
+  }
+
+  .image-holder img {
+    width:  320px;
+    height: 480px;
   }
