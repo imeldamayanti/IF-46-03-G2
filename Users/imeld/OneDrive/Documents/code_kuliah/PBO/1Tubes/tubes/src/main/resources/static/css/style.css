@@ -60,7 +60,7 @@ CSS STRUCTURE:
     --gray-color-500:           #D0D0D0;
     --gray-color-800:           #3A3A3A;
     --light-gray-color:         #D2D2D2;
-    --primary-color:            #F86D72;
+    --primary-color:            #C76E6F;
     --bs-body-color:            #272727;
     --bs-secondary-color:       #FFE8F0;
     --bs-secondary-rgb:         255, 232, 240;
@@ -73,8 +73,9 @@ CSS STRUCTURE:
     --swiper-theme-color:       #4A4A4A;
     --swiper-pagination-color:  #4A4A4A;
     --bs-box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
-  
+    
     --bs-btn-font-size: 1rem;
+    --star-color: #FF9933;
   }
   
   /* Fonts */
@@ -1089,8 +1090,14 @@ CSS STRUCTURE:
   
   /* 4.1 Header
   /*----------------------------------------------*/
+  .logo {
+    width: 157px;
+    height: 63px;
+    object-fit: contain;
+  }
+
   .site-header {
-    background-color:#F1EFE3;
+    background-color: #F1EFE3;
     position: fixed;
     width: 100%;
     z-index: 10;
@@ -1110,6 +1117,7 @@ CSS STRUCTURE:
   .navbar-nav .nav-item a.nav-link:focus, 
   .navbar-nav .nav-item a.nav-link:hover {
     color: var(--primary-color);
+    font-weight: bold;
   }
   .modal {
     --bs-modal-zindex: 99999;
@@ -1305,7 +1313,62 @@ CSS STRUCTURE:
   .social-links li {
     padding-right: 30px;
   }
-  
+
+  /* 4.10 Book Details
+  /*----------------------------------------------*/
+
+  /* Background Image Fix */
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.book-detail-background {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Ensure Text is Visible */
+.book-information .details-header .p,
+.book-information .details-header .h2{
+  position: relative;
+  color: var(--light-color) !important;
+  padding: 20px;
+}
+
+.book-information {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px; /* Move content 80px down */
+}
+
+.details-header {
+  position: relative;
+  padding: 20px;
+  z-index: 1;
+  color: var(--light-color);
+}
+
+.book-header-text {
+  color: var(--light-color);
+  z-index: 1;
+  position: relative;
+}
+
+.description {
+  color: var(--black-color);
+  z-index: 1;
+  position: relative;
+}
+
+.rating {
+  color: var(--star-color);
+}
+
   /*----------------------------------------------*/
   /* 5. SITE STRUCTURE */
   /*----------------------------------------------*/
@@ -1338,11 +1401,13 @@ CSS STRUCTURE:
     border: none;
   }
   .nav-tabs button.nav-link.active {
-    color: var(--primary-color);
+    color: var(--black-color);
     background: none;
+    font-weight: bold;
   }
   .nav-tabs button.nav-link:hover {
-    color: var(--primary-color);
+    color: var(--black-color);
+    font-weight: bold;
   }
   
   @media screen and (max-width: 991px) {
@@ -1354,3 +1419,5 @@ CSS STRUCTURE:
       margin-bottom: 10px;
     }
   }
+
+
