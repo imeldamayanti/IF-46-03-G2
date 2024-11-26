@@ -1437,7 +1437,6 @@ select#input-sort {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 50%; /* Membuat gambar berbentuk lingkaran */
   }
   
   .faq-item .faq-text h2 {
