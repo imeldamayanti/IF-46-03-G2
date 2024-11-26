@@ -349,36 +349,53 @@
     </header>
 
     
-    <div class="book-information">
+    <div class="main-container">
       <!-- Background Container -->
       <div class="background-container">
-          <img src="assets/HorizontalBackground.png" class="book-detail-background" alt="Book background">
+        <img src="assets/HorizontalBackground.png" class="book-detail-background" alt="Book background">
       </div>
-
-      <!-- Book Details -->
-      <div class="details-header">
-        <div class="cover">
-          <img class="img-fluid rounded-3" th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1722456144i/43641.jpg}" alt="book cover">
+    
+      <!-- Left and Right Containers -->
+      <div class="content-container">
+        <!-- Left Container: Image -->
+        <div class="left-container">
+          <div class="image-container">
+            <img class="img-fluid rounded-3" src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1722456144i/43641.jpg" alt="book cover">
+          </div>
         </div>
-        <div class="book-info">
-          <h2 class="book-header-text">Water for Elephants</h2>
-          <p class="book-header-text writer-name">SARA GRUEN</p>
-          <div class="rating">
+
+        <!--
+        <div class="button-container">
+          <button class="add-to-list">Add to list</button>
+        </div>
+        -->
+    
+        <!-- Right Container: Details -->
+        <div class="right-container">
+          <div class="details-container">
+            <h2 class="book-header-text">Water for Elephants</h2>
+            <p class="book-header-text writer-name">SARA GRUEN</p>
+            <div class="rating">
               <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
               <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
               <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
               <svg class="star star-fill"><use xlink:href="#star-fill"></use></svg>
               <svg class="star"><use xlink:href="#star-outline"></use></svg>
               <span class="rating-score book-header-text">4.0</span>
+            </div>
+            <div>
+              <p class = "rating-description">
+                1,231,123 ratings 12,312 reviews
+              </p>
+            </div>
+            <p class="description">
+              When Jacob Jankowski, recently orphaned and suddenly adrift, jumps onto a passing train, he enters a world of freaks, drifters, and misfits, a second-rate circus struggling to survive during the Great Depression, making one-night stands in town after endless town.A veterinary student who almost earned his degree, Jacob is put in ...
+            </p>
           </div>
         </div>
       </div>
-    
-      <!-- Book Description -->
-      <p class="description">
-          When Jacob Jankowski, recently orphaned and suddenly adrift, jumps onto a passing train, he enters a world of freaks, drifters, and misfits...
-      </p>
     </div>
+    
     
   
     <svg style="display: none;">

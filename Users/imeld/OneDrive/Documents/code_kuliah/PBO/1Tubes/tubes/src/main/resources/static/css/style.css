@@ -1258,8 +1258,8 @@ CSS STRUCTURE:
   /* 4.6 Testimonial
   /*----------------------------------------------*/
   .rating svg.star {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
   }
   
   /* 4.7 Brands
@@ -1317,7 +1317,17 @@ CSS STRUCTURE:
   /* 4.10 Book Details
   /*----------------------------------------------*/
 
-  /* Background Image Fix */
+  /* Main Container */
+.main-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column; /* Default: stack containers vertically */
+}
+
+/* Background Image Fix */
 .background-container {
   position: absolute;
   top: 0;
@@ -1331,32 +1341,72 @@ CSS STRUCTURE:
   object-fit: cover;
 }
 
-/* Ensure Text is Visible */
-.book-information .details-header p,
-.book-information .details-header h2{
+/* Content Container */
+.content-container {
+  margin-top: 40px ;
+  display: flex;
+  flex-direction: row; /* Place containers side by side */
+  align-items: flex-start;
+  gap: 10px;
   position: relative;
-  color: var(--light-color) !important;
-  padding: 10px;
+  z-index: 1;
+  padding: 20px;
 }
 
-.book-information {
-  position: relative;
+/* Left Container */
+.left-container {
+  flex: 1; /* Take up equal space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  width: 260px;
+  height: 400px;
+}
+
+.image-container img {
   width: 100%;
-  min-height: 100vh;
-  padding-top: 80px; /* Move content 80px down */
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.details-header {
-  display: flex;
-  gap: 20px; /* Space between the cover and text */
-  align-items: flex-start; /* Align items at the top */
+/*
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+*/
+
+/* Add to List Button */
+/*
+.add-to-list-btn {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px; 
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease;
+}
+*/
+
+
+/* Right Container */
+.right-container {
+  flex: 2; /* Take up more space for text content */
+  margin-left: -10px;
 }
 
-.book-info {
-  margin-top: 5%;
+.details-container {
   display: flex;
-  flex-direction: column; /* Stack title, writer, and rating vertically */
-  gap: 0px; /* Space between title, writer, and rating */
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
 }
 
 .book-header-text {
@@ -1364,28 +1414,50 @@ CSS STRUCTURE:
 }
 
 .writer-name {
-  font-size: 1.2rem; /* Adjust font size for the writer's name */
+  font-size: 1.2rem;
   color: var(--light-color);
-}
-
-.description {
-  color: var(--black-color);
-  z-index: 1;
-  position: relative;
 }
 
 .rating {
   display: flex;
-  align-items: center; /* Align stars and score */
+  align-items: center;
   gap: 5px;
   color: var(--star-color);
 }
 
-.cover {
-  width: 260px;
-  height: 400px;
-  margin: 10%;
-  margin-top: 5%;
+.rating-description {
+  color: var(--light-color);
+
+}
+
+.rating-score {
+  font-size: 1.2rem;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.description {
+  margin-top: 10px;
+  color: var(--black-color);
+  position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-container {
+    flex-direction: column; /* Stack containers vertically */
+  }
+
+  .image-container {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .details-container {
+    max-width: 100%;
+  }
 }
 
   /*----------------------------------------------*/
