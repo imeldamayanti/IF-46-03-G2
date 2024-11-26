@@ -295,7 +295,7 @@
                                           Sign Up
                                       </button>
                                   </div>
-                  
+                                
                                   <!-- Right Section -->
                                   <div class="col-md-7 p-5" style="background-color: #FDFCF8; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
                                       <button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -440,7 +440,7 @@
     </header>
 
     <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray"
-      style="background-image: url(images/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
+      style="background-image: url(/assets/HorizontalBackground.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
       <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
         <svg class="chevron-forward-circle d-flex justify-content-center align-items-center p-2" width="80" height="80">
           <use xlink:href="#alt-arrow-right-outline"></use>
@@ -458,14 +458,14 @@
               <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
                 <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
                   <div class="banner-content">
-                    <h2>Find and Rate Book</h2>
-                    <p>Discover your next favorite read and share your thoughts!</p>
+                    <h2 style="color: #f1f1f1;">Find and Rate Book Collection</h2>
+                    <p style="color: #f1f1f1;">Discover your next favorite read and share your thoughts!</p>
                     <a href="index.html" class="btn mt-3">Discover</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
                   <div class="image-holder">
-                    <img src="images/banner-image2.png" class="img-fluid" alt="banner">
+                    <img th:src="@{/assets/book.png}" class="img-fluid" alt="banner">
                   </div>
                 </div>
               </div>
