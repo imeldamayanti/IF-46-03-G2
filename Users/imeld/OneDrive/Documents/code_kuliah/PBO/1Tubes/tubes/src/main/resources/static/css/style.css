@@ -1356,6 +1356,7 @@ CSS STRUCTURE:
 /* Left Container */
 .left-container {
   flex: 1; /* Take up equal space */
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1373,28 +1374,28 @@ CSS STRUCTURE:
   border-radius: 8px;
 }
 
-/*
+/* Add to List*/
+
 .button-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 40px; /* Space between the image and the button */
+  max-width: 100%; /* Ensure button is centered under the image */
 }
-*/
 
-/* Add to List Button */
-/*
-.add-to-list-btn {
+.add-to-list {
+  padding: 10px 20px;
   background-color: var(--primary-color);
-  color: var(--light-color);
+  color: #fff;
   border: none;
-  border-radius: 20px;
-  padding: 10px 20px; 
-  font-size: 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
-  transition: all 0.3s ease;
+  font-size: 1rem;
+  width: 260px;
 }
-*/
 
+.add-to-list:hover {
+  filter:brightness(90%)
+}
 
 /* Right Container */
 .right-container {
@@ -1443,6 +1444,63 @@ CSS STRUCTURE:
   margin-top: 10px;
   color: var(--black-color);
   position: relative;
+}
+
+/* Container for genres */
+.genres-container {
+  display: flex;
+  flex: 2; 
+  justify-content: flex-start;  /* Align genres to the left */
+  align-items: center;  /* Align vertically at the start */
+  margin-top: 0;  /* Remove or adjust top margin if necessary */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Title for genres */
+.genres-title {
+  margin-right: 10px;  /* Add a little space between the label and genres */
+  color: var(--accent-color); /* Replace with your theme color */
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+/* Genres list */
+.genres-list {
+  display: flex; /* Arrange genres in a row */
+  flex-wrap: wrap; /* Allow genres to wrap to the next line */
+  margin-left: 30px;
+  gap: 30px; /* Spacing between genres */
+  justify-content: flex-start;
+  font-weight: bold;
+}
+
+
+/* Individual genre styling */
+.genre {
+  background-color: var(--light-gray); /* Subtle background color */
+  color: var(--dark-color); /* Text color */
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 15px; /* Rounded edges */
+  cursor: default; /* No pointer cursor */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.page-and-date {
+  margin-top: 40px;
+  font-size: 12px;
+  color: var(--accent-color);
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 5px; /* Space between pages and dates */
+  align-items: flex-start; /* Align text to the left */
+}
+
+.page-and-date span {
+  margin-top: -8px;
+  white-space: nowrap; /* Prevent text wrapping inside spans */
 }
 
 /* Responsive Design */
@@ -1512,5 +1570,3 @@ CSS STRUCTURE:
       margin-bottom: 10px;
     }
   }
-
-
