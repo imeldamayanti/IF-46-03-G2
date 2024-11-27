@@ -101,6 +101,7 @@ CSS STRUCTURE:
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
+
   html {
     box-sizing: border-box;
   }
@@ -1194,6 +1195,10 @@ CSS STRUCTURE:
     color: var(--gray-color-500);
   }
   
+  .banner-content {
+    margin-right: 40px;
+  }
+
   @media only screen and (max-width: 765px) {
     section#billboard{
       height: 100vh !important;
@@ -1339,6 +1344,7 @@ CSS STRUCTURE:
 .book-detail-background {
   width: 100%;
   object-fit: cover;
+  max-height: 400px;
 }
 
 /* Content Container */
@@ -1378,8 +1384,8 @@ CSS STRUCTURE:
 
 .button-container {
   text-align: center;
-  margin-top: 40px; /* Space between the image and the button */
-  max-width: 100%; /* Ensure button is centered under the image */
+  margin-top: 40px;
+  max-width: 100%;
 }
 
 .add-to-list {
@@ -1420,7 +1426,7 @@ CSS STRUCTURE:
 }
 
 .rating {
-  margin-top: -5px;
+  margin-top: -4px;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1441,10 +1447,44 @@ CSS STRUCTURE:
 }
 
 .description {
-  margin-top: 10px;
+  margin-top: 24px;
   color: var(--black-color);
   position: relative;
+  text-align: center;
 }
+
+.description p {
+  font-size: 0.9em;
+  text-align: justify;
+}
+
+.description-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Show only 4 lines initially */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.description-text.expanded {
+  -webkit-line-clamp: unset; /* Show full text when expanded */
+  overflow: visible;
+}
+
+.see-more-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--black-color);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: color 0.3s ease;
+}
+
+.see-more-link:hover {
+  color: var(--primary-dark-color);
+}
+
 
 /* Container for genres */
 .genres-container {
@@ -1452,7 +1492,7 @@ CSS STRUCTURE:
   flex: 2; 
   justify-content: flex-start;  /* Align genres to the left */
   align-items: center;  /* Align vertically at the start */
-  margin-top: 0;  /* Remove or adjust top margin if necessary */
+  margin-top: 20px;  /* Remove or adjust top margin if necessary */
   font-family: 'Arial', sans-serif;
 }
 
@@ -1489,7 +1529,7 @@ CSS STRUCTURE:
 }
 
 .page-and-date {
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: 12px;
   color: var(--accent-color);
   display: flex;
@@ -1517,6 +1557,30 @@ CSS STRUCTURE:
 
   .details-container {
     max-width: 100%;
+  }
+
+  .book-detail-background {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-container {
+    flex-direction: column;
+  }
+
+  .image-container {
+    width: 200px;
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .details-container {
+    max-width: 100%;
+  }
+
+  .book-detail-background {
+    max-height: 200px;
   }
 }
 
