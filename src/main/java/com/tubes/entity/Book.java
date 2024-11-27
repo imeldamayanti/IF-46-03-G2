@@ -35,7 +35,7 @@ public class Book {
         this.cover = cover;
     }
 
-
+    
     /**
      * Setter and Getter
      */
