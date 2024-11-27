@@ -1426,11 +1426,15 @@ CSS STRUCTURE:
 }
 
 .rating {
-  margin-top: -4px;
+  margin-top: 0;
   display: flex;
   align-items: center;
   gap: 5px;
   color: var(--star-color);
+}
+
+.details-container .rating{
+  margin-top: -4px ;
 }
 
 .rating-description {
