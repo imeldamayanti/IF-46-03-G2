@@ -1420,20 +1420,18 @@ select#input-sort {
   }
   
   /* Contact Us Button */
-/* Button Container */
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Beri jarak dari konten atas */
+  margin-top: 20px;
 }
 
-/* Contact Us Button */
 .contact-button {
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #ff6600; /* Warna oranye */
+  background-color: #ff6600;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 50px;
@@ -1442,13 +1440,13 @@ select#input-sort {
 }
 
 .contact-button:hover {
-  background-color: #e05500; /* Warna oranye lebih gelap saat hover */
+  background-color: #e05500;
 }
 
 .image-container {
   position: relative;
   width: 100%;
-  height: 300px; /* Sesuaikan tinggi gambar */
+  height: 300px;
   margin-bottom: 5%;
   overflow: hidden;
 }
@@ -1456,10 +1454,10 @@ select#input-sort {
 .hero-image {
   position: absolute;
   top: 0;
-  left: 0; /* Gambar akan diposisikan ke kiri */
-  width: auto; /* Pastikan ukuran gambar proporsional */
-  height: 100%; /* Sesuaikan dengan tinggi container */
-  object-fit: cover; /* Untuk memastikan gambar tetap rapi */
+  left: 0;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
 .overlay-text {
