@@ -1395,6 +1395,7 @@ select#input-sort {
     width: 70px;
     height: 70px;
     margin-right: 1em;
+    margin-top: -1%;
   }
   
   .faq-item .icon img {
@@ -1412,11 +1413,14 @@ select#input-sort {
     font-size: 0.95em;
     font-weight: bold;
     color: #2A2C35;
+
   }
   
   .faq-item .faq-text p {
     font-size: 0.95em;
     color: #2A2C35;
+    margin-top: 1%;
+    margin-bottom: 0.5%;
   }
   
   /* Contact Us Button */
@@ -1427,7 +1431,7 @@ select#input-sort {
 }
 
 .contact-button {
-  padding: 12px 24px;
+  padding: 12px 40px;
   font-size: 1rem;
   font-weight: bold;
   color: white;
@@ -1445,9 +1449,10 @@ select#input-sort {
 
 .image-container {
   position: relative;
-  width: 100%;
+  width: 500%;
   height: 300px;
   margin-bottom: 5%;
+  margin-left: -30%;
   overflow: hidden;
 }
 
