@@ -1,60 +1,63 @@
-// package main.java.com.tubes.entity;
+// package com.tubes.entity;
 
-import com.tubes.entity.Book;
+// import jakarta.persistence.*;
 
-@Entity
-public class AddedBook {
+// @Entity
+// public class AddedBook {
     
-    /**
-        * Migration
-    */
+//     /**
+//         * Migration
+//     */
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    private Book bookAdded;
-    private boolean bookLikes;
+//     private Book bookAdded;
+//     private boolean bookLikes;
 
-    /**
-        * Constructor
-    */
+//     /**
+//         * Constructor
+//     */
 
-    public AddedBook(){}
+//     public AddedBook(){}
 
-    public AddedBook(Book bookAdded, boolean bookLikes){
-        this.bookAdded = bookAdded;
-        this.bookLikes = bookLikes;
-    }
+//     public AddedBook(Book bookAdded, boolean bookLikes){
+//         this.bookAdded = bookAdded;
+//         this.bookLikes = bookLikes;
+//     }
     
-    /**
-        * Setter and Getter
-    */
+//     /**
+//         * Setter and Getter
+//     */
 
-    public Book getBookAdded(){
-        return this.bookAdded;
-    }
+//     public Book getBookAdded(){
+//         return this.bookAdded;
+//     }
 
-    public void setBookAdded(Book bookAdded){
-        this.bookAdded = bookAdded;
-    }
+//     public void setBookAdded(Book bookAdded){
+//         this.bookAdded = bookAdded;
+//     }
 
-    public boolean getLikeBook(){
-        return this.bookLikes;
-    }
+//     public boolean getLikeBook(){
+//         return this.bookLikes;
+//     }
 
-    public void setLikeBook(boolean likeBook){
-        this.bookLikes = likeBook;
-    }
+//     public void setLikeBook(boolean likeBook){
+//         this.bookLikes = likeBook;
+//     }
 
-    /**
-        * Other Methods
-    */
+//     /**
+//         * Other Methods
+//     */
 
-    public void likeTheBook(boolean isLiked){
-        setLikeBook(isLiked);
-    }
+//     public void likeTheBook(boolean isLiked){
+//         setLikeBook(isLiked);
+//     }
 
-    // toString for debugging purposes
-    @Override
-    public String toString() {
-        return "AddedBook{bookAdded=" + bookAdded + ", bookLikes=" + bookLikes + "'}";
-    }    
+//     // toString for debugging purposes
+//     @Override
+//     public String toString() {
+//         return "AddedBook{bookAdded=" + bookAdded + ", bookLikes=" + bookLikes + "'}";
+//     }    
 
-}
+// }

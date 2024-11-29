@@ -1,5 +1,4 @@
 package com.tubes.entity;
-// package main.java.com.tubes.controllers; //Error di main
 
 import jakarta.persistence.*;
 
@@ -9,7 +8,7 @@ public class Book {
      * Migration
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Assumes 'id' is an auto-generated primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String author;
