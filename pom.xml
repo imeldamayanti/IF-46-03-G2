@@ -51,7 +51,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -62,8 +61,6 @@
 			<version>8.0.32</version>
 		</dependency>
 
-=======
->>>>>>> 8933a95b1220ff7a9aa199e4192d0c22b1feebe7
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

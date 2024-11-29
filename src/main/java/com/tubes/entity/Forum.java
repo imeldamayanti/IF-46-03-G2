@@ -1,5 +1,5 @@
-package main.java.com.tubes.entity;
-// package com.tubes.entity Error di Yusuf
+// package main.java.com.tubes.entity;
+package com.tubes.entity; //Error di Yusuf
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,5 @@
 package com.tubes.entity;
-// package main.java.com.tubes.controllers; Error di main
+// package main.java.com.tubes.controllers; //Error di main
 
 import jakarta.persistence.*;
 

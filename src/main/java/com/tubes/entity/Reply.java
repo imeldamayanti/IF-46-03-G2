@@ -1,4 +1,5 @@
-package main.java.com.tubes.entity;
+// package main.java.com.tubes.entity;
+package com.tubes.entity;
 
 import java.util.ArrayList;
 

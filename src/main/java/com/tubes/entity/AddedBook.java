@@ -1,4 +1,4 @@
-package main.java.com.tubes.entity;
+// package main.java.com.tubes.entity;
 
 import com.tubes.entity.Book;
 
