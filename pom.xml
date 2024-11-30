@@ -77,6 +77,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		<!-- vvvv ELEX YG NAMBAH, BUAT SCRIPT RECO SYSTEM vvvv -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-json</artifactId>
+		</dependency>
+		<!-- ^^^^ ELEX YG NAMBAH, BUAT SCRIPT RECO SYSTEM ^^^^ -->
+
 	</dependencies>
 
 	<build>
