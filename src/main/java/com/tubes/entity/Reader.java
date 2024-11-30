@@ -1,16 +1,12 @@
-// package com.tubes.entity;
+// package main.java.com.tubes.entity;
+package com.tubes.entity;
+import jakarta.persistence.*;
 
-// import jakarta.persistence.*;
+@Entity
+public class Reader extends User {
+	
+    @Override
+    public void login(){
 
-// @Entity
-// public class Reader {
-// 	@Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-
-//     private 
-
-//     public Reader(){
-
-//     }
-// }
+    }
+}
