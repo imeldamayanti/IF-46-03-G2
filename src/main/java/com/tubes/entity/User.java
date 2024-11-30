@@ -19,22 +19,6 @@ public abstract class User {
 	public User() {
 	}
 
-	// public String getPassword() {
-	// 	return this.password;
-	// }
-
-	// /**
-	//  * 
-	//  * @param password
-	//  */
-	// public void setPassword(String password) {
-	// 	this.password = password;
-	// }
-
-	// public void searchBook() {
-	// 	throw new UnsupportedOperationException();
-	// }
-
     public abstract void login();
 
 }
