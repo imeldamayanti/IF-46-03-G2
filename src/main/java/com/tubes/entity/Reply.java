@@ -11,7 +11,7 @@ public class Reply implements ContentAccess{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Reader createdBy;
+    private int createdBy;
     private String replyContent;
     private String dateUploaded;
 
@@ -21,7 +21,7 @@ public class Reply implements ContentAccess{
 
     public Reply(){}
 
-    public Reply(Reader createdBy, String replyContent, String dateUploaded) {
+    public Reply(int createdBy, String replyContent, String dateUploaded) {
         this.createdBy = createdBy;
         this.replyContent = replyContent;
         this.dateUploaded = dateUploaded;
@@ -39,11 +39,11 @@ public class Reply implements ContentAccess{
         this.id = id;
     }
 
-    public Reader getCreatedBy() {
+    public int getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Reader createdBy) {
+    public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
