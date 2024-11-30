@@ -1,6 +1,5 @@
-// // package main.java.com.tubes.entity;
-
 // package com.tubes.entity;
+
 // import jakarta.persistence.*;
 
 // @Entity
@@ -8,4 +7,10 @@
 // 	@Id
 //     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //     private Long id;
+
+//     private 
+
+//     public Reader(){
+
+//     }
 // }
