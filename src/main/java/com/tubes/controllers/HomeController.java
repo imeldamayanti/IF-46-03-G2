@@ -28,6 +28,11 @@ public class HomeController {
         return "bookdetail";
     }
     
+    @GetMapping("/faq")
+    public String faq() {
+        return "faq";
+    }
+    
 
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
