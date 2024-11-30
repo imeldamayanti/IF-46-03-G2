@@ -13,7 +13,7 @@ public class Forum implements ContentAccess {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int createdBy;
+    private Reader createdBy;
     private String title;
     private String forumContent;
     private String dateUploaded; //date
@@ -26,7 +26,7 @@ public class Forum implements ContentAccess {
 
     public Forum(){}
 
-    public Forum(int createdBy, String title, String forumContent, String dateUploaded){
+    public Forum(Reader createdBy, String title, String forumContent, String dateUploaded){
         this.createdBy = createdBy;
         this.title = title;
         this.forumContent = forumContent;
@@ -46,11 +46,11 @@ public class Forum implements ContentAccess {
         this.id = id;
     }
 
-    public int getCreatedBy() {
+    public Reader getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(int createdBy) {
+    public void setCreatedBy(Reader createdBy) {
         this.createdBy = createdBy;
     }
 

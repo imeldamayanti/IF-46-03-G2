@@ -98,4 +98,11 @@ public class BookList {
 
     }
 
+    // toString for debugging purposes
+    @Override
+    public String toString() {
+        return "BookList{id=" + id + ", books='" + books + "', bookCount='" + bookCount + "', lastUpdated=" 
+        + lastUpdated + ", likedBooks=" + likedBooks + "'}";
+    }
+
 }
