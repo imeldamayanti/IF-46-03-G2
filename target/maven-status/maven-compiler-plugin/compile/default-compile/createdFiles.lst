@@ -1,0 +1,12 @@
+com\tubes\entity\Book.class
+com\tubes\service\BookService.class
+com\tubes\TubesMvcApplication.class
+com\tubes\controllers\HomeController.class
+com\tubes\seeder\BookSeeder.class
+com\tubes\utils\csvUtils.class
+com\tubes\entity\ContentAccess.class
+com\tubes\entity\Reader.class
+com\tubes\controllers\BookController.class
+com\tubes\entity\User.class
+com\tubes\repository\BookRepository.class
+com\tubes\entity\Admin.class
