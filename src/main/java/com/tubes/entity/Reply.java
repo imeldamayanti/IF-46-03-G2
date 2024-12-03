@@ -3,7 +3,7 @@ package com.tubes.entity;
 import jakarta.persistence.*;
 
 @Entity
-public class Reply implements ContentAccess{
+public class Reply implements ContentAccess {
     /**
         * Migration
     */
@@ -15,22 +15,24 @@ public class Reply implements ContentAccess{
     private String replyContent;
     private String dateUploaded;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "forum_id") // This will create a foreign key in the Reply table
+    private Forum forum;
+
     /**
         * Constructor
     */
-
-    public Reply(){}
+    public Reply() {}
 
     public Reply(int createdBy, String replyContent, String dateUploaded) {
         this.createdBy = createdBy;
         this.replyContent = replyContent;
         this.dateUploaded = dateUploaded;
     }
-    
-    /**
-        * Setter and Getter
-    */
 
+    /**
+        * Getter and Setter
+    */
     public Long getId() {
         return id;
     }
@@ -47,11 +49,11 @@ public class Reply implements ContentAccess{
         this.createdBy = createdBy;
     }
 
-    public String getreplyContent() {
+    public String getReplyContent() {
         return replyContent;
     }
 
-    public void setreplyContent(String replyContent) {
+    public void setReplyContent(String replyContent) {
         this.replyContent = replyContent;
     }
 
@@ -61,6 +63,14 @@ public class Reply implements ContentAccess{
 
     public void setDateUploaded(String dateUploaded) {
         this.dateUploaded = dateUploaded;
+    }
+
+    public Forum getForum() {
+        return forum;
+    }
+
+    public void setForum(Forum forum) {
+        this.forum = forum;
     }
 
     /**

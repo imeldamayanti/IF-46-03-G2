@@ -17,27 +17,30 @@ public class Forum implements ContentAccess {
     private String title;
     private String forumContent;
     private String dateUploaded; //date
-    private ArrayList<Reply> replies;
-    private int repliesCount; //biar di symbol comment ada total replies
+
+    @OneToMany(mappedBy = "forum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies = new ArrayList<>();  // Using List instead of ArrayList for better JPA support
+
+    private int repliesCount; // biar di symbol comment ada total replies
 
     /**
-     * Constructor
+        * Constructor
     */
+    public Forum() {
+        
+    }
 
-    public Forum(){}
-
-    public Forum(int createdBy, String title, String forumContent, String dateUploaded){
+    public Forum(int createdBy, String title, String forumContent, String dateUploaded) {
         this.createdBy = createdBy;
         this.title = title;
         this.forumContent = forumContent;
         this.dateUploaded = dateUploaded;
-        this.replies = new ArrayList<Reply>();
+        this.replies = new ArrayList<>();
     }
 
     /**
-     * Setter and Getter
+        * Getter And Setter
     */
-
     public Long getId() {
         return id;
     }
@@ -78,30 +81,35 @@ public class Forum implements ContentAccess {
         this.dateUploaded = dateUploaded;
     }
 
-    public void addReply(Reply reply) {
-        this.replies.add(reply);
-    }
-
-    public void removeReply(Reply reply) {
-        this.replies.remove(reply);
-    }
-
     public List<Reply> getReplies() {
         return replies;
     }
 
-    public void setRepliesCount(int repliesCount){
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+        this.repliesCount = replies.size();  // Update replies count when the list is set
+    }
+
+    public void addReply(Reply reply) {
+        replies.add(reply);
+        reply.setForum(this); // Set the bidirectional relationship
+        repliesCount = replies.size(); // Update replies count
+    }
+
+    public void removeReply(Reply reply) {
+        replies.remove(reply);
+        repliesCount = replies.size(); // Update replies count
+    }
+
+    public int getRepliesCount() {
+        return repliesCount;
+    }
+
+    public void setRepliesCount(int repliesCount) {
         this.repliesCount = repliesCount;
     }
 
-    public int getRepliesCount(){
-        return this.repliesCount;
-    }
-
-    /**
-        * Other Methods
-    */
-
+    // Other Methods
     public void createContent(){
 
     }
@@ -111,18 +119,17 @@ public class Forum implements ContentAccess {
     }
 
     public void deleteContent(){
-
+        
     }
 
-    public void displayForum(){
-
+    public void displayReply(){
+        
     }
 
     // toString for debugging purposes
     @Override
     public String toString() {
-        return "Forum{id=" + id + ", createdBy='" + createdBy + "', title='" + title + "', forumContent=" 
-        + forumContent + ", dateUploaded=" + dateUploaded + ", replies='" + replies + "', repliesCount=" + repliesCount + "'}";
+        return "Forum{id=" + id + ", createdBy=" + createdBy + ", title='" + title + "', forumContent=" 
+                + forumContent + ", dateUploaded=" + dateUploaded + ", repliesCount=" + repliesCount + "}";
     }
-
 }

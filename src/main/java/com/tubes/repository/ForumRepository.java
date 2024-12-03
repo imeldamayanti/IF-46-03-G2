@@ -7,5 +7,4 @@ public interface ForumRepository extends JpaRepository<Forum, Long> {
     // findAll provided by JpaRepository
 
 	// 
-    
 } 
