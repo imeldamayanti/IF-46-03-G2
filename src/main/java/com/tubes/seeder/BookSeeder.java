@@ -37,11 +37,11 @@ public class BookSeeder {
                 book.setName(row[1]);
                 book.setCover(row[2]);
                 book.setAuthor(row[3]);
-                book.setGenre(row[4]);
+                book.setRate(Double.parseDouble(row[4]));
                 book.setDateReleased(row[5]);
                 book.setTotalPage(Integer.parseInt(row[6]));
                 book.setDescription(row[7]);
-                // book.setRate(Double.parseDouble(row[8]));
+                book.setGenre(row[8]);
 
                 books.add(book);
             }
@@ -52,3 +52,4 @@ public class BookSeeder {
         }
     }
 }
+
