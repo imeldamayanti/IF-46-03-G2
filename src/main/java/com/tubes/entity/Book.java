@@ -8,24 +8,32 @@ public class Book {
      * Migration
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Assumes 'id' is an auto-generated primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
     private String author;
     private String genre;
     private String dateReleased;
     private Integer totalPage;
+
+    @Lob
     private String description;
+
+    @Column(nullable = true)
     private double rate;
+
+    @Column(nullable = true)
     private String cover;
 
 
     /**
      * Constructor
      */
-    public Book(){}
+    public Book() {}
 
-    public Book(String author, String genre, String dateReleased, Integer totalPage, String description, double rate, String cover) {
+    public Book(String name, String author, String genre, String dateReleased, Integer totalPage, String description, double rate, String cover) {
+        this.name = name;
         this.author = author;
         this.genre = genre;
         this.dateReleased = dateReleased;
@@ -46,6 +54,14 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAuthor() {

@@ -36,3 +36,5 @@ $Recycle.Bin/
 Config.Msi/
 Documents and Settings/
 PerfLogs/
+
+!src/main/resources/application.properties
