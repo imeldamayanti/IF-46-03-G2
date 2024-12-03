@@ -387,7 +387,26 @@ CSS STRUCTURE:
     border: none;
     cursor: pointer;
   }
+
+  .delete-btn {
+    border: none;
+    background: none; /* Tanpa background */
+    cursor: pointer;
+    font-size: 1rem; /* Ukuran ikon silang */
+    color: black; /* Warna netral */
+  }
   
+  .delete-btn:hover {
+    color: gray; /* Warna saat hover */
+  }
+  
+  /* Gaya untuk judul */
+  h1 {
+    text-align: left;
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
   
   /*--------------------------------------------------------------
   /** 3.4 Pagination
