@@ -1,11 +1,11 @@
 package com.tubes.entity;
-import java.time.LocalDateTime;
 import jakarta.persistence.*;
 // import org.springframework.security.crypto.bcrypt.BCrypt;
 
 // @MappedSuperclass
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,19 +15,19 @@ public abstract class User {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private LocalDateTime dateJoined;
-	
-	@Column(nullable = false, unique = true)
+	private String dateJoined;
+
+
+    @Column(nullable = false, unique = true)
 	private String username;
 
 	@Column(nullable = true)
 	private int profilePic;
 
-	public User() {
-	}
-
+    
     public abstract void login();
 	
+	public User() {}
     
     public User(String username, String email, String rawPassword, String firstName, String lastName) {
         this.username = username;
@@ -35,7 +35,7 @@ public abstract class User {
         // this.password = hashPassword(rawPassword); // Hash password saat inisialisasi
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateJoined = LocalDateTime.now();
+        // this.dateJoined = LocalDateTime.now();
     }
 
 	// private String hashPassword(String rawPassword) {
@@ -62,9 +62,9 @@ public abstract class User {
         return lastName;
     }
 
-    public LocalDateTime getDateJoined() {
-        return dateJoined;
-    }
+    // public LocalDateTime getDateJoined() {
+    //     return dateJoined;
+    // }
 
     public String getUsername() {
         return username;
@@ -75,6 +75,11 @@ public abstract class User {
     }
 
 
+
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -92,7 +97,7 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public void setDateJoined(LocalDateTime dateJoined) {
+    public void setDateJoined(String dateJoined) {
         this.dateJoined = dateJoined;
     }
 

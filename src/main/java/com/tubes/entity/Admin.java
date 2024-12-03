@@ -2,7 +2,7 @@ package com.tubes.entity;
 import jakarta.persistence.*;
 
 @Entity
-@DiscriminatorValue("User")
+@DiscriminatorValue("Admin")
 public class Admin extends User {
 	
     @Override
