@@ -11,8 +11,8 @@ public class Book {
      */
     @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
-    @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
+    // @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -111,8 +111,9 @@ public class Book {
     public void setTotalPage(Integer totalPage) {
         if(totalPage==0){
             this.totalPage = 256;
+        }else{
+            this.totalPage = totalPage;
         }
-        this.totalPage = totalPage;
     }
 
     public String getDescription() {

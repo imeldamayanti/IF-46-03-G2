@@ -24,7 +24,7 @@ public class UserSeeder {
     @PostConstruct
     public void seedUsers() throws CsvException{
         userRepository.deleteAll();
-
+            // userRepository.resetAutoIncrement();
             // userRepository.disableForeignKeyChecks();
             // userRepository.truncateUserTable();
             // userRepository.enableForeignKeyChecks();
@@ -35,7 +35,7 @@ public class UserSeeder {
             for(String[] row : rows){
                 if(row[7].equals("admin")){
                     Admin admin = new Admin();
-                    // admin.setId(Long.parseLong(row[0]));
+                    admin.setId(Long.parseLong(row[0]));
                     admin.setUsername(row[1]);
                     admin.setEmail(row[2]);
                     admin.setPassword(row[3]);
@@ -46,7 +46,7 @@ public class UserSeeder {
 
                 }else{
                     Reader reader = new Reader();
-                    // reader.setId(Long.parseLong(row[0]));
+                    reader.setId(Long.parseLong(row[0]));
                     reader.setUsername(row[1]);
                     reader.setEmail(row[2]);
                     reader.setPassword(row[3]);

@@ -36,6 +36,7 @@ public class BookSeeder {
             for (String[] row : rows) {
 				Book book = new Book();
 
+                book.setId(Long.parseLong(row[0]));
                 book.setName(row[1]);
                 book.setCover(row[2]);
                 book.setAuthor(row[3]);

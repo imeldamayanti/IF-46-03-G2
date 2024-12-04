@@ -24,6 +24,11 @@ public interface UserRepository extends JpaRepository<User,Long> {
     // @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
     // void enableForeignKeyChecks();
     
-    
+    // function dimana dimulai dari 1 lagi
+
+    @Modifying
+    @Transactional
+    @Query(value = "ALTER TABLE book AUTO_INCREMENT = 1", nativeQuery = true)
+    void resetAutoIncrement();
     
 }
