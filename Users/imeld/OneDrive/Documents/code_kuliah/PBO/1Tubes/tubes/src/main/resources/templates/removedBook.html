@@ -13,7 +13,7 @@
     <!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../static/css/mybook.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/removed.css">
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}"/> -->
     <link rel="icon" type="image/png" th:href="@{assets/IconTitle.png}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -350,73 +350,83 @@
 
     
     <section id="items-listing" class="padding-large">
-      <div class="container w-full flex justify-start">
-        <!-- Header -->
-        <h1 class="mb-5 text-left font-bold text-xl ml-4">Removed Books</h1>
-    
-        <!-- Tabel Buku -->
-        <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg">
-          <!-- Header Tabel -->
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-6 py-4 text-center border-b font-bold">Cover</th>
-              <th class="px-6 py-4 text-center border-b font-bold">Title</th>
-              <th class="px-6 py-4 text-center border-b font-bold">Author</th>
-              <th alt="actions" class="header field actions" style="">
-            </th>
-              <th alt="actions" class="header field actions" style="">
-              </th>
-            </tr>
-          </thead>
-    
-          <tbody id="removed-book-list">
-            <!-- Data buku yang dihapus akan ditambahkan di sini -->
-          </tbody>
-        </table>
-        <p><a href="booklist.html">Back to My Book</a></p>
+        <div class="container mx-auto px-4">
+          <!-- Header -->
+          <h1 class="mb-5 text-left font-bold text-2xl">Removed Books</h1>
+      
+          <!-- Tabel Buku -->
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg" style="table-layout: fixed;">
+              <!-- Header Tabel -->
+              <thead class="bg-gray-100">
+                <tr>
+                  <th class="px-6 py-4 text-center border-b font-bold">Cover</th>
+                  <th class="px-6 py-4 text-center border-b font-bold">Title</th>
+                  <th class="px-6 py-4 text-center border-b font-bold">Author</th>
+                  <th class="px-6 py-4 text-center border-b font-bold">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="removed-book-list">
+                <!-- Data buku yang dihapus akan ditambahkan di sini -->
+              </tbody>
+            </table>
+          </div>
+      
+          <p class="mt-5 text-left">
+            <a href="booklist.html" class="text-blue-500 hover:underline">Back to My Book</a>
+          </p>
+        </div>
       
         <script>
+          // Ambil data dari localStorage
+          const removedBooks = JSON.parse(localStorage.getItem("removedBooks")) || [];
+          const removedBookList = document.getElementById("removed-book-list");
+      
+          // Fungsi untuk render tabel
+          const renderRemovedBooks = () => {
+            removedBookList.innerHTML = ""; // Hapus konten sebelumnya
+      
+            removedBooks.forEach((book, index) => {
+              const row = document.createElement("tr");
+      
+              row.innerHTML = `
+                <td class="px-6 py-4 text-left border-b">
+                  <img src="${book.cover}" alt="Book Cover" class="w-16 h-24 object-cover rounded">
+                </td>
+                <td class="px-6 py-4 text-left border-b">${book.title}</td>
+                <td class="px-6 py-4 text-left border-b">${book.author}</td>
+                <td class="px-6 py-4 text-center border-b">
+                  <button class="restore-btn text-gray-600 hover:text-green-500" data-index="${index}">
+                    ♻
+                  </button>
+                </td>
+              `;
+              const restoreButton = row.querySelector(".restore-btn");
+              restoreButton.addEventListener("click", () => {
+                const restoredBook = removedBooks.splice(index, 1)[0];
+      
+                localStorage.setItem("removedBooks", JSON.stringify(removedBooks));
+      
+                const myBooks = JSON.parse(localStorage.getItem("myBooks")) || [];
+                myBooks.push(restoredBook);
+                localStorage.setItem("myBooks", JSON.stringify(myBooks));
+      
+                renderRemovedBooks();
+      
+               
+                alert(`"${restoredBook.title}" has been returned to My Book.`);
+                
+              });
+      
+              removedBookList.appendChild(row);
+            });
+          };
+      
           
-          const removedBooks = JSON.parse(localStorage.getItem('removedBooks')) || [];
-          const removedBookList = document.getElementById('removed-book-list');
-          removedBooks.forEach((book) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td><img src="${book.cover}" alt="Book Cover" style="width: 50px; height: 75px;"></td>
-              <td>${book.title}</td>
-              <td>${book.author}</td>
-              <td>
-                <button class="restore-btn" style="background: none; border: none; cursor: pointer; font-size: 18px; color: grey;">
-                 ♻
-                </button>
-              </td>
-            `;
-            const restoreButton = row.querySelector('.restore-btn');
-            restoreButton.addEventListener('click', () => {
-            
-            const restoredBook = removedBooks.splice(index, 1)[0];
-        
-            
-            localStorage.setItem('removedBooks', JSON.stringify(removedBooks));
-        
-            
-            const myBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
-            myBooks.push(restoredBook);
-        
-            
-            localStorage.setItem('myBooks', JSON.stringify(myBooks));
-        
-            row.remove();
-        
-            alert(`"${restoredBook.title}" has been returned to My Book.`);
-            
-            window.location.href = "booklist.html";
-        });
-            removedBookList.appendChild(row);
-          });
+          renderRemovedBooks();
         </script>
-      </body>
-    </script>
+      </section>
+      
     
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
