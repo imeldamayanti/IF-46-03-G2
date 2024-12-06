@@ -13,6 +13,11 @@ public class HomeController {
         return "index"; //ini ambil dari resources/template/index.html
     }
 
+    @GetMapping("/MyBook")
+    public String mybooks() {
+        return "booklist";
+    }
+
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
     
