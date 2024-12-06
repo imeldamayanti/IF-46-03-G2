@@ -1,128 +1,135 @@
-// package com.tubes.entity;
+package com.tubes.entity;
 
-// import java.util.ArrayList;
-// import java.util.List;
-// import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import jakarta.persistence.*;
 
-// @Entity
-// public class Forum implements ContentAccess {
-//     /**
-//      * Migration
-//      */
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+@Entity
+public class Forum implements ContentAccess {
+    /**
+     * Migration
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private Reader createdBy;
-//     private String title;
-//     private String forumContent;
-//     private String dateUploaded;
-//     private ArrayList<Reply> replies;
-//     private int repliesCount;
+    private int createdBy;
+    private String title;
+    private String forumContent;
+    private String dateUploaded; //date
 
-//     /**
-//      * Constructor
-//     */
+    @OneToMany(mappedBy = "forum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies = new ArrayList<>();  // Using List instead of ArrayList for better JPA support
 
-//     public Forum(){}
+    private int repliesCount; // biar di symbol comment ada total replies
 
-//     public Forum(Reader createdBy, String title, String forumContent, String dateUploaded){
-//         this.createdBy = createdBy;
-//         this.title = title;
-//         this.forumContent = forumContent;
-//         this.dateUploaded = dateUploaded;
-//         this.replies = new ArrayList<Reply>();
-//     }
+    /**
+        * Constructor
+    */
+    public Forum() {
+        
+    }
 
-//     /**
-//      * Setter and Getter
-//     */
+    public Forum(int createdBy, String title, String forumContent, String dateUploaded) {
+        this.createdBy = createdBy;
+        this.title = title;
+        this.forumContent = forumContent;
+        this.dateUploaded = dateUploaded;
+        this.replies = new ArrayList<>();
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    /**
+        * Getter And Setter
+    */
+    public Long getId() {
+        return id;
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public Reader getCreatedBy() {
-//         return createdBy;
-//     }
+    public int getCreatedBy() {
+        return createdBy;
+    }
 
-//     public void setCreatedBy(Reader createdBy) {
-//         this.createdBy = createdBy;
-//     }
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
 
-//     public String getTitle() {
-//         return title;
-//     }
+    public String getTitle() {
+        return title;
+    }
 
-//     public void setTitle(String title) {
-//         this.title = title;
-//     }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-//     public String getForumContent() {
-//         return forumContent;
-//     }
+    public String getForumContent() {
+        return forumContent;
+    }
 
-//     public void setForumContent(String forumContent) {
-//         this.forumContent = forumContent;
-//     }
+    public void setForumContent(String forumContent) {
+        this.forumContent = forumContent;
+    }
 
-//     public String getDateUploaded() {
-//         return dateUploaded;
-//     }
+    public String getDateUploaded() {
+        return dateUploaded;
+    }
 
-//     public void setDateUploaded(String dateUploaded) {
-//         this.dateUploaded = dateUploaded;
-//     }
+    public void setDateUploaded(String dateUploaded) {
+        this.dateUploaded = dateUploaded;
+    }
 
-//     public void addReply(Reply reply) {
-//         this.replies.add(reply);
-//     }
+    public List<Reply> getReplies() {
+        return replies;
+    }
 
-//     public void removeReply(Reply reply) {
-//         this.replies.remove(reply);
-//     }
+    public void setReplies(List<Reply> replies) {
+        this.replies = replies;
+        this.repliesCount = replies.size();  // Update replies count when the list is set
+    }
 
-//     public List<Reply> getReplies() {
-//         return replies;
-//     }
+    public void addReply(Reply reply) {
+        replies.add(reply);
+        reply.setForum(this); // Set the bidirectional relationship
+        repliesCount = replies.size(); // Update replies count
+    }
 
-//     public void setRepliesCount(int repliesCount){
-//         this.repliesCount = repliesCount;
-//     }
+    public void removeReply(Reply reply) {
+        replies.remove(reply);
+        repliesCount = replies.size(); // Update replies count
+    }
 
-//     public int getRepliesCount(){
-//         return this.repliesCount;
-//     }
+    public int getRepliesCount() {
+        return repliesCount;
+    }
 
-//     /**
-//         * Other Methods
-//     */
+    public void setRepliesCount(int repliesCount) {
+        this.repliesCount = repliesCount;
+    }
 
-//     public void createContent(){
+    // Other Methods
+    public void createContent(){
 
-//     }
+    }
     
-//     public void editContent(){
+    public void editContent(){
 
-//     }
+    }
 
-//     public void deleteContent(){
+    public void deleteContent(){
+        
+    }
 
-//     }
+    public void displayReply(){
+        
+    }
 
-//     public void displayForum(){
-
-//     }
-
-//     // toString for debugging purposes
-//     @Override
-//     public String toString() {
-//         return "Forum{id=" + id + ", createdBy='" + createdBy + "', title='" + title + "', forumContent=" 
-//         + forumContent + ", dateUploaded=" + dateUploaded + ", replies='" + replies + "', repliesCount=" + repliesCount + "'}";
-//     }
-
-// }
+    // toString for debugging purposes
+    @Override
+    public String toString() {
+        return "Forum{id=" + id + ", createdBy=" + createdBy + ", title='" + title + "', forumContent=" 
+                + forumContent + ", dateUploaded=" + dateUploaded + ", repliesCount=" + repliesCount + "}";
+    }
+}

@@ -1,8 +1,8 @@
-// package main.java.com.tubes.entity;
 package com.tubes.entity;
 import jakarta.persistence.*;
 
 @Entity
+@DiscriminatorValue("Reader")
 public class Reader extends User {
 	
     @Override

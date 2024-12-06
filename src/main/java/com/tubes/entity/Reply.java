@@ -1,93 +1,103 @@
-// package com.tubes.entity;
+package com.tubes.entity;
 
-// import jakarta.persistence.*;
+import jakarta.persistence.*;
 
-// @Entity
-// public class Reply implements ContentAccess{
-//     /**
-//         * Migration
-//     */
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+@Entity
+public class Reply implements ContentAccess {
+    /**
+        * Migration
+    */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private Reader createdBy;
-//     private String replyContent;
-//     private String dateUploaded;
+    private int createdBy;
+    private String replyContent;
+    private String dateUploaded;
 
-//     /**
-//         * Constructor
-//     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "forum_id") // This will create a foreign key in the Reply table
+    private Forum forum;
 
-//     public Reply(){}
+    /**
+        * Constructor
+    */
+    public Reply() {}
 
-//     public Reply(Reader createdBy, String replyContent, String dateUploaded) {
-//         this.createdBy = createdBy;
-//         this.replyContent = replyContent;
-//         this.dateUploaded = dateUploaded;
-//     }
+    public Reply(int createdBy, String replyContent, String dateUploaded) {
+        this.createdBy = createdBy;
+        this.replyContent = replyContent;
+        this.dateUploaded = dateUploaded;
+    }
+
+    /**
+        * Getter and Setter
+    */
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getReplyContent() {
+        return replyContent;
+    }
+
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
+    }
+
+    public String getDateUploaded() {
+        return dateUploaded;
+    }
+
+    public void setDateUploaded(String dateUploaded) {
+        this.dateUploaded = dateUploaded;
+    }
+
+    public Forum getForum() {
+        return forum;
+    }
+
+    public void setForum(Forum forum) {
+        this.forum = forum;
+    }
+
+    /**
+        * Other Methods
+    */
+
+    public void createContent(){
+
+    }
     
-//     /**
-//         * Setter and Getter
-//     */
+    public void editContent(){
 
-//     public Long getId() {
-//         return id;
-//     }
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
-
-//     public Reader getCreatedBy() {
-//         return createdBy;
-//     }
-
-//     public void setCreatedBy(Reader createdBy) {
-//         this.createdBy = createdBy;
-//     }
-
-//     public String getreplyContent() {
-//         return replyContent;
-//     }
-
-//     public void setreplyContent(String replyContent) {
-//         this.replyContent = replyContent;
-//     }
-
-//     public String getDateUploaded() {
-//         return dateUploaded;
-//     }
-
-//     public void setDateUploaded(String dateUploaded) {
-//         this.dateUploaded = dateUploaded;
-//     }
-
-//     /**
-//         * Other Methods
-//     */
-
-//     public void createContent(){
-
-//     }
-    
-//     public void editContent(){
-
-//     }
-
-//     public void deleteContent(){
+    public void deleteContent(){
         
-//     }
+    }
 
-//     public void displayReply(){
+    public void displayReply(){
         
-//     }
+    }
 
-//     // toString for debugging purposes
-//     @Override
-//     public String toString() {
-//         return "Reply{id=" + id + ", createdBy='" + createdBy +  "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
-//     }
+    // toString for debugging purposes
+    @Override
+    public String toString() {
+        return "Reply{id=" + id + ", createdBy='" + createdBy +  "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
+    }
     
 
-// }
+}

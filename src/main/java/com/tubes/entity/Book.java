@@ -1,6 +1,8 @@
 package com.tubes.entity;
 
 import jakarta.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -8,19 +10,26 @@ public class Book {
      * Migration
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
+    @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
     private Long id;
 
     private String name;
+    
+    @Lob
     private String author;
-    private String genre;
     private String dateReleased;
     private Integer totalPage;
-
+    
+    // @Column(name = "genre", columnDefinition = "TEXT")
+    @Lob
+    private String genre; 
+    
     @Lob
     private String description;
 
-    @Column(nullable = true)
+    // @Column(nullable = true)
     private double rate;
 
     @Column(nullable = true)
@@ -47,6 +56,7 @@ public class Book {
     /**
      * Setter and Getter
      */
+
 
     public Long getId() {
         return id;
@@ -78,6 +88,27 @@ public class Book {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    // public List<String> getGenreList() {
+    //     return Arrays.asList(genre.split(","));
+    // }
+
+    public List<String> getGenreList() {
+        // Memecah string genre berdasarkan koma
+        String[] genresArray = genre.split(",");
+    
+        // Memotong array mulai dari elemen ke-8 hingga akhir
+        String[] genresSubset = Arrays.copyOfRange(genresArray, 8, genresArray.length);
+    
+        // Mengonversi array yang sudah dipotong menjadi List<String>
+        return Arrays.asList(genresSubset);
+    }
+    
+
+    // Mengubah genre list menjadi string
+    public void setGenreList(List<String> genres) {
+        this.genre = String.join(",", genres);
     }
 
     public String getDateReleased() {
