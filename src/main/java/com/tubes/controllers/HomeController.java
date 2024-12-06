@@ -45,12 +45,23 @@ public class HomeController {
         return "signin";
     }
 
+    @GetMapping("signup")
+    public String signup() {
+        return "signup";
+    }
+    
+    @GetMapping("forgotpw")
+    public String forgotpw() {
+        return "forgotpw";
+    }
+    
+
     @GetMapping("viewall-best")
     public String viewAllBest() {
         return "viewall-best";
     }
     
-    
+
 
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }

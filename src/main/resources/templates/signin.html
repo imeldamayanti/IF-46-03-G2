@@ -37,9 +37,9 @@
                 <h2 class="fw-bold">Welcome Back!</h2>
                 <p class="mt-2 text-center">Sign in and start your journey</p>
                 <p class="mt-5 text-center">Don’t have an account yet?</p>
-                <button type="button" class="signup-btn py-2 w-75" aria-label="Close" onclick="window.location.href='signup.html';">
+                <a class="signup-btn py-2 w-75" aria-label="Close" th:href="@{signup}">
                     Sign Up
-                </button>
+                </a>
             </div>
 
             <div class="col-md-7 p-5 right-section position-relative">
@@ -58,7 +58,7 @@
                         <div id="passwordError" class="text-danger"></div>
                     </div>
                     <div class="text-end mb-5">
-                        <a href="forgotPassword.html" class="small forgot-password-link">Forgot password?</a>
+                        <a th:href="@{forgotpw}" class="small forgot-password-link">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn w-100 main-btn">Sign In</button>
                     <div class="text-center my-3">or</div>
