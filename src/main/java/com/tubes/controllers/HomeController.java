@@ -2,6 +2,8 @@ package com.tubes.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller 
@@ -32,6 +34,12 @@ public class HomeController {
     public String faq(){
         return "faq";
     }
+
+    @GetMapping("/signin")
+    public String signin() {
+        return "signin";
+    }
+    
 
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
