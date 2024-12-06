@@ -5,10 +5,14 @@ import jakarta.persistence.*;
 @Entity
 public class Reply implements ContentAccess {
     /**
-        * Migration
-    */
+     * Static variable to generate unique IDs
+     */
+    private static long nextId = 1;
+
+    /**
+     * Unique identifier for the Reply
+     */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int createdBy;
@@ -16,23 +20,33 @@ public class Reply implements ContentAccess {
     private String dateUploaded;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "forum_id") // This will create a foreign key in the Reply table
+    @JoinColumn(name = "forum_id", referencedColumnName = "id") // This will create a foreign key in the Reply table
     private Forum forum;
 
     /**
-        * Constructor
-    */
-    public Reply() {}
+     * Constructors
+     */
+    public Reply() {
+        this.id = generateId();
+    }
 
     public Reply(int createdBy, String replyContent, String dateUploaded) {
+        this.id = generateId();
         this.createdBy = createdBy;
         this.replyContent = replyContent;
         this.dateUploaded = dateUploaded;
     }
 
     /**
-        * Getter and Setter
-    */
+     * Generates a unique ID
+     */
+    private synchronized static Long generateId() {
+        return nextId++;
+    }
+
+    /**
+     * Getters and Setters
+     */
     public Long getId() {
         return id;
     }
@@ -74,30 +88,19 @@ public class Reply implements ContentAccess {
     }
 
     /**
-        * Other Methods
-    */
+     * Other Methods
+     */
+    public void createContent() {}
 
-    public void createContent(){
+    public void editContent() {}
 
-    }
-    
-    public void editContent(){
+    public void deleteContent() {}
 
-    }
-
-    public void deleteContent(){
-        
-    }
-
-    public void displayReply(){
-        
-    }
+    public void displayReply() {}
 
     // toString for debugging purposes
     @Override
     public String toString() {
-        return "Reply{id=" + id + ", createdBy='" + createdBy +  "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
+        return "Reply{id=" + id + ", createdBy='" + createdBy + "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
     }
-    
-
 }

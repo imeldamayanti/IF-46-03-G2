@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 
 @Component
 public class BookSeeder {
@@ -22,9 +23,12 @@ public class BookSeeder {
     private BookRepository bookRepository;
 
     @PostConstruct
+    @Transactional
     public void seedBooks() throws CsvException {
-		bookRepository.deleteAll();
-
+        bookRepository.deleteAll();
+        // bookRepository.truncateBookTable();
+        // bookRepository.disableForeignKeyChecks();
+        // bookRepository.enableForeignKeyChecks();
 		try {
 			List<String[]> rows = csvUtils.readCsv("seeds/books.csv");
             List<Book> books = new ArrayList<>();
@@ -32,6 +36,7 @@ public class BookSeeder {
             for (String[] row : rows) {
 				Book book = new Book();
 
+                book.setId(Long.parseLong(row[0]));
                 book.setName(row[1]);
                 book.setCover(row[2]);
                 book.setAuthor(row[3]);
