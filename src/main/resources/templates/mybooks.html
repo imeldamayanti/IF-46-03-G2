@@ -13,7 +13,8 @@
     <!-- <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=1.0">
+    <link rel="stylesheet" type="text/css" href="css/mybook.css?v=1.0">
+    <link rel="stylesheet" href="../static/css/mybook.css">
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}"/> -->
     <link rel="icon" type="image/png" th:href="@{assets/IconTitle.png}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -347,6 +348,480 @@
       </nav>
 
     </header>
+    <section id="items-listing" class="padding-large">
+      <div class="container w-full flex justify-start">
+        <!-- Header -->
+        <h1 class="mb-5 text-left font-bold text-xl ml-4">My Books</h1>
+    
+        <!-- Tabel Buku -->
+        <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg">
+          <!-- Header Tabel -->
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="px-6 py-4 text-center border-b font-bold">Cover</th>
+              <th class="px-6 py-4 text-center border-b font-bold">Title</th>
+              <th class="px-6 py-4 text-center border-b font-bold">Author</th>
+              <th class="px-6 py-4 text-center border-b font-bold">Rating</th>
+              <th class="px-6 py-4 text-center border-b font-bold">Likes</th>
+              <th alt="actions" class="header field actions" style="">
+              </th>
+              <!-- <th class="px-6 py-4 text-center border-b font-bold">Action</th> -->
+            </tr>
+          </thead>
+    
+          <!-- Isi Tabel -->
+          <tbody>
+            <!-- Baris Buku Pertama -->
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn" >
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+    
+            <!-- Baris Buku Kedua -->
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn" >
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+    
+            <!-- Baris Buku Ketiga -->
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn">
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn">
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn">
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn" >
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn" >
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn" >
+                  ✖
+                </button>
+              </td>
+            </tr>
+            
+
+            <tr>
+              <td class="px-6 py-4 text-center">
+                <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="Book Cover" class="w-16 h-24 mx-auto">
+              </td>
+              <td class="px-6 py-4 text-center">The Midnight Garden</td>
+              <td class="px-6 py-4 text-center">Lauren Asher</td>
+              <td class="px-6 py-4 text-center">
+                <div class="rating flex justify-center items-center gap-1">
+                  <!-- Bintang Terisi -->
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-fill" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gold" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <!-- Bintang Kosong -->
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                  <svg class="star star-outline" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="gold" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 .587l3.668 7.431L24 9.764l-6 5.857 1.416 8.255L12 18.902l-7.416 4.974L6 15.621 0 9.764l8.332-1.746z" />
+                  </svg>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <!-- Heart Icon -->
+                <label class="like-btn">
+                  <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" class="heart-icon">
+                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+                  </svg>
+                </label>
+              </td>
+              <td>
+                <button class="delete-btn" >
+                  ✖
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <script>
+      const myBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
+      const bookList = document.getElementById('book-list');
+
+      myBooks.forEach((book) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+      <td><img src="${book.cover}" alt="Book Cover" style="width: 50px; height: 75px;"></td>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.rating}</td>
+      <td>
+        <button class="like-btn" style="background: none; border: none; cursor: pointer;">
+          <svg class="heart heart-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z" />
+          </svg>
+        </button>
+      </td>
+      <td>
+        <button class="delete-btn" style="background: none; border: none; cursor: pointer; font-size: 18px; color: red;">
+          ✖
+        </button>
+      </td>
+    `;
+    bookList.appendChild(row);
+  });
+
+  // Tambahkan event listener untuk tombol like dan delete (sama seperti sebelumnya)
+  document.querySelectorAll('.like-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      const heartIcon = button.querySelector('.heart');
+      heartIcon.classList.toggle('heart-outline');
+      heartIcon.classList.toggle('heart-filled');
+    });
+  });
+
+  document.querySelectorAll('.delete-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      const row = button.closest('tr');
+      const bookData = {
+        cover: row.querySelector('img').src,
+        title: row.cells[1].textContent,
+        author: row.cells[2].textContent,
+        rating: row.cells[3].textContent
+      };
+
+      if (confirm('Are you sure you want to delete this book from My Book?')) {
+        // Simpan data buku ke localStorage
+        let removedBooks = JSON.parse(localStorage.getItem('removedBooks')) || [];
+        removedBooks.push(bookData);
+        localStorage.setItem('removedBooks', JSON.stringify(removedBooks));
+
+        // Hapus baris dari tabel
+        row.remove();
+      }
+    });
+  });
+  
+    </script>
     
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
