@@ -363,7 +363,6 @@
                   <th class="px-6 py-4 text-center border-b font-bold">Cover</th>
                   <th class="px-6 py-4 text-center border-b font-bold">Title</th>
                   <th class="px-6 py-4 text-center border-b font-bold">Author</th>
-                  <th class="px-6 py-4 text-center border-b font-bold">Actions</th>
                 </tr>
               </thead>
               <tbody id="removed-book-list">
@@ -376,56 +375,81 @@
             <a href="booklist.html" class="text-blue-500 hover:underline">Back to My Book</a>
           </p>
         </div>
-      
-        <script>
-          // Ambil data dari localStorage
-          const removedBooks = JSON.parse(localStorage.getItem("removedBooks")) || [];
-          const removedBookList = document.getElementById("removed-book-list");
-      
-          // Fungsi untuk render tabel
-          const renderRemovedBooks = () => {
-            removedBookList.innerHTML = ""; // Hapus konten sebelumnya
-      
-            removedBooks.forEach((book, index) => {
-              const row = document.createElement("tr");
-      
-              row.innerHTML = `
-                <td class="px-6 py-4 text-left border-b">
-                  <img src="${book.cover}" alt="Book Cover" class="w-16 h-24 object-cover rounded">
-                </td>
-                <td class="px-6 py-4 text-left border-b">${book.title}</td>
-                <td class="px-6 py-4 text-left border-b">${book.author}</td>
-                <td class="px-6 py-4 text-center border-b">
-                  <button class="restore-btn text-gray-600 hover:text-green-500" data-index="${index}">
-                    ♻
-                  </button>
-                </td>
-              `;
-              const restoreButton = row.querySelector(".restore-btn");
-              restoreButton.addEventListener("click", () => {
-                const restoredBook = removedBooks.splice(index, 1)[0];
-      
-                localStorage.setItem("removedBooks", JSON.stringify(removedBooks));
-      
-                const myBooks = JSON.parse(localStorage.getItem("myBooks")) || [];
-                myBooks.push(restoredBook);
-                localStorage.setItem("myBooks", JSON.stringify(myBooks));
-      
-                renderRemovedBooks();
-      
-               
-                alert(`"${restoredBook.title}" has been returned to My Book.`);
-                
-              });
-      
-              removedBookList.appendChild(row);
-            });
-          };
-      
-          
-          renderRemovedBooks();
-        </script>
-      </section>
+    </section>
+
+    <!-- Modal untuk Restore -->
+    <div id="restoreModal" class="modal hidden">
+      <div class="modal-content">
+        <h3 class="text-lg font-bold mb-4">Restore Book</h3>
+        <p id="restoreMessage" class="mb-4">Apakah Anda yakin ingin memulihkan buku ini?</p>
+        <div class="flex justify-end gap-4">
+          <button id="cancelRestore" class="btn btn-cancel">Batal</button>
+          <button id="confirmRestore" class="btn btn-confirm">Restore</button>
+        </div>
+      </div>
+    </div>
+  
+    <script>
+      const removedBooks = JSON.parse(localStorage.getItem('removedBooks')) || [];
+      const removedBookList = document.getElementById('removed-book-list');
+      const restoreModal = document.getElementById('restoreModal');
+      const restoreMessage = document.getElementById('restoreMessage');
+      const confirmRestore = document.getElementById('confirmRestore');
+      const cancelRestore = document.getElementById('cancelRestore');
+      let selectedBookIndex = null; // Untuk menyimpan indeks buku yang akan direstore
+  
+      // Tampilkan daftar buku
+      removedBooks.forEach((book, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="px-6 py-4 text-center">
+            <img src="${book.cover}" alt="Book Cover" style="width: 50px; height: 75px;" class="mx-auto">
+          </td>
+          <td class="px-6 py-4 text-center">${book.title}</td>
+          <td class="px-6 py-4 text-center">${book.author}</td>
+          <td class="px-6 py-4 text-center">
+            <button class="restore-btn" style="background: none; border: none; cursor: pointer; font-size: 18px; color: green;">
+              ♻
+            </button>
+          </td>
+        `;
+  
+        const restoreButton = row.querySelector('.restore-btn');
+      restoreButton.addEventListener('click', () => {
+        // Simpan indeks buku yang akan direstore
+        selectedBookIndex = index;
+        restoreMessage.textContent = `Apakah Anda yakin ingin memulihkan "${book.title}" ke My Book?`;
+        restoreModal.classList.remove('hidden'); // Tampilkan modal
+      });
+
+      removedBookList.appendChild(row);
+    });
+
+    // Event listener untuk tombol batal
+    cancelRestore.addEventListener('click', () => {
+      restoreModal.classList.add('hidden'); // Sembunyikan modal
+    });
+
+    // Event listener untuk tombol konfirmasi restore
+    confirmRestore.addEventListener('click', () => {
+      if (selectedBookIndex !== null) {
+        const restoredBook = removedBooks.splice(selectedBookIndex, 1)[0];
+        localStorage.setItem('removedBooks', JSON.stringify(removedBooks));
+
+        const myBooks = JSON.parse(localStorage.getItem('myBooks')) || [];
+        myBooks.push(restoredBook);
+        localStorage.setItem('myBooks', JSON.stringify(myBooks));
+
+        // Perbarui tampilan tabel
+        const rows = removedBookList.querySelectorAll('tr');
+        rows[selectedBookIndex].remove();
+
+        // Sembunyikan modal
+        restoreModal.classList.add('hidden');
+        selectedBookIndex = null;
+      }
+    });
+    </script>
       
     
     <script src="js/jquery-1.11.0.min.js"></script>
