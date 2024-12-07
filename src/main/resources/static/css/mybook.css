@@ -60,7 +60,7 @@ CSS STRUCTURE:
     --gray-color-500:           #D0D0D0;
     --gray-color-800:           #3A3A3A;
     --light-gray-color:         #D2D2D2;
-    --primary-color:            #C76E6F;
+    --primary-color:            #F86D72;
     --bs-body-color:            #272727;
     --bs-secondary-color:       #FFE8F0;
     --bs-secondary-rgb:         255, 232, 240;
@@ -73,9 +73,8 @@ CSS STRUCTURE:
     --swiper-theme-color:       #4A4A4A;
     --swiper-pagination-color:  #4A4A4A;
     --bs-box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.08);
-    
+  
     --bs-btn-font-size: 1rem;
-    --star-color: #FF9933;
   }
   
   /* Fonts */
@@ -101,7 +100,6 @@ CSS STRUCTURE:
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-
   html {
     box-sizing: border-box;
   }
@@ -350,19 +348,19 @@ CSS STRUCTURE:
   table {
     width: 100%; 
     border-collapse: collapse; 
-    margin: 20px auto; 
+    margin-top: 20px; 
   }
   
   th {
     font-weight: 300; 
-    text-align: center; 
+    text-align: left; 
     padding: 12px 15px; 
     border-bottom: 2px solid #333; 
   }
   
   td {
     padding: 12px 15px; 
-    text-align: center; 
+    text-align: left; 
     border-bottom: 1px solid #ddd; 
   }
   
@@ -390,20 +388,19 @@ CSS STRUCTURE:
     cursor: pointer;
   }
 
-  .restore-btn {
-    background: none;
-    border: none; 
-    padding: 0; 
-    cursor: pointer; 
-    font-size: 18px; 
-    color: #606060; 
+  .delete-btn {
+    border: none;
+    background: none; /* Tanpa background */
+    cursor: pointer;
+    font-size: 1rem; /* Ukuran ikon silang */
+    color: black; /* Warna netral */
   }
   
-  .restore-btn:hover {
-    color: #22c55e; 
+  .delete-btn:hover {
+    color: gray; /* Warna saat hover */
   }
   
-  
+  /* Gaya untuk judul */
   h1 {
     text-align: left;
     font-weight: bold;
@@ -1157,7 +1154,7 @@ CSS STRUCTURE:
   }
 
   .site-header {
-    background-color: #F1EFE3;
+    background-color:#F1EFE3;
     position: fixed;
     width: 100%;
     z-index: 10;
@@ -1177,7 +1174,6 @@ CSS STRUCTURE:
   .navbar-nav .nav-item a.nav-link:focus, 
   .navbar-nav .nav-item a.nav-link:hover {
     color: var(--primary-color);
-    font-weight: bold;
   }
   .modal {
     --bs-modal-zindex: 99999;
@@ -1254,10 +1250,6 @@ CSS STRUCTURE:
     color: var(--gray-color-500);
   }
   
-  .banner-content {
-    margin-right: 40px;
-  }
-
   @media only screen and (max-width: 765px) {
     section#billboard{
       height: 100vh !important;
@@ -1322,9 +1314,8 @@ CSS STRUCTURE:
   /* 4.6 Testimonial
   /*----------------------------------------------*/
   .rating svg.star {
-    width: 24px;
-    height: 24px;
-    color: var(--star-color);
+    width: 16px;
+    height: 16px;
   }
   
   /* 4.7 Brands
@@ -1378,275 +1369,7 @@ CSS STRUCTURE:
   .social-links li {
     padding-right: 30px;
   }
-
-  /* 4.10 Book Details
-  /*----------------------------------------------*/
-
-  /* Main Container */
-.main-container {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column; /* Default: stack containers vertically */
-}
-
-/* Background Image Fix */
-.background-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: -1;
-}
-
-.book-detail-background {
-  width: 100%;
-  object-fit: cover;
-  max-height: 400px;
-}
-
-/* Content Container */
-.content-container {
-  margin-top: 40px ;
-  display: flex;
-  flex-direction: row; /* Place containers side by side */
-  align-items: flex-start;
-  gap: 10px;
-  position: relative;
-  z-index: 1;
-  padding: 20px;
-}
-
-/* Left Container */
-.left-container {
-  flex: 1; /* Take up equal space */
-  flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-container {
-  width: 260px;
-  height: 400px;
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* Add to List*/
-
-.button-container {
-  text-align: center;
-  margin-top: 40px;
-  max-width: 100%;
-}
-
-.add-to-list {
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 260px;
-}
-
-.add-to-list:hover {
-  filter:brightness(90%)
-}
-
-/* Right Container */
-.right-container {
-  flex: 2; /* Take up more space for text content */
-  margin-left: -10px;
-}
-
-.details-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 600px;
-}
-
-.book-header-text {
-  color: var(--light-color) !important;
-}
-
-.writer-name {
-  font-size: 1.2rem;
-  color: var(--light-color);
-}
-
-.rating {
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.details-container .rating{
-  margin-top: -4px ;
-}
-
-.rating-description {
-  color: var(--light-color);
-
-}
-
-.rating-score {
-  font-size: 1.2rem;
-  line-height: 1;
-  margin: 0;
-  margin-top: 2px;
-  padding: 0;
-}
-
-.description {
-  margin-top: 24px;
-  color: var(--black-color);
-  position: relative;
-  text-align: center;
-}
-
-.description p {
-  font-size: 0.9em;
-  text-align: justify;
-}
-
-.description-text {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* Show only 4 lines initially */
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-}
-
-.description-text.expanded {
-  -webkit-line-clamp: unset; /* Show full text when expanded */
-  overflow: visible;
-}
-
-.see-more-link {
-  display: inline-block;
-  margin-top: 10px;
-  color: var(--black-color);
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: color 0.3s ease;
-}
-
-.see-more-link:hover {
-  color: var(--primary-dark-color);
-}
-
-
-/* Container for genres */
-.genres-container {
-  display: flex;
-  flex: 2; 
-  justify-content: flex-start;  /* Align genres to the left */
-  align-items: center;  /* Align vertically at the start */
-  margin-top: 20px;  /* Remove or adjust top margin if necessary */
-  font-family: 'Arial', sans-serif;
-}
-
-/* Title for genres */
-.genres-title {
-  margin-right: 10px;  /* Add a little space between the label and genres */
-  color: var(--accent-color); /* Replace with your theme color */
-  margin: 0;
-  flex-shrink: 0;
-  font-size: 18px;
-}
-
-/* Genres list */
-.genres-list {
-  display: flex; /* Arrange genres in a row */
-  flex-wrap: wrap; /* Allow genres to wrap to the next line */
-  margin-left: 30px;
-  gap: 30px; /* Spacing between genres */
-  justify-content: flex-start;
-  font-weight: bold;
-}
-
-
-/* Individual genre styling */
-.genre {
-  background-color: var(--light-gray); /* Subtle background color */
-  color: var(--dark-color); /* Text color */
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 15px; /* Rounded edges */
-  cursor: default; /* No pointer cursor */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.page-and-date {
-  margin-top: 20px;
-  font-size: 12px;
-  color: var(--accent-color);
-  display: flex;
-  flex-direction: column; /* Stack items vertically */
-  gap: 5px; /* Space between pages and dates */
-  align-items: flex-start; /* Align text to the left */
-}
-
-.page-and-date span {
-  margin-top: -8px;
-  white-space: nowrap; /* Prevent text wrapping inside spans */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .content-container {
-    flex-direction: column; /* Stack containers vertically */
-  }
-
-  .image-container {
-    width: 200px;
-    height: 300px;
-    margin: 0 auto;
-  }
-
-  .details-container {
-    max-width: 100%;
-  }
-
-  .book-detail-background {
-    max-height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .content-container {
-    flex-direction: column;
-  }
-
-  .image-container {
-    width: 200px;
-    height: 300px;
-    margin: 0 auto;
-  }
-
-  .details-container {
-    max-width: 100%;
-  }
-
-  .book-detail-background {
-    max-height: 200px;
-  }
-}
-
+  
   /*----------------------------------------------*/
   /* 5. SITE STRUCTURE */
   /*----------------------------------------------*/
@@ -1679,13 +1402,11 @@ CSS STRUCTURE:
     border: none;
   }
   .nav-tabs button.nav-link.active {
-    color: var(--black-color);
+    color: var(--primary-color);
     background: none;
-    font-weight: bold;
   }
   .nav-tabs button.nav-link:hover {
-    color: var(--black-color);
-    font-weight: bold;/
+    color: var(--primary-color);
   }
   
   @media screen and (max-width: 991px) {
@@ -1697,14 +1418,3 @@ CSS STRUCTURE:
       margin-bottom: 10px;
     }
   }
-
-  .image-holder {
-    margin-top: 60px;
-  }
-
-  .image-holder img {
-    width:  320px;
-    height: 480px;
-  }
-
-  

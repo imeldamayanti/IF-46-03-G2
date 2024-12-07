@@ -26,8 +26,12 @@ body {
     border-radius: 0 10px 10px 0;
 }
 
-.input-field {
+.form-control {
     background-color: #E8E8E8;
+}
+
+.input-field {
+    background-color: #fff;
     border-radius: 10px;
     padding: 15px;
 }
@@ -83,5 +87,41 @@ body, html {
     overflow: hidden;
 }
 
+a {
+    text-decoration: none;
+}
+
 /*---------------------- sign up --------------------*/
 
+.image-section {
+    background: url('../assets/bgbook1.png') no-repeat center center;
+    background-size: cover;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+}
+
+.form-section {
+    background-color: #FDFCF8;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.logo {
+    width: 5em;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
