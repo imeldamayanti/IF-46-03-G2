@@ -11,8 +11,19 @@ import org.springframework.data.jpa.repository.Query;
 public interface BookRepository extends JpaRepository<Book, Long> {
     // findAll provided by JpaRepository
 
-	@Modifying
+	
+    @Modifying
     @Transactional
-    @Query(value = "TRUNCATE TABLE book", nativeQuery = true)
-    void truncateTable();
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
+    void disableForeignKeyChecks();
+    
+    @Modifying
+    @Transactional
+    @Query(value = "TRUNCATE TABLE user", nativeQuery = true)
+    void truncateBookTable();
+    
+    @Modifying
+    @Transactional
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
+    void enableForeignKeyChecks();
 }

@@ -11,8 +11,8 @@ public class Book {
      */
     @Id
     // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
-    @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
+    // @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
     private Long id;
 
     private String name;
@@ -90,33 +90,18 @@ public class Book {
         this.genre = genre;
     }
 
-    // public List<String> getGenreList() {
-    //     return Arrays.asList(genre.split(","));
-    // }
-
-    public List<String> getGenreList() {
-        // Memecah string genre berdasarkan koma
-        String[] genresArray = genre.split(",");
-    
-        // Memotong array mulai dari elemen ke-8 hingga akhir
-        String[] genresSubset = Arrays.copyOfRange(genresArray, 8, genresArray.length);
-    
-        // Mengonversi array yang sudah dipotong menjadi List<String>
-        return Arrays.asList(genresSubset);
-    }
-    
-
-    // Mengubah genre list menjadi string
-    public void setGenreList(List<String> genres) {
-        this.genre = String.join(",", genres);
-    }
+   
 
     public String getDateReleased() {
         return this.dateReleased;
     }
 
     public void setDateReleased(String dateReleased) {
-        this.dateReleased = dateReleased;
+        if(!dateReleased.isBlank()){
+            this.dateReleased = dateReleased;
+        }else{
+            this.dateReleased = "1998";
+        }
     }
 
     public Integer getTotalPage() {
@@ -124,7 +109,11 @@ public class Book {
     }
 
     public void setTotalPage(Integer totalPage) {
-        this.totalPage = totalPage;
+        if(totalPage==0){
+            this.totalPage = 256;
+        }else{
+            this.totalPage = totalPage;
+        }
     }
 
     public String getDescription() {
