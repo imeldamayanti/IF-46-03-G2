@@ -1,4 +1,3 @@
-// package main.java.com.tubes.entity;
 package com.tubes.entity;
 
 

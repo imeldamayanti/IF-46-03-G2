@@ -1,6 +1,8 @@
 package com.tubes.entity;
 
 import jakarta.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -8,19 +10,26 @@ public class Book {
      * Migration
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
+    // @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
     private Long id;
 
     private String name;
+    
+    @Lob
     private String author;
-    private String genre;
     private String dateReleased;
     private Integer totalPage;
-
+    
+    // @Column(name = "genre", columnDefinition = "TEXT")
+    @Lob
+    private String genre; 
+    
     @Lob
     private String description;
 
-    @Column(nullable = true)
+    // @Column(nullable = true)
     private double rate;
 
     @Column(nullable = true)
@@ -47,6 +56,7 @@ public class Book {
     /**
      * Setter and Getter
      */
+
 
     public Long getId() {
         return id;
@@ -80,12 +90,18 @@ public class Book {
         this.genre = genre;
     }
 
+   
+
     public String getDateReleased() {
         return this.dateReleased;
     }
 
     public void setDateReleased(String dateReleased) {
-        this.dateReleased = dateReleased;
+        if(!dateReleased.isBlank()){
+            this.dateReleased = dateReleased;
+        }else{
+            this.dateReleased = "1998";
+        }
     }
 
     public Integer getTotalPage() {
@@ -93,7 +109,11 @@ public class Book {
     }
 
     public void setTotalPage(Integer totalPage) {
-        this.totalPage = totalPage;
+        if(totalPage==0){
+            this.totalPage = 256;
+        }else{
+            this.totalPage = totalPage;
+        }
     }
 
     public String getDescription() {

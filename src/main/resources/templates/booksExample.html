@@ -267,7 +267,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#signin-modal">
+                    <a th:href="@{signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -450,7 +450,7 @@
                 th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
                 class="img-fluid rounded-3"
             >
-            <div class="rating d-flex align-items-center">
+            <!-- <div class="rating d-flex align-items-center">
               <svg class="star star-fill">
                 <use xlink:href="#star-fill"></use>
               </svg>
@@ -462,18 +462,18 @@
               </svg>
               <svg class="star star-fill">
                 <use xlink:href="#star-fill"></use>
-              </svg>
+              </svg>  
               <svg class="star star-fill">
                 <use xlink:href="#star-fill"></use>
               </svg>
-            </div>
+            </div> -->
             <h4 class="card-title mb-2 text-capitalize text-dark">
                 <a th:href="@{/home}" th:text="${book.name}"></a>
             </h4>
-            <p class="mb-2">
+            <!-- <p class="mb-2">
                 <span th:text="${book.description}">Description goes here</span> 
                 <span><a class="text-decoration-underline text-black-50" th:href="@{/home}">Read More</a></span>
-            </p>
+            </p> -->
           </div>
         </div>
       </div>

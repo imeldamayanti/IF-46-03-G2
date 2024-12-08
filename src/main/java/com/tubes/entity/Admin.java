@@ -2,8 +2,8 @@ package com.tubes.entity;
 import jakarta.persistence.*;
 
 @Entity
-@DiscriminatorValue("Reader")
-public class Reader extends User {
+@DiscriminatorValue("Admin")
+public class Admin extends User {
 	
     @Override
     public void login(){

@@ -1,93 +1,106 @@
-// package com.tubes.entity;
+package com.tubes.entity;
 
-// import jakarta.persistence.*;
+import jakarta.persistence.*;
 
-// @Entity
-// public class Reply implements ContentAccess{
-//     /**
-//         * Migration
-//     */
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+@Entity
+public class Reply implements ContentAccess {
+    /**
+     * Static variable to generate unique IDs
+     */
+    private static long nextId = 1;
 
-//     private Reader createdBy;
-//     private String replyContent;
-//     private String dateUploaded;
+    /**
+     * Unique identifier for the Reply
+     */
+    @Id
+    private Long id;
 
-//     /**
-//         * Constructor
-//     */
+    private int createdBy;
+    private String replyContent;
+    private String dateUploaded;
 
-//     public Reply(){}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "forum_id", referencedColumnName = "id") // This will create a foreign key in the Reply table
+    private Forum forum;
 
-//     public Reply(Reader createdBy, String replyContent, String dateUploaded) {
-//         this.createdBy = createdBy;
-//         this.replyContent = replyContent;
-//         this.dateUploaded = dateUploaded;
-//     }
-    
-//     /**
-//         * Setter and Getter
-//     */
+    /**
+     * Constructors
+     */
+    public Reply() {
+        this.id = generateId();
+    }
 
-//     public Long getId() {
-//         return id;
-//     }
+    public Reply(int createdBy, String replyContent, String dateUploaded) {
+        this.id = generateId();
+        this.createdBy = createdBy;
+        this.replyContent = replyContent;
+        this.dateUploaded = dateUploaded;
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    /**
+     * Generates a unique ID
+     */
+    private synchronized static Long generateId() {
+        return nextId++;
+    }
 
-//     public Reader getCreatedBy() {
-//         return createdBy;
-//     }
+    /**
+     * Getters and Setters
+     */
+    public Long getId() {
+        return id;
+    }
 
-//     public void setCreatedBy(Reader createdBy) {
-//         this.createdBy = createdBy;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public String getreplyContent() {
-//         return replyContent;
-//     }
+    public int getCreatedBy() {
+        return createdBy;
+    }
 
-//     public void setreplyContent(String replyContent) {
-//         this.replyContent = replyContent;
-//     }
+    public void setCreatedBy(int createdBy) {
+        this.createdBy = createdBy;
+    }
 
-//     public String getDateUploaded() {
-//         return dateUploaded;
-//     }
+    public String getReplyContent() {
+        return replyContent;
+    }
 
-//     public void setDateUploaded(String dateUploaded) {
-//         this.dateUploaded = dateUploaded;
-//     }
+    public void setReplyContent(String replyContent) {
+        this.replyContent = replyContent;
+    }
 
-//     /**
-//         * Other Methods
-//     */
+    public String getDateUploaded() {
+        return dateUploaded;
+    }
 
-//     public void createContent(){
+    public void setDateUploaded(String dateUploaded) {
+        this.dateUploaded = dateUploaded;
+    }
 
-//     }
-    
-//     public void editContent(){
+    public Forum getForum() {
+        return forum;
+    }
 
-//     }
+    public void setForum(Forum forum) {
+        this.forum = forum;
+    }
 
-//     public void deleteContent(){
-        
-//     }
+    /**
+     * Other Methods
+     */
+    public void createContent() {}
 
-//     public void displayReply(){
-        
-//     }
+    public void editContent() {}
 
-//     // toString for debugging purposes
-//     @Override
-//     public String toString() {
-//         return "Reply{id=" + id + ", createdBy='" + createdBy +  "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
-//     }
-    
+    public void deleteContent() {}
 
-// }
+    public void displayReply() {}
+
+    // toString for debugging purposes
+    @Override
+    public String toString() {
+        return "Reply{id=" + id + ", createdBy='" + createdBy + "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
+    }
+}

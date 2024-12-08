@@ -2,6 +2,8 @@ package com.tubes.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller 
@@ -27,7 +29,39 @@ public class HomeController {
     public String bookdetail() {
         return "bookdetail";
     }
+
+    @GetMapping("/faq")
+    public String faq(){
+        return "faq";
+    }
+
+    @GetMapping("/auth")
+    public String auth() {
+        return "auth";
+    }
     
+    @GetMapping("signin")
+    public String signin() {
+        return "signin";
+    }
+
+    @GetMapping("signup")
+    public String signup() {
+        return "signup";
+    }
+    
+    @GetMapping("forgotpw")
+    public String forgotpw() {
+        return "forgotpw";
+    }
+    
+
+    @GetMapping("viewall-best")
+    public String viewAllBest() {
+        return "viewall-best";
+    }
+    
+
 
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
