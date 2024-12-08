@@ -1787,3 +1787,7 @@ CSS STRUCTURE:
   .hidden {
     display: none !important;
   }
+
+  .replies {
+    margin-top: 20px;
+  }

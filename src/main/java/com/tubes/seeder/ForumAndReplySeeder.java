@@ -61,9 +61,8 @@ public class ForumAndReplySeeder {
                 Reply reply = new Reply();
                 reply.setId(Long.parseLong(row[0]));
                 reply.setCreatedBy(Integer.parseInt(row[1]));
-                reply.setReplyContent(row[2]);
-                reply.setDateUploaded(row[3]);
-
+                reply.setDateUploaded(row[2]);
+                reply.setReplyContent(row[3]);
 
                 Long forumId = Long.parseLong(row[4]);
                 Forum forum = forumMap.get(forumId);
