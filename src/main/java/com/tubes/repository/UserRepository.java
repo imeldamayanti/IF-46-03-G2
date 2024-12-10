@@ -1,7 +1,12 @@
 package com.tubes.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
 import com.tubes.entity.User;
+
+import jakarta.transaction.Transactional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -9,26 +14,28 @@ public interface UserRepository extends JpaRepository<User, Long> {
     
     boolean existsByEmail(String email);
 
-    // @Modifying
-    // @Transactional
-    // @Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
-    // void disableForeignKeyChecks();
-    
-    // @Modifying
-    // @Transactional
-    // @Query(value = "TRUNCATE TABLE book", nativeQuery = true)
-    // void truncateUserTable();
-    
-    // @Modifying
-    // @Transactional
-    // @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
-    // void enableForeignKeyChecks();
-    
-    // function dimana dimulai dari 1 lagi
+    User findByUsername(String username);
 
-    // @Modifying
-    // @Transactional
-    // @Query(value = "ALTER TABLE book AUTO_INCREMENT = 1", nativeQuery = true)
-    // void resetAutoIncrement();
+    @Query(value = "SELECT COUNT(*) FROM information_schema.columns WHERE table_name = 'user' AND column_name = 'dtype'", nativeQuery = true)
+    Long checkIfColumnExists();
+
+    @Modifying
+    @Transactional
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
+    void disableForeignKeyChecks();
     
+    @Modifying
+    @Transactional
+    @Query(value = "TRUNCATE TABLE user", nativeQuery = true)
+    void truncateUserTable();
+
+    @Modifying
+    @Transactional
+    @Query(value = "SET FOREIGN_KEY_CHECKS = 1", nativeQuery = true)
+    void enableForeignKeyChecks();
+
+    @Modifying
+    @Transactional
+    @Query(value = "ALTER TABLE user DROP COLUMN dtype", nativeQuery = true)
+    void dropDtypeColumn();
 }
