@@ -124,35 +124,7 @@
       </symbol>
     </svg>
 
-    <!-- <div id="preloader" class="preloader-container">
-      <div class="book">
-        <div class="inner">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
-        </div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div> -->
+
 
     <div class="search-popup">
       <div class="search-popup-container">
@@ -450,23 +422,7 @@
                 th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
                 class="img-fluid rounded-3"
             >
-            <!-- <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>  
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-            </div> -->
+       
             <h4 class="card-title mb-2 text-capitalize text-dark">
                 <a th:href="@{/home}" th:text="${book.name}"></a>
             </h4>

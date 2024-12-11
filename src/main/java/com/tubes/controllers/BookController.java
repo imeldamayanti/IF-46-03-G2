@@ -23,4 +23,14 @@ public class BookController {
         // Look for a template in : src/main/resources/templates/...
         return "booksExample";
     }
+
+    // @GetMapping("/index")
+    // public String getFiction(Model model) {
+    //     List<Book> books = bookService.findBooksByGenre();
+
+    //     model.addAttribute("books", books);
+
+    //     // Look for a template in : src/main/resources/templates/...
+    //     return "index";
+    // }
 }
