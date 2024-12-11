@@ -16,10 +16,10 @@
             <div class="col-md-7 p-5 form-section position-relative">
                 <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
                 <h2 class="text-center fw-bold mb-4">Sign Up</h2>
-                <form th:action="@{/register}" method="post" th:object="${reader}">
+                <form method="post">
                     <div class="row mb-3">
                         <div class="form-floating col-md-6">
-                            <input type="text" class="form-control" id="firstName"  name="firstName" placeholder="First Name" required>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
                             <label for="firstName" class="ms-2">First Name</label>
                         </div>
                         <div class="form-floating col-md-6">
@@ -28,26 +28,24 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="username"  name="username" placeholder="Username" required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                         <label for="username">Username</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email"  name="email" placeholder="Email" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                         <label for="password">Password</label>
-                        <span class="position-absolute end-0 top-50 translate-middle-y pe-3 text-muted" id="togglePassword"></span>
-                        <small class="text-muted">
+                        <!--small class="text-muted">
                             &#8226; Consists of at least 8 characters<br>
                             &#8226; A combination of letters and numbers
-                        </small>
+                        </small-->
                     </div>
                     <div class="form-floating mb-4">
-                        <input type="password" class="form-control" id="passwordConfirmation"  name="passwordConfirmation" placeholder="Password Confirmation" required>
+                        <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation" placeholder="Password Confirmation" required>
                         <label for="passwordConfirmation">Password Confirmation</label>
-                        <span class="position-absolute end-0 top-50 translate-middle-y pe-3 text-muted" id="togglePassword"></span>
                     </div>
                     <button type="submit" class="btn w-100 main-btn">
                         Sign Up
@@ -56,22 +54,105 @@
             </div>
             <!-- Right Section -->
             <div class="col-md-5 image-section">
-                <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/home} + '\''" style="filter: invert(1);"></button>
+                <button type="button" class="btn-close" aria-label="Close" onclick="window.location.href='home.html'" style="filter: invert(1);"></button>
                 
                 <h2 class="fw-bold">Welcome!</h2>
                 <p class="mt-2 text-center">Please create an account to start</p>
                 <p class="mt-5 text-center">Already have an account?</p>
-                <button type="button" class="signup-btn py-2 w-75" 
-                        th:onclick="'window.location.href=\'' + @{/signin} + '\''">
+                <button type="button" class="signup-btn py-2 w-75">
                     Sign In
                 </button>
 
-                    <div class="text-center my-3">or</div>
+                <div class="text-center my-3">or</div>
                 <button type="button" class="btn btn-outline-light py-2 w-75 rounded-3">
                     <i class="fab fa-google me-2"></i> Sign In with Google
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript untuk Validasi -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector("form");
+            const emailInput = document.getElementById("email");
+            const passwordInput = document.getElementById("password");
+            const passwordConfirmationInput = document.getElementById("passwordConfirmation");
+
+            const emailError = document.createElement("small");
+            const passwordError = document.createElement("small");
+            const confirmationError = document.createElement("small");
+
+            emailError.className = "text-danger";
+            passwordError.className = "text-danger";
+            confirmationError.className = "text-danger";
+
+            // Validasi email
+            emailInput.addEventListener("input", () => {
+                const value = emailInput.value;
+                const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+                if (!isValid) {
+                    emailError.textContent = "Email harus memiliki format yang valid (contoh: user@example.com).";
+                    emailInput.parentElement.appendChild(emailError);
+                } else {
+                    emailError.textContent = "";
+                }
+            });
+
+            // Validasi password
+            passwordInput.addEventListener("input", () => {
+                const value = passwordInput.value;
+                const hasNumber = /\d/.test(value);
+                const hasLetter = /[a-zA-Z]/.test(value);
+                const isValid = value.length >= 8 && hasNumber && hasLetter;
+
+                if (!isValid) {
+                    passwordError.textContent = "Make sure the password consists of at least 8 characters and includes a combination of letters and numbers.";
+                    passwordInput.parentElement.appendChild(passwordError);
+                } else {
+                    passwordError.textContent = "";
+                }
+            });
+
+            // Validasi konfirmasi password
+            passwordConfirmationInput.addEventListener("input", () => {
+                const password = passwordInput.value;
+                const confirmation = passwordConfirmationInput.value;
+
+                if (password !== confirmation) {
+                    confirmationError.textContent = "Password and password confirmation does not match.";
+                    passwordConfirmationInput.parentElement.appendChild(confirmationError);
+                } else {
+                    confirmationError.textContent = "";
+                }
+            });
+
+            // Validasi sebelum form dikirim
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const email = emailInput.value;
+                const password = passwordInput.value;
+                const confirmation = passwordConfirmationInput.value;
+
+                const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                const hasNumber = /\d/.test(password);
+                const hasLetter = /[a-zA-Z]/.test(password);
+                const isValidPassword = password.length >= 8 && hasNumber && hasLetter;
+                const isConfirmationMatch = password === confirmation;
+
+                if (isEmailValid && isValidPassword && isConfirmationMatch) {
+                    window.location.href = "index.html";
+                }
+            });
+
+            // Tombol Sign In
+            const signInButton = document.querySelector(".signup-btn");
+            signInButton.addEventListener("click", () => {
+                window.location.href = "signin.html";
+            });
+        });
+    </script>
 </body>
 </html>

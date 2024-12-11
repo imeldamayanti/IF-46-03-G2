@@ -1,6 +1,4 @@
-com\tubes\entity\Book.class
 com\tubes\service\BookService.class
-com\tubes\TubesMvcApplication.class
 com\tubes\repository\ForumRepository.class
 com\tubes\service\UserService.class
 com\tubes\seeder\BookSeeder.class
