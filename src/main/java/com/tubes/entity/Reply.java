@@ -1,6 +1,8 @@
 package com.tubes.entity;
 
+import java.time.LocalDate;
 import jakarta.persistence.*;
+
 
 @Entity
 public class Reply implements ContentAccess {
@@ -17,36 +19,31 @@ public class Reply implements ContentAccess {
 
     private int createdBy;
     private String replyContent;
-    private String dateUploaded;
+    private LocalDate dateUploaded;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "forum_id", referencedColumnName = "id") // This will create a foreign key in the Reply table
+    @JoinColumn(name = "forum_id", referencedColumnName = "id")
     private Forum forum;
 
-    /**
-     * Constructors
-     */
     public Reply() {
         this.id = generateId();
     }
 
-    public Reply(int createdBy, String replyContent, String dateUploaded) {
+    public Reply(int createdBy, String replyContent, LocalDate dateUploaded) {
         this.id = generateId();
         this.createdBy = createdBy;
         this.replyContent = replyContent;
         this.dateUploaded = dateUploaded;
     }
 
-    /**
-     * Generates a unique ID
-     */
-    private synchronized static Long generateId() {
+    public synchronized static Long generateId() {
         return nextId++;
     }
 
-    /**
-     * Getters and Setters
-     */
+    public static synchronized void resetIdCounter() {
+        nextId = 1;
+    }
+
     public Long getId() {
         return id;
     }
@@ -71,11 +68,11 @@ public class Reply implements ContentAccess {
         this.replyContent = replyContent;
     }
 
-    public String getDateUploaded() {
+    public LocalDate getDateUploaded() {
         return dateUploaded;
     }
 
-    public void setDateUploaded(String dateUploaded) {
+    public void setDateUploaded(LocalDate dateUploaded) {
         this.dateUploaded = dateUploaded;
     }
 
@@ -86,6 +83,7 @@ public class Reply implements ContentAccess {
     public void setForum(Forum forum) {
         this.forum = forum;
     }
+
 
     /**
      * Other Methods
@@ -101,6 +99,12 @@ public class Reply implements ContentAccess {
     // toString for debugging purposes
     @Override
     public String toString() {
-        return "Reply{id=" + id + ", createdBy='" + createdBy + "', replyContent=" + replyContent + ", dateUploaded=" + dateUploaded + "'}";
+        return "Reply{id=" + id + 
+               ", createdBy='" + createdBy + 
+               "', replyContent=" + replyContent + 
+               ", dateUploaded=" + dateUploaded + 
+               ", forumId=" + (forum != null ? forum.getId() : "null") + 
+               "'}";
     }
+    
 }

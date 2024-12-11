@@ -2,62 +2,69 @@ package com.tubes.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 
 @Entity
 public class Forum implements ContentAccess {
+
     /**
      * Static variable to generate unique IDs
      */
-    private static long nextId = 1;
+    private static long nextId = 1; // Manually control the ID sequence
 
     /**
      * Unique identifier for the Forum
      */
     @Id
+    @Column(nullable = false, unique = true)
     private Long id;
 
+    @Column(nullable = false)
     private int createdBy;
+
+    @Column(nullable = false, length = 255)
     private String title;
+
+    @Lob
+    @Column(nullable = false)
     private String forumContent;
-    private String dateUploaded; // date
 
-    private String replyIds;
+    @Column(name = "date_uploaded", nullable = false)
+    private LocalDate dateUploaded;
 
-    private int repliesCount; // to show total replies in the comment symbol
+    @Column
+    private int replyCount;
 
-    /**
-     * Constructors
-     */
+    @OneToMany(mappedBy = "forum", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reply> replies = new ArrayList<>();
+
+    // Constructors
     public Forum() {
         this.id = generateId();
     }
 
-    public Forum(int createdBy, String title, String forumContent, String dateUploaded) {
+    public Forum(int createdBy, String title, String forumContent, LocalDate dateUploaded) {
         this.id = generateId();
         this.createdBy = createdBy;
         this.title = title;
         this.forumContent = forumContent;
         this.dateUploaded = dateUploaded;
+        this.replyCount = 0;
     }
 
-    /**
-     * Generates a unique ID
-     */
-    private synchronized static Long generateId() {
+    public synchronized static Long generateId() {
         return nextId++;
+    }
+
+    public static synchronized void resetIdCounter() {
+        nextId = 1;
     }
 
     // Getters and Setters
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getCreatedBy() {
@@ -84,78 +91,52 @@ public class Forum implements ContentAccess {
         this.forumContent = forumContent;
     }
 
-    public String getDateUploaded() {
+    public LocalDate getDateUploaded() {
         return dateUploaded;
     }
 
-    public void setDateUploaded(String dateUploaded) {
+    public void setDateUploaded(LocalDate dateUploaded) {
         this.dateUploaded = dateUploaded;
     }
 
-    public List<Long> getReplyIds() {
-        if (replyIds != null && !replyIds.isEmpty()) {
-            // Convert the comma-separated string back to a List<Long>
-            return Arrays.stream(replyIds.split(","))
-                        .map(Long::parseLong)
-                        .collect(Collectors.toList());
+    public List<Reply> getReplies() {
+        return replies;
+    }
+
+    public void addReply(Reply reply) {
+        if (this.replies == null) {
+            this.replies = new ArrayList<>();
         }
-        return new ArrayList<>(); // Return empty list if replyIds is null or empty
+        this.replies.add(reply);
+        reply.setForum(this);
+        replyCount++;
     }
 
-    public void setReplyIds(List<Long> replyIds) {
-        // Convert List<Long> to a comma-separated string
-        this.replyIds = replyIds.stream()
-                                .map(String::valueOf)
-                                .collect(Collectors.joining(","));
-    }
-
-    public void addReplyId(Long replyId) {
-        // Get the current list of reply IDs
-        List<Long> currentReplyIds = getReplyIds();
-        currentReplyIds.add(replyId);
-        
-        // Update the replyIds field with the new list
-        setReplyIds(currentReplyIds);
-
-        // Update the repliesCount
-        repliesCount = currentReplyIds.size();
-    }
-
-    public void removeReplyId(Long replyId) {
-        // Get the current list of reply IDs
-        List<Long> currentReplyIds = getReplyIds();
-
-        // Remove the specified reply ID if it exists
-        currentReplyIds.remove(replyId);
-            
-        // Update the replyIds field with the new list
-        setReplyIds(currentReplyIds);
-
-        // Update the repliesCount
-        repliesCount = currentReplyIds.size();
+    public void removeReply(Reply reply) {
+        replies.remove(reply);
+        reply.setForum(null);
+        replyCount--;
     }
 
     public int getRepliesCount() {
-        return repliesCount;
+        return replies.size();
     }
 
-    public void setRepliesCount(int repliesCount) {
-        this.repliesCount = repliesCount;
-    }
-
-    // Other Methods
     public void createContent() {}
 
     public void editContent() {}
 
     public void deleteContent() {}
 
-    public void displayReply() {}
-
-    // toString for debugging purposes
     @Override
     public String toString() {
-        return "Forum{id=" + id + ", createdBy=" + createdBy + ", title='" + title + "', forumContent="
-                + forumContent + ", dateUploaded=" + dateUploaded + ", repliesCount=" + repliesCount + "}";
+        return "Forum{" +
+                "id=" + id +
+                ", createdBy=" + createdBy +
+                ", title='" + title + '\'' +
+                ", forumContent='" + forumContent + '\'' +
+                ", dateUploaded=" + dateUploaded +
+                ", replyCount=" + replyCount +
+                '}';
     }
 }

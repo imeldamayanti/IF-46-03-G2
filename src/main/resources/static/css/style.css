@@ -1248,7 +1248,7 @@ CSS STRUCTURE:
   .swiper-next,
   .swiper-prev{
     color: var(--black-color);
-    z-index: 9999;
+    z-index: 2;
   }
   .swiper-button-disabled{
     color: var(--gray-color-500);

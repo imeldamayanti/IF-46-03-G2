@@ -666,81 +666,27 @@
               <button class="btn btn-sm post-button rounded-3">Post</button>
             </div>
 
-            <div class="card p-3 shadow-sm border bg-white rounded replies">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar-reply me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 40px; height: 40px"
-                  />
+            <div class="replies-container">
+              <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="avatar-reply me-3">
+                    <img
+                      src="/assets/avt.jpg"
+                      alt="Avatar"
+                      class="rounded-circle"
+                      style="width: 40px; height: 40px"
+                    />
+                  </div>
+                  <div class="forum-profile">
+                    <!-- Dynamically render the user's name with a fallback -->
+                    <h6 class="text-bold mt-1" th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}">User</h6>
+                    <small class="date-forum" th:text="${reply.dateUploaded}"></small>
+                  </div>
                 </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-1">Nugraha</h6>
-                  <small class="date-forum">October 16, 2024</small>
-                </div>
+                <p class="post-content" th:text="${reply.replyContent}"></p>
               </div>
-              <p class="post-content">
-                I think Orwell’s ideas on surveillance are incredibly relevant today. 
-                Take the prevalence of smart devices, for example—our phones, home assistants, 
-                and even smart TVs can collect data about us. Governments and companies justify 
-                this by saying it improves services, but it feels eerily similar to Big Brother 
-                watching everything. Are we already living under surveillance without realizing it?
-              </p>
             </div>
-
-            <div class="card p-3 shadow-sm border bg-white rounded replies">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar-reply me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 40px; height: 40px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-1">Tama</h6>
-                  <small class="date-forum">October 17, 2024</small>
-                </div>
-              </div>
-              <p class="post-content">
-                Great question! I believe social media platforms contribute to a subtle 
-                form of "thought control." Algorithms decide what content we see, often 
-                creating echo chambers that reinforce existing beliefs. It reminds me of 
-                Orwell’s manipulation of truth, where people are fed specific narratives 
-                to shape their thinking. How can we ensure we’re not just consuming a 
-                curated reality?
-              </p>
-            </div>
-
-            <div class="card p-3 shadow-sm border bg-white rounded replies">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar-reply me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 40px; height: 40px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-1">Radhitya</h6>
-                  <small class="date-forum">October 18, 2024</small>
-                </div>
-              </div>
-              <p class="post-content">
-                Another parallel I see is in the suppression of dissenting opinions. Today, 
-                people can face severe backlash for expressing views outside the mainstream—whether 
-                through cancel culture or social media harassment. While this isn’t government-imposed 
-                like in 1984, it creates an environment where individuals self-censor out of fear, which 
-                feels like a modern take on Orwell’s warning.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+            
     </section>
 
     <script>

@@ -1750,7 +1750,7 @@ CSS STRUCTURE:
     right: 10px;
     top: 50%; /* Letakkan tombol di tengah vertikal */
     transform: translateY(-50%); /* Menyeimbangkan posisi tombol */
-    z-index: 10;
+    z-index: 1;
   }
 
   .post-button:hover {
