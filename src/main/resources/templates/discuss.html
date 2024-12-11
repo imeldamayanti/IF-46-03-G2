@@ -666,56 +666,27 @@
               <button class="btn btn-sm post-button rounded-3">Post</button>
             </div>
 
-            <div class="card p-3 shadow-sm border bg-white rounded">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar-reply me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 40px; height: 40px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-1">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <button
-                  id="reply-btn"
-                  class="btn btn-sm rounded-3 p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-1"></i>
-                  <span>Reply</span>
-                </button>
-              </div>
-              <div id="reply-container" class="hidden mt-3">
-                <div class="card p-2 shadow-sm border bg-white rounded mb-3">
-                  <div class="mb-2">
-                    <textarea
-                      id="reply-textarea"
-                      class="form-control border-0 input-small"
-                      placeholder="Add a thoughtful comment..."
-                    ></textarea>
+            <div class="replies-container">
+              <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="avatar-reply me-3">
+                    <img
+                      src="/assets/avt.jpg"
+                      alt="Avatar"
+                      class="rounded-circle"
+                      style="width: 40px; height: 40px"
+                    />
                   </div>
-                  <div class="char-count">0/5000</div>
-                  <button class="btn btn-sm post-button rounded-3">Post</button>
+                  <div class="forum-profile">
+                    <!-- Dynamically render the user's name with a fallback -->
+                    <h6 class="text-bold mt-1" th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}">User</h6>
+                    <small class="date-forum" th:text="${reply.dateUploaded}"></small>
+                  </div>
                 </div>
+                <p class="post-content" th:text="${reply.replyContent}"></p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+            
     </section>
 
     <script>
