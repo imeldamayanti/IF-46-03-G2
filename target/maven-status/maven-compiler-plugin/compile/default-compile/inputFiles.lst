@@ -18,8 +18,6 @@
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/repository/ReplyRepository.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/repository/UserRepository.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/security/JwtAuthenticationFilter.java
-/Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/security/JwtFilter.java
-/Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/security/test.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/seeder/BookSeeder.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/seeder/ForumAndReplySeeder.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/seeder/UserSeeder.java
