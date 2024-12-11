@@ -18,7 +18,7 @@ public class ReplyController {
 
     @GetMapping("/reply")
     public String showReplyForm() {
-        return "reply-form";
+        return "reply";
     }
 
     @PostMapping("/submit-reply")

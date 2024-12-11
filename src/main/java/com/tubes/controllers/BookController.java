@@ -24,13 +24,13 @@ public class BookController {
         return "booksExample";
     }
 
-    // @GetMapping("/index")
-    // public String getFiction(Model model) {
-    //     List<Book> books = bookService.findBooksByGenre();
+    @GetMapping("/index")
+    public String getFiction(Model model) {
+        List<Book> Fictionbooks = bookService.getBooksByGenre("iction");
+        System.out.println("Fetched books: " + Fictionbooks);
 
-    //     model.addAttribute("books", books);
+        model.addAttribute("books", Fictionbooks);
 
-    //     // Look for a template in : src/main/resources/templates/...
-    //     return "index";
-    // }
+        return "index";
+    }
 }

@@ -223,7 +223,7 @@
                   <a class="nav-link me-4 active" th:href="@{/home}">Home Page</a>
                 </li>
               
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                     aria-expanded="false">Pages</a>
                   <ul class="dropdown-menu animate slide border">
@@ -250,6 +250,9 @@
                     </li>
                   
                   </ul>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
@@ -289,7 +292,7 @@
     </header>
 
     <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray"
-      style="background-image: url(/assets/HorizontalBackground.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
+      style="background-image: url(/assets/bgDarker.png); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
       <div class="swiper main-swiper">
         <div class="swiper-wrapper d-flex align-items-center">
           <div class="swiper-slide">
@@ -300,12 +303,11 @@
                     <h2 style="color: #f1f1f1;">Find and Rate Book Collection</h2>
                     <p style="color: #f1f1f1;">Discover your next favorite read and share your thoughts!</p>      
                     <a href="index.html" class="btn mt-3">Discover</a>
-                    <a href="/books" class="btn mt-3">Test DB</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
                   <div class="image-holder">
-                    <img src="https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg" class="img-fluid" alt="banner">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1712025537i/201608156.jpg" class="img-fluid" alt="banner">
                   </div>
                 </div>
               </div>
@@ -534,39 +536,24 @@
         });
       </script>         
 
-    <section id="latest-posts" class="padding-large">
+    <section id="latest-posts" class="padding-small">
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Biography</h3>
           <a href="index.html" class="btn">View All</a>
         </div>
         <div class="row">
-            <div class="col-md-2 posts mb-4">
-              <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="post image" class="img-fluid rounded-3">
-              <div class="rating d-flex align-items-center">
-                <svg class="star star-fill">
-                  <use xlink:href="#star-fill"></use>
-                </svg>
-                <svg class="star star-fill">
-                  <use xlink:href="#star-fill"></use>
-                </svg>
-                <svg class="star star-fill">
-                  <use xlink:href="#star-fill"></use>
-                </svg>
-                <svg class="star star-fill">
-                  <use xlink:href="#star-fill"></use>
-                </svg>
-                <svg class="star star-fill">
-                  <use xlink:href="#star-fill"></use>
-                </svg>
-              </div>
-              <h4 class="card-title mb-2 text-capitalize text-dark"><a th:href="@{/home}">10 Must-Read Books of the Year: Our Top Picks!</a></h4>
-              <p class="mb-2">Dive into the world of cutting-edge technology with our latest blog post, where we highlight
-                five essential gadge. <span><a class="text-decoration-underline text-black-50" th:href="@{/home}">Read More</a></span>
-              </p>
+            <div class="col-md-2 posts mb-4" th:each="book : ${books}">
+              <img 
+                th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
+                th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
+                class="img-fluid rounded-3"
+            >
+
+
             </div>
-          <div class="col-md-2 posts mb-4">
-            <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}" alt="post image" class="img-fluid rounded-3">
+          <!-- <div class="col-md-2 posts mb-4">
+            <img th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1712025537i/201608156.jpg}" alt="post image" class="img-fluid rounded-3">
             <div class="rating d-flex align-items-center">
               <svg class="star star-fill">
                 <use xlink:href="#star-fill"></use>
@@ -683,12 +670,12 @@
             <p class="mb-2">In today's remote work environment, productivity is key. Discover the top apps and tools that
               can help you stay <span><a class="text-decoration-underline text-black-50" th:href="@{/home}">Read More</a></span>
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
 
-    <section id="latest-posts" class="padding-large">
+    <section id="latest-posts" class="padding-small">
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Fiction</h3>
@@ -842,7 +829,7 @@
       </div>
     </section>
 
-    <section id="latest-posts" class="padding-large">
+    <section id="latest-posts" class="padding-small">
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Romance</h3>
@@ -996,7 +983,7 @@
       </div>
     </section>
 
-    <section id="latest-posts" class="padding-large">
+    <section id="latest-posts" class="padding-small">
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">History </h3>
@@ -1232,14 +1219,15 @@
       </div>
     </section-->
 
-    <footer id="footer" class="padding-large">
+    <footer id="footer" class="padding-small">
       <div class="container">
         <div class="row">
           <div class="footer-top-area">
             <div class="row d-flex flex-wrap justify-content-between">
               <div class="col-lg-3 col-sm-6 pb-3">
                 <div class="footer-menu">
-                  <img src="images/main-logo.png" alt="logo" class="img-fluid mb-2">
+                  <!-- <img src="images/main-logo.png" alt="logo" class="img-fluid mb-2"> -->
+                  <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
                   <p>BookNest is a platform for book lovers to explore reviews, share ratings, and connect with a community of readers. Expand your literary journey with us!</p>
                   <div class="social-links">
                     <ul class="d-flex list-unstyled">
@@ -1344,28 +1332,7 @@
     <div id="footer-bottom" class="mb-2">
       <div class="container">
         <div class="d-flex flex-wrap justify-content-between">
-          <div class="ship-and-payment d-flex gap-md-5 flex-wrap">
-            <div class="shipping d-flex">
-              <p>We ship with:</p>
-              <div class="card-wrap ps-2">
-                <img src="images/dhl.png" alt="visa">
-                <img src="images/shippingcard.png" alt="mastercard">
-              </div>
-            </div>
-            <div class="payment-method d-flex">
-              <p>Payment options:</p>
-              <div class="card-wrap ps-2">
-                <img src="images/visa.jpg" alt="visa">
-                <img src="images/mastercard.jpg" alt="mastercard">
-                <img src="images/paypal.jpg" alt="paypal">
-              </div>
-            </div>
-          </div>
-          <div class="copyright">
-            <p>© Copyright 2024 Bookly. HTML Template by <a href="https://templatesjungle.com/"
-                target="_blank">TemplatesJungle</a>
-            </p>
-          </div>
+          <div class="ship-and-payment d-flex gap-md-5 flex-wrap">        
         </div>
       </div>
     </div>

@@ -379,7 +379,7 @@
                   <a class="nav-link me-4" th:href="@{/home}">Home Page</a>
                 </li>
 
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                   <a
                     class="nav-link me-4 dropdown-toggle"
                     data-bs-toggle="dropdown"
@@ -425,6 +425,9 @@
                       >
                     </li>
                   </ul>
+                </li> --> 
+                <li class="nav-item">
+                  <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
@@ -627,7 +630,7 @@
     </header>
 
     <section id="forum-main" class="position-relative padding-large">
-      <div class="container">
+      <div class="container forum-main">
         <div class="section-title d-flex flex-column mb-2">
           <h3 class="mb-1">Let's Talk</h3>
           <p>Sharing, find support, and connect with community</p>

@@ -191,10 +191,10 @@
               <ul id="navbar"
                 class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                 <li class="nav-item">
-                  <a class="nav-link me-4 active" th:href="@{/home}">Home Page</a>
+                  <a class="nav-link me-4" th:href="@{/home}">Home Page</a>
                 </li>
               
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                   <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                     aria-expanded="false">Pages</a>
                   <ul class="dropdown-menu animate slide border">
@@ -221,6 +221,9 @@
                     </li>
                   
                   </ul>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link me-4 active" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
@@ -413,7 +416,7 @@
     <section id="latest-posts" class="padding-large">
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
-          <h3 class="d-flex align-items-center">All Book Example</h3>
+          <!-- <h3 class="d-flex align-items-center">All Book Example</h3> -->
         </div>
         <div class="row">
           <div class="col-md-2 posts mb-4" th:each="book : ${books}">
@@ -423,9 +426,9 @@
                 class="img-fluid rounded-3"
             >
        
-            <h4 class="card-title mb-2 text-capitalize text-dark">
+            <!-- <h4 class="card-title mb-2 text-capitalize text-dark">
                 <a th:href="@{/home}" th:text="${book.name}"></a>
-            </h4>
+            </h4> -->
             <!-- <p class="mb-2">
                 <span th:text="${book.description}">Description goes here</span> 
                 <span><a class="text-decoration-underline text-black-50" th:href="@{/home}">Read More</a></span>
