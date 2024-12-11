@@ -162,7 +162,7 @@ CSS STRUCTURE:
     padding-bottom: 4em;
   }
   .padding-large {
-    padding-top: 7em;
+    padding-top: 105px;
     padding-bottom: 7em;
   }
   .padding-xlarge {
@@ -1590,11 +1590,13 @@ CSS STRUCTURE:
     z-index: 1000; 
     background-color: white;
     background-size: 100vh;
+    margin-left: -10px;
+    padding-left: 10px;
   }
 
   .bottom-discuss {
     position: sticky;
-    padding-top: 20px;
+    padding-top: 235px;
     z-index: 0; 
   }
 
@@ -1688,7 +1690,11 @@ CSS STRUCTURE:
   /*----------------------------------------------*/
   /* 7. FORUM-DISCUSS STRUCTURE */
   /*----------------------------------------------*/
-  
+
+  .forum-main {
+    margin-top: 60px;
+  }
+
   .text-end button{
     padding: 5px 25px;
     font-size: 10pt;
