@@ -68,6 +68,7 @@ public class UserSeeder {
                     reader.setPassword(passwordEncoder.encode(rawPassword));
                     reader.setFirstName(firstName);
                     reader.setLastName(lastName);
+                    reader.setDateJoined(dateJoined);
                     reader.setRole(role);
                     users.add(reader);
                 }
