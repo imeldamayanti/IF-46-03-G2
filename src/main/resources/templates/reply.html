@@ -443,7 +443,11 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="@{signin}">
+                    <a
+                      href="#"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -624,153 +628,19 @@
 
     <section id="forum-main" class="position-relative padding-large">
       <div class="container">
-        <div class="top-discuss">
-          <div class="section-title d-flex flex-column mb-2">
-            <h3 class="mb-1">Let's Talk</h3>
-            <p>Sharing, find support, and connect with community</p>
-          </div>
-
-          <div class="mb-4">
-            <a
-              id="discuss-btn"
-              class="btn btn-sm rounded-3"
-              th:href="@{reply}"
-            >
-              New Discussion
-          </a>
-          </div>
-
-          <div class="mb-4">
-            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
-              Popular
-            </button>
-            <button id="latest-btn" class="btn btn-sm rounded-3">Latest</button>
-          </div>
+        <div class="section-title d-flex flex-column mb-2">
+          <h3 class="mb-1">Let's Talk</h3>
+          <p>Sharing, find support, and connect with community</p>
         </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
-            </div>
+        <div class="card p-3 shadow bg-white rounded">
+          <div class="mb-2">
+            <textarea
+              class="form-control border-0 shadow-none input-large"
+              placeholder="Write down your interesting thoughts or theories here..."
+            ></textarea>
           </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
-            </div>
+          <div class="text-end">
+            <button class="btn btn-sm rounded-3">Send</button>
           </div>
         </div>
       </div>

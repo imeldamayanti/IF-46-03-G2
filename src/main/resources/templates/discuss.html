@@ -443,7 +443,11 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="@{signin}">
+                    <a
+                      href="#"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -624,134 +628,59 @@
 
     <section id="forum-main" class="position-relative padding-large">
       <div class="container">
-        <div class="top-discuss">
-          <div class="section-title d-flex flex-column mb-2">
-            <h3 class="mb-1">Let's Talk</h3>
-            <p>Sharing, find support, and connect with community</p>
-          </div>
-
-          <div class="mb-4">
-            <a
-              id="discuss-btn"
-              class="btn btn-sm rounded-3"
-              th:href="@{reply}"
-            >
-              New Discussion
-          </a>
-          </div>
-
-          <div class="mb-4">
-            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
-              Popular
-            </button>
-            <button id="latest-btn" class="btn btn-sm rounded-3">Latest</button>
-          </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="avatar me-3">
+                <img
+                  src="assets/avt.jpg"
+                  alt="Avatar"
+                  class="rounded-circle"
+                  style="width: 45px; height: 45px"
+                />
               </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
+              <div class="forum-profile">
+                <h6 class="text-bold mt-1">Alexander</h6>
+                <small class="date-forum">October 15, 2024</small>
               </div>
             </div>
-          </div>
-        </div>
+            <h5 class="discuss-title fw-bold">
+              Modern Parallels to Orwell's <i>1984</i>
+            </h5>
+            <p class="post-content">
+              In <i>1984</i>, Orwell explores the devastating impact of a
+              totalitarian regime that controls truth and suppresses
+              individuality. Do you think aspects of our modern society mirror
+              the themes of surveillance and thought control depicted in the
+              book?
+            </p>
+            <div class="card p-2 shadow-sm border bg-white rounded mb-3">
+              <div class="mb-2">
+                <textarea
+                  class="form-control border-0 input-small"
+                  placeholder="Add a thoughtful comments..."
+                ></textarea>
+              </div>
 
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
+              <div class="char-count">0/5000</div>
+              <button class="btn btn-sm post-button rounded-3">Post</button>
             </div>
-          </div>
-        </div>
 
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
+            <div class="card p-3 shadow-sm border bg-white rounded">
               <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
+                <div class="avatar-reply me-3">
                   <img
                     src="assets/avt.jpg"
                     alt="Avatar"
                     class="rounded-circle"
-                    style="width: 45px; height: 45px"
+                    style="width: 40px; height: 40px"
                   />
                 </div>
                 <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
+                  <h6 class="text-bold mt-1">Alexander</h6>
                   <small class="date-forum">October 15, 2024</small>
                 </div>
               </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
               <p class="post-content">
                 In <i>1984</i>, Orwell explores the devastating impact of a
                 totalitarian regime that controls truth and suppresses
@@ -762,19 +691,102 @@
               <div
                 class="post-footer d-flex justify-content-start align-items-center"
               >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
+                <button
+                  id="reply-btn"
+                  class="btn btn-sm rounded-3 p-0 d-flex align-items-center"
                 >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
+                  <i class="bi bi-chat-left-text me-1"></i>
+                  <span>Reply</span>
+                </button>
+              </div>
+              <div id="reply-container" class="hidden mt-3">
+                <div class="card p-2 shadow-sm border bg-white rounded mb-3">
+                  <div class="mb-2">
+                    <textarea
+                      id="reply-textarea"
+                      class="form-control border-0 input-small"
+                      placeholder="Add a thoughtful comment..."
+                    ></textarea>
+                  </div>
+                  <div class="char-count">0/5000</div>
+                  <button class="btn btn-sm post-button rounded-3">Post</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <script>
+      const replyButton = document.getElementById("reply-btn");
+      const replyContainer = document.getElementById("reply-container");
+      const replyTextarea = document.getElementById("reply-textarea");
+
+      // Toggle visibility of the reply container
+      replyButton.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent click from propagating to the document
+        replyContainer.classList.toggle("hidden");
+      });
+
+      // Close the reply container when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !replyContainer.contains(e.target) &&
+          !replyButton.contains(e.target)
+        ) {
+          replyContainer.classList.add("hidden");
+        }
+      });
+
+      // Preserve the text in the textarea even when hidden
+      replyTextarea.addEventListener("input", () => {
+        // Text remains in the `textarea` due to its default behavior
+      });
+    </script>
+
+    <script>
+      const textarea = document.querySelector(".input-small");
+      const charCountDisplay = document.querySelector(".char-count");
+      const maxChars = 5000;
+
+      // Fungsi untuk menyesuaikan tinggi textarea
+      function adjustHeight() {
+        const textLength = textarea.value.length;
+        let newHeight;
+
+        if (textLength === 0) {
+          newHeight = 30; // Jika tidak ada teks, set tinggi menjadi 30px
+        } else {
+          newHeight = 30 + Math.min(50, textLength / 10); // Menghitung tinggi baru
+        }
+
+        // Memastikan tinggi tidak kurang dari 30px
+        newHeight = Math.max(newHeight, 30);
+
+        // Menyesuaikan tinggi textarea
+        textarea.style.height = `${newHeight}px`;
+      }
+
+      // Event listener untuk setiap input pada textarea
+      textarea.addEventListener("input", function () {
+        const textLength = textarea.value.length;
+
+        // Menampilkan jumlah karakter
+        charCountDisplay.textContent = `${textLength}/${maxChars}`;
+
+        // Membatasi jumlah karakter maksimal 5000
+        if (textLength > maxChars) {
+          textarea.value = textarea.value.substring(0, maxChars);
+        }
+
+        // Menyesuaikan tinggi textarea sesuai jumlah karakter
+        adjustHeight();
+      });
+
+      // Menyesuaikan tinggi textarea saat halaman dimuat pertama kali
+      adjustHeight();
+    </script>
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script

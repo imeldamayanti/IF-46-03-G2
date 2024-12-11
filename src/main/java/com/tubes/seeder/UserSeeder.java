@@ -70,6 +70,7 @@ public class UserSeeder {
                     reader.setPassword(rawPassword);
                     reader.setFirstName(firstName);
                     reader.setLastName(lastName);
+                    reader.setDateJoined(dateJoined);
                     reader.setRole(role);
                     users.add(reader);
                 }

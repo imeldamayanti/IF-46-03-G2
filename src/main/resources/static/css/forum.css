@@ -101,7 +101,6 @@ CSS STRUCTURE:
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-
   html {
     box-sizing: border-box;
   }
@@ -347,68 +346,9 @@ CSS STRUCTURE:
   /*--------------------------------------------------------------
   /** 3.3 Table
   --------------------------------------------------------------*/
-  table {
-    width: 100%; 
-    border-collapse: collapse; 
-    margin: 20px auto; 
-  }
-  
-  th {
-    font-weight: 300; 
-    text-align: center; 
-    padding: 12px 15px; 
-    border-bottom: 2px solid #333; 
-  }
-  
-  td {
-    padding: 12px 15px; 
-    text-align: center; 
-    border-bottom: 1px solid #ddd; 
-  }
-  
-  td img {
-    max-width: 80px; 
-    height: auto; 
-  }
-  .heart {
-    transition: fill 0.3s, stroke 0.3s;
-  }
-  
-  .heart-outline {
-    fill: none;
-    stroke: #ccc; /* warna hati outline */
-  }
-  
-  .heart-filled {
-    fill: red;
-    stroke: red;
-  }
-  
-  .like-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .restore-btn {
-    background: none;
-    border: none; 
-    padding: 0; 
-    cursor: pointer; 
-    font-size: 18px; 
-    color: #606060; 
-  }
-  
-  .restore-btn:hover {
-    color: #22c55e; 
-  }
-  
-  
-  h1 {
-    text-align: left;
-    font-weight: bold;
-    font-size: 3rem;
-    margin-bottom: 20px;
+  th{
+    font-weight: 300;
+    letter-spacing: 0.06rem;
   }
   
   /*--------------------------------------------------------------
@@ -1254,10 +1194,6 @@ CSS STRUCTURE:
     color: var(--gray-color-500);
   }
   
-  .banner-content {
-    margin-right: 40px;
-  }
-
   @media only screen and (max-width: 765px) {
     section#billboard{
       height: 100vh !important;
@@ -1324,7 +1260,6 @@ CSS STRUCTURE:
   .rating svg.star {
     width: 24px;
     height: 24px;
-    color: var(--star-color);
   }
   
   /* 4.7 Brands
@@ -1404,7 +1339,6 @@ CSS STRUCTURE:
 .book-detail-background {
   width: 100%;
   object-fit: cover;
-  max-height: 400px;
 }
 
 /* Content Container */
@@ -1444,8 +1378,8 @@ CSS STRUCTURE:
 
 .button-container {
   text-align: center;
-  margin-top: 40px;
-  max-width: 100%;
+  margin-top: 40px; /* Space between the image and the button */
+  max-width: 100%; /* Ensure button is centered under the image */
 }
 
 .add-to-list {
@@ -1486,14 +1420,11 @@ CSS STRUCTURE:
 }
 
 .rating {
-  margin-top: 0;
+  margin-top: -5px;
   display: flex;
   align-items: center;
   gap: 5px;
-}
-
-.details-container .rating{
-  margin-top: -4px ;
+  color: var(--star-color);
 }
 
 .rating-description {
@@ -1510,44 +1441,10 @@ CSS STRUCTURE:
 }
 
 .description {
-  margin-top: 24px;
-  color: var(--black-color);
-  position: relative;
-  text-align: center;
-}
-
-.description p {
-  font-size: 0.9em;
-  text-align: justify;
-}
-
-.description-text {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* Show only 4 lines initially */
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-}
-
-.description-text.expanded {
-  -webkit-line-clamp: unset; /* Show full text when expanded */
-  overflow: visible;
-}
-
-.see-more-link {
-  display: inline-block;
   margin-top: 10px;
   color: var(--black-color);
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: color 0.3s ease;
+  position: relative;
 }
-
-.see-more-link:hover {
-  color: var(--primary-dark-color);
-}
-
 
 /* Container for genres */
 .genres-container {
@@ -1555,7 +1452,7 @@ CSS STRUCTURE:
   flex: 2; 
   justify-content: flex-start;  /* Align genres to the left */
   align-items: center;  /* Align vertically at the start */
-  margin-top: 20px;  /* Remove or adjust top margin if necessary */
+  margin-top: 0;  /* Remove or adjust top margin if necessary */
   font-family: 'Arial', sans-serif;
 }
 
@@ -1592,7 +1489,7 @@ CSS STRUCTURE:
 }
 
 .page-and-date {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 12px;
   color: var(--accent-color);
   display: flex;
@@ -1620,30 +1517,6 @@ CSS STRUCTURE:
 
   .details-container {
     max-width: 100%;
-  }
-
-  .book-detail-background {
-    max-height: 300px;
-  }
-}
-
-@media (max-width: 480px) {
-  .content-container {
-    flex-direction: column;
-  }
-
-  .image-container {
-    width: 200px;
-    height: 300px;
-    margin: 0 auto;
-  }
-
-  .details-container {
-    max-width: 100%;
-  }
-
-  .book-detail-background {
-    max-height: 200px;
   }
 }
 
@@ -1707,24 +1580,210 @@ CSS STRUCTURE:
     height: 480px;
   }
 
-  .floating-button {
-    pointer-events: auto;
+  /*----------------------------------------------*/
+  /* 6. FORUM STRUCTURE */
+  /*----------------------------------------------*/
+
+  .top-discuss {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #c76e6f;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 24px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%;
     z-index: 1000; 
+    background-color: white;
+    background-size: 100vh;
+  }
+
+  .bottom-discuss {
+    position: sticky;
+    padding-top: 20px;
+    z-index: 0; 
+  }
+
+  #discuss-btn {
+    padding: 15px 20px;
+    font-size: 10pt;
+  }
+
+  #discuss-btn:hover {
+    background-color: #f08585;
+  }
+
+  #popular-btn {
+    background-color: white;
+    color: black;
+    padding: 5px 25px;
+    font-size: 10pt;
+    border: 2px solid white;
+  }
+
+  #popular-btn:hover {
+    border: 2px solid #C76E6F;
+  }
+
+  #latest-btn {
+    background-color: white;    
+    color: black;
+    padding: 5px 25px;
+    font-size: 10pt;
+    border: 2px solid white;
+  }
+
+  #latest-btn:hover {
+    border: 2px solid #C76E6F;
+  }
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+    background: #ddd;
+    border-radius: 50%;
+  }
+
+  .forum-profile h6{
+    font-size: 14px;
+    margin-bottom: -5px;
+  }
+
+  .forum-profile small{
+    font-size: 10px;
+  }
+
+  .date-forum {
+    font-size: 10pt;
+  }
+
+  .post-content {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title:hover{
+    color: gray;
+  }
+
+  .discuss-link {
+    font-size: 12px;
+    color: black; /* Warna teks default */
+    text-decoration: none; /* Hilangkan garis bawah */
+  }
+  
+  .discuss-link:hover {
+    color: gray; /* Warna teks saat hover */
+    text-decoration: none; /* Tambahkan garis bawah saat hover */
+  }
+
+  .discuss-link i {
+    margin-top: 0.2rem; /* Sesuaikan untuk penyesuaian vertikal ikon */
+  }
+  
+  .discuss-link span {
+    margin-top: 0; /* Pastikan tidak ada margin tambahan pada teks */
+  }
+
+  /*----------------------------------------------*/
+  /* 7. FORUM-DISCUSS STRUCTURE */
+  /*----------------------------------------------*/
+  
+  .text-end button{
+    padding: 5px 25px;
+    font-size: 10pt;
+  }
+
+  .text-end button:hover {
+    background-color: #f08585;
+  }
+
+  .input-large {
+    height: 150px; /* Tinggi textarea */
+    font-size: 1rem; /* Ukuran teks */
+    padding: 10px 15px; /* Memberikan ruang di dalam textarea */
+    resize: none; /* Nonaktifkan kemampuan memperbesar */
+    overflow: auto; /* Tampilkan scrollbar jika teks melebihi area */
+  }
+
+  .input-small {
+    width: 90%;
+    min-height: 30px; 
+    font-size: 12px; /* Ukuran teks */
+    padding: 5px 5px; /* Memberikan ruang di dalam textarea */
+    padding-right: 10px; /* Menambahkan jarak antara teks dan scrollbar */
+    resize: none; /* Nonaktifkan kemampuan memperbesar */
+    overflow-y: auto; /* Tampilkan scrollbar jika teks melebihi area */
+  }
+
+  /* Styling untuk scrollbar */
+  .input-small::-webkit-scrollbar {
+    width: 5px; /* Lebar scrollbar */
+  }
+
+  .input-small::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Warna latar belakang track scrollbar */
+    border-radius: 10px; /* Sudut track scrollbar */
+  }
+
+  .input-small::-webkit-scrollbar-thumb {
+    background: #888; /* Warna handle scrollbar */
+    border-radius: 10px; /* Sudut handle scrollbar */
+  }
+
+  .input-small::-webkit-scrollbar-thumb:hover {
+    background: #c7c3c3; /* Warna handle scrollbar saat hover */
+  }
+
+  .char-count {
+    font-size: 10px;
+    margin-left: 5px;
+    color: #555;
+  }
+
+  .post-button {
+    position: absolute;
+    background-color: white;
+    color: #C76E6F;
+    padding: 5px 25px;
+    font-size: 10pt;
+    right: 10px;
+    top: 50%; /* Letakkan tombol di tengah vertikal */
+    transform: translateY(-50%); /* Menyeimbangkan posisi tombol */
+    z-index: 10;
+  }
+
+  .post-button:hover {
+    background-color: white;
+    color: #f08585;
+  }
+
+  .avatar-reply {
+    width: 40px;
+    height: 40px;
+    background: #ddd;
+    border-radius: 50%;
+  }
+
+  #reply-btn {
+    font-size: 12px;
+    color: black; /* Warna teks default */
+    background-color: white;
+  }
+  
+  #reply-btn:hover {    
+    background-color: white;
+    color: gray; /* Warna teks saat hover */
+  }
+
+  #reply-btn i {
+    margin-top: 0.2rem; /* Sesuaikan untuk penyesuaian vertikal ikon */
+  }
+  
+  #reply-btn span {
+    margin-top: 0; /* Pastikan tidak ada margin tambahan pada teks */
+  }
+
+  .hidden {
+    display: none !important;
   }
