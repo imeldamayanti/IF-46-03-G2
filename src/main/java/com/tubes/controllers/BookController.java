@@ -1,6 +1,8 @@
 package com.tubes.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.tubes.service.BookService;
 import com.tubes.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,16 @@ public class BookController {
         return "booksExample";
     }
 
-    @GetMapping("/index")
-    public String getFiction(Model model) {
-        List<Book> Fictionbooks = bookService.getBooksByGenre("iction");
-        System.out.println("Fetched books: " + Fictionbooks);
+    public List<Book> getFiction(String genre) {
+        List<Book> Fictionbooks = bookService.getBooksByGenre(genre);
+        List<Book> LimitedBooks = Fictionbooks.stream().limit(6).collect(Collectors.toList());
 
-        model.addAttribute("books", Fictionbooks);
-
-        return "index";
+        LimitedBooks.forEach(book -> {
+            String[] words = book.getName().split("\\s+");
+            if (words.length > 2) {
+                book.setName(words[0] + " " + words[1]);
+            }
+        });
+        return LimitedBooks;
     }
 }

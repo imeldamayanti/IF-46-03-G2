@@ -61,7 +61,7 @@
             </div>
             <!-- Right Section -->
             <div class="col-md-7 p-5 form-section position-relative">
-                <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/home} + '\''"></button>
+                <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/} + '\''"></button>
                 
                 <h2 class="text-center fw-bold mb-4 mt-1">Sign In</h2>
                 <form method="post" th:action="@{/login}" onsubmit="validateForm(event)">

@@ -1730,3 +1730,28 @@ CSS STRUCTURE:
     transition: background-color 0.3s;
     z-index: 1000; 
   }
+
+  .fixed-size-img {
+    width: 196px; /* Atur lebar gambar sesuai kebutuhan */
+    height: 298px; /* Atur tinggi gambar sesuai kebutuhan */
+    object-fit: cover; /* Potong gambar agar sesuai dengan dimensi */
+    border-radius: 8px; /* Opsional: membuat sudut gambar membulat */
+  }
+
+  .star {
+    width: 20px;
+    height: 20px;
+  }
+
+  .star-fill {
+      fill: #FF9933; /* Warna bintang penuh */
+  }
+
+  .star-half {
+      fill: #FF9933; /* Setengah bintang emas */
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%); /* Potong setengah kiri */
+  }
+
+  .star-empty {
+      fill: lightgray; /* Warna bintang kosong */
+  }

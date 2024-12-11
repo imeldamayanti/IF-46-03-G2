@@ -170,7 +170,7 @@
 
       <nav id="header-nav" class="navbar navbar-expand-lg py-3">
         <div class="container">
-          <a class="navbar-brand" th:href="@{/home}">
+          <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
           </a>
           <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
@@ -181,7 +181,7 @@
           </button>
           <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
             <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" th:href="@{/home}">
+              <a class="navbar-brand" th:href="@{/}">
                 <img th:src="@{/assets/BookNestFix.png}" class="logo">
               </a>
               <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"
@@ -191,7 +191,7 @@
               <ul id="navbar"
                 class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                 <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/home}">Home Page</a>
+                  <a class="nav-link me-4" th:href="@{/}">Home Page</a>
                 </li>
               
                 <!-- <li class="nav-item dropdown">
@@ -423,15 +423,15 @@
             <img 
                 th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
                 th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
-                class="img-fluid rounded-3"
+                class="img-fluid fixed-size-img"
             >
        
             <!-- <h4 class="card-title mb-2 text-capitalize text-dark">
-                <a th:href="@{/home}" th:text="${book.name}"></a>
+                <a th:href="@{/}" th:text="${book.name}"></a>
             </h4> -->
             <!-- <p class="mb-2">
                 <span th:text="${book.description}">Description goes here</span> 
-                <span><a class="text-decoration-underline text-black-50" th:href="@{/home}">Read More</a></span>
+                <span><a class="text-decoration-underline text-black-50" th:href="@{/}">Read More</a></span>
             </p> -->
           </div>
         </div>
