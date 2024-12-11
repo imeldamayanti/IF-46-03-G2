@@ -370,26 +370,37 @@ CSS STRUCTURE:
     max-width: 80px; 
     height: auto; 
   }
-  .heart {
-    transition: fill 0.3s, stroke 0.3s;
-  }
-  
-  .heart-outline {
-    fill: none;
-    stroke: #ccc; /* warna hati outline */
-  }
-  
-  .heart-filled {
-    fill: red;
-    stroke: red;
-  }
-  
-  .like-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }  
-  
+  /* ---- like ---------- */
+/* Awal: Hati tidak berwarna (outline saja) */
+.like-btn svg {
+  fill: none;
+  stroke: black;
+}
+
+/* Setelah diklik: Hati berwarna merah */
+.liked svg {
+  fill: red;
+  stroke: red;
+}
+
+.like-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* ---- delete ---------- */
+.delete-btn {
+  background: none; /* Menghapus background */
+  border: none;     /* Menghapus border */
+  /* color: red;       Warna teks merah */
+  cursor: pointer;  /* Mengubah cursor menjadi pointer saat hover */
+}
+
+.delete-btn:hover {
+  background: none; /* Pastikan background tidak muncul saat hover */
+}
+
   h1 {
     text-align: left;
     font-weight: bold;
