@@ -1,9 +1,11 @@
 package com.tubes.controllers;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.security.core.Authentication;
 
 
 
@@ -11,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 // @RequestMapping("") //ini buat default dimana, misal di 8080 untuk local host
 public class HomeController {
 
-    @GetMapping("/home")
-    public String welcome(){    
+    @GetMapping("/")
+    public String welcome(Model model){    
+        Authentication user = SecurityContextHolder.getContext().getAuthentication();
+
+        model.addAttribute("username", user.getName());
+
         return "index"; //ini ambil dari resources/template/index.html
     }
 
