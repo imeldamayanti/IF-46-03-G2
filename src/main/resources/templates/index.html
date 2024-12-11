@@ -188,17 +188,12 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a th:href="@{signin}">
+                    <a th:href="${username != null} ? @{/logout} : @{/signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
                     </a>
-                    
-                    <!-- Modal -->
-                    
-                    
                   </li>               
-                 
                 </ul>
               </div>
             </div>
@@ -217,6 +212,7 @@
               <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
                 <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
                   <div class="banner-content">
+                    <h2 style="color: #f1f1f1;">Hello, <span th:text="${username}"></span></h2>
                     <h2 style="color: #f1f1f1;">Find and Rate Book Collection</h2>
                     <p style="color: #f1f1f1;">Discover your next favorite read and share your thoughts!</p>      
                     <a href="index.html" class="btn mt-3">Discover</a>

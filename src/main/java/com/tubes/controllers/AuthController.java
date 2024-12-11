@@ -19,6 +19,7 @@
 
 //     @PostMapping("/login")
 //     public String login(@RequestBody AuthRequest request) {
+// 		System.err.println(request);
 //         authenticationManager.authenticate(
 //             new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
 //         );

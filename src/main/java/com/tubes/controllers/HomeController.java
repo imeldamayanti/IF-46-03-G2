@@ -3,6 +3,7 @@ package com.tubes.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tubes.entity.Book;
 import com.tubes.service.BookService;
 
+import org.springframework.security.core.Authentication;
 
 
 
 @Controller 
-// @RequestMapping("") //ini buat default dimana, misal di 8080 untuk local host
 public class HomeController {
     @Autowired
     private BookController bookController;
 
 
     @GetMapping("/")
-    public String welcome(Model model){   
+    public String Books(Model model){   
       
         List<Book> Fictionbooks = bookController.getFiction("fiction");
         model.addAttribute("books", Fictionbooks);
@@ -30,9 +31,21 @@ public class HomeController {
         List<Book> Comedybooks = bookController.getFiction("comedy");
         model.addAttribute("comedy", Comedybooks);
 
+        // auth user
+        Authentication user = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("username", user.getName());
 
-        return "index"; //ini ambil dari resources/template/index.html
+        return "index"; 
     }
+
+    // @GetMapping("/")
+    // public String welcome(Model model){    
+    //     Authentication user = SecurityContextHolder.getContext().getAuthentication();
+
+    //     model.addAttribute("username", user.getName());
+
+    //     return "index"; //ini ambil dari resources/template/index.html
+    // }
 
     @GetMapping("/forum")
     public String forum(){

@@ -35,9 +35,9 @@
             }
 
             // Jika validasi berhasil, arahkan ke halaman index.html
-            if (isValid) {
-                window.location.href = 'index.html';
-            }
+            // if (isValid) {
+            //     window.location.href = 'index.html';
+            // }
         }
     </script>
 </head>
@@ -50,13 +50,12 @@
                 <h2 class="fw-bold">Welcome Back!</h2>
                 <p class="mt-2 text-center">Sign in and start your journey</p>
                 <p class="mt-5 text-center">Don’t have an account yet?</p>
-                <!--button type="button" class="signup-btn py-2 w-75" 
-                        th:onclick="'window.location.href=\'' + @{/signup} + '\''">
+                <a class="signup-btn py-2 w-75" th:href="@{/signup}">
                     Sign Up
-                </button-->
-                <button type="button" class="signup-btn py-2 w-75" onclick="window.location.href='signup.html';">
+                </a>
+                <!-- <button type="button" class="signup-btn py-2 w-75" th:onclick="'window.location.href=\'' + @{/signup} + '\''">
                     Sign Up
-                </button>
+                </button> -->
 
             </div>
             <!-- Right Section -->
@@ -64,7 +63,8 @@
                 <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/} + '\''"></button>
                 
                 <h2 class="text-center fw-bold mb-4 mt-1">Sign In</h2>
-                <form method="post" th:action="@{/login}" onsubmit="validateForm(event)">
+                <!-- <form method="post" th:action="@{/login}" onsubmit="validateForm(event)"> -->
+                <form method="post" th:action="@{/api/auth/login}">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                         <label for="username">Username</label>
@@ -77,10 +77,10 @@
                         <a th:href="@{/forgotpw}" class="small forgot-password-link">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn w-100 main-btn">Sign In</button>
-                    <div class="text-center my-3">or</div>
+                    <!-- <div class="text-center my-3">or</div>
                     <button type="button" class="btn btn-outline-dark w-100 py-2 rounded-3">
                         <i class="fab fa-google me-2"></i> Sign In with Google
-                    </button>
+                    </button> -->
                 </form>
             </div>
         </div>

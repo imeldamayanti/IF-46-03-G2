@@ -8,7 +8,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.tubes.entity.Admin;
@@ -23,8 +24,12 @@ public class UserSeeder {
     @Autowired
     private UserRepository userRepository;
 
-    // @Autowired
-    // private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public UserSeeder() {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @PostConstruct
     public void seedUsers() {
@@ -55,8 +60,7 @@ public class UserSeeder {
                     Admin admin = new Admin();
                     admin.setUsername(username);
                     admin.setEmail(email);
-                    // admin.setPassword(passwordEncoder.encode(rawPassword));
-                    admin.setPassword(rawPassword);
+                    admin.setPassword(passwordEncoder.encode(rawPassword));
                     admin.setFirstName(firstName);
                     admin.setLastName(lastName);
                     admin.setDateJoined(dateJoined);
@@ -66,8 +70,7 @@ public class UserSeeder {
                     Reader reader = new Reader();
                     reader.setUsername(username);
                     reader.setEmail(email);
-                    // reader.setPassword(passwordEncoder.encode(rawPassword));
-                    reader.setPassword(rawPassword);
+                    reader.setPassword(passwordEncoder.encode(rawPassword));
                     reader.setFirstName(firstName);
                     reader.setLastName(lastName);
                     reader.setDateJoined(dateJoined);
