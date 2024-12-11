@@ -1,0 +1,127 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #D7D4CB;
+}
+
+.content-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.left-section {
+    /*background: url('assets/bgbook1.png') no-repeat center center;*/
+    background: url('../assets/bgbook1.png') no-repeat center center;
+    background-size: cover;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 10px 0 0 10px;
+}
+
+.right-section {
+    background-color: #FDFCF8;
+    border-radius: 0 10px 10px 0;
+}
+
+.form-control {
+    background-color: #E8E8E8;
+}
+
+.input-field {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.signup-btn, .main-btn {
+    background-color: #C8C6BA;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.signup-btn:hover, .main-btn:hover {
+    background-color: #aeaca0;
+    color: #fff;
+}
+
+.forgot-password-link {
+    color: #424240;
+    text-decoration: none;
+}
+
+.forgot-password-link:hover {
+    color: #C8C6BA;
+}
+
+.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.container-xl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.content-wrapper {
+    max-width: 900px;
+    width: 100%; 
+    background-color: #f8f9fa; 
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*---------------------- sign up --------------------*/
+
+.image-section {
+    background: url('../assets/bgbook1.png') no-repeat center center;
+    background-size: cover;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+}
+
+.form-section {
+    background-color: #FDFCF8;
+    border-radius: 0 10px 10px 0;
+    position: relative;
+}
+
+.logo {
+    width: 5em;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
