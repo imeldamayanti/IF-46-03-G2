@@ -1,49 +1,60 @@
-// package com.tubes.controllers;
+package com.tubes.controllers;
 
-// import org.springframework.security.authentication.AuthenticationManager;
-// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-// import org.springframework.web.bind.annotation.*;
-// import com.tubes.utils.jwtUtils;
+import java.util.Map;
 
-// @RestController
-// @RequestMapping("/api/auth")
-// public class AuthController {
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 
-//     private final AuthenticationManager authenticationManager;
-//     private final jwtUtils jwtUtil;
+import com.tubes.service.UserService;
+import com.tubes.utils.jwtUtils;
 
-//     public AuthController(AuthenticationManager authenticationManager, jwtUtils jwtUtil) {
-//         this.authenticationManager = authenticationManager;
-//         this.jwtUtil = jwtUtil;
-//     }
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
 
-//     @PostMapping("/login")
-//     public String login(@RequestBody AuthRequest request) {
-// 		System.err.println(request);
-//         authenticationManager.authenticate(
-//             new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
-//         );
-//         return jwtUtil.generateToken(request.getUsername());
-//     }
-// }
+    private final UserService userService;
 
-// class AuthRequest {
-//     private String username;
-//     private String password;
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
-//     public String getUsername() {
-//         return username;
-//     }
+    @PostMapping("/signup")
+    public ResponseEntity<?> signup(@RequestBody Map<String, String> request) throws Exception {
 
-//     public void setUsername(String username) {
-//         this.username = username;
-//     }
+		String firstName = request.get("firstName");
+		String lastName = request.get("lastName");
+		String email = request.get("email");
+		String username = request.get("username");
+		String password = request.get("password");
 
-//     public String getPassword() {
-//         return password;
-//     }
+		if (userService.checkEmailExisting(email)) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+				.contentType(MediaType.APPLICATION_JSON)
+                .body(Map.of("message", "User with email " + email + " already exists."));
+        }
 
-//     public void setPassword(String password) {
-//         this.password = password;
-//     }
-// }
+		if (userService.checkUsernameExisting(email)) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+				.contentType(MediaType.APPLICATION_JSON)
+                .body(Map.of("message", "User with username " + username + " already exists."));
+        }
+
+		try {
+			userService.saveReader(firstName, lastName, email, username, password);
+
+			return ResponseEntity.ok(Map.of("message", "Signup successful"));
+
+        } catch (Exception e) {
+            return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(Map.of("message", e.getMessage()));
+        }
+    }
+}

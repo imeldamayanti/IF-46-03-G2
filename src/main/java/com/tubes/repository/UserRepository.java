@@ -1,5 +1,7 @@
 package com.tubes.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
 
     User findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
 
     @Query(value = "SELECT COUNT(*) FROM information_schema.columns WHERE table_name = 'user' AND column_name = 'dtype'", nativeQuery = true)
     Long checkIfColumnExists();
