@@ -635,17 +635,24 @@
           <h3 class="mb-1">Let's Talk</h3>
           <p>Sharing, find support, and connect with community</p>
         </div>
-        <div class="card p-3 shadow bg-white rounded">
-          <div class="mb-2">
-            <textarea
-              class="form-control border-0 shadow-none input-large"
-              placeholder="Write down your interesting thoughts or theories here..."
-            ></textarea>
+        <form>
+          <div class="title card p-3 shadow bg-white rounded mb-3">
+            <input type="text" class="form-control forum-title input-default" placeholder="Write your forum title here..." style="border: none; outline: none; background-color: transparent;" required>
+            <div class="char-count-title" style="font-size: 14px; color: #555;"></div>
           </div>
-          <div class="text-end">
-            <button class="btn btn-sm rounded-3">Send</button>
+          <div class="content card p-3 shadow bg-white rounded">
+            <div class="content-form mb-2">
+              <textarea
+                class="form-control forum-content border-0 shadow-none input-large"
+                placeholder="Write down your interesting thoughts or theories here..." required
+              ></textarea>
+            </div>
+            <div class="text-end" style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 10px;">
+              <div class="char-count" style="font-size: 14px; color: #555;">0/2500</div>
+              <button class="btn btn-sm rounded-3">Send</button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </section>
 
@@ -657,5 +664,76 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <!--JavaScript untuk input judul forum-->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const inputTitle = document.querySelector(".forum-title"); // Input textarea
+        const charCountDisplay = document.querySelector(".char-count-title"); // Counter
+        const maxChars = 100; // Batas maksimum karakter
+    
+        // Fungsi untuk memperbarui tampilan jumlah karakter dan membatasi input
+        inputTitle.addEventListener("input", function () {
+          const textLength = inputTitle.value.length;
+    
+          // Menampilkan jumlah karakter yang digunakan
+          charCountDisplay.textContent = `${textLength}/${maxChars}`;
+    
+          // Membatasi input jika melebihi batas maksimum
+          if (textLength > maxChars) {
+            inputTitle.value = inputTitle.value.substring(0, maxChars);
+            charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
+          }
+        });
+    
+        // Inisialisasi tampilan jumlah karakter saat halaman dimuat
+        charCountDisplay.textContent = `0/${maxChars}`;
+      });
+    </script>
+    
+    <!--JavaScript untuk text area content forum-->
+    <script>
+      const textarea = document.querySelector(".forum-content");
+      const charCountDisplay = document.querySelector(".char-count");
+      const maxChars = 2500;
+
+      // Fungsi untuk menyesuaikan tinggi textarea
+      function adjustHeight() {
+        const textLength = textarea.value.length;
+        let newHeight;
+
+        if (textLength === 0) {
+          newHeight = 100; // Jika tidak ada teks, set tinggi menjadi 100px
+        } else {
+          newHeight = 100 + Math.min(100, textLength / 10); // Menghitung tinggi baru
+        }
+
+        // Memastikan tinggi tidak kurang dari 100px
+        newHeight = Math.max(newHeight, 100);
+
+        // Menyesuaikan tinggi textarea
+        textarea.style.height = `${newHeight}px`;
+      }
+
+      // Event listener untuk setiap input pada textarea
+      textarea.addEventListener("input", function () {
+        const textLength = textarea.value.length;
+
+        // Menampilkan jumlah karakter
+        charCountDisplay.textContent = `${textLength}/${maxChars}`;
+
+        // Membatasi jumlah karakter maksimal 2500
+        if (textLength > maxChars) {
+          textarea.value = textarea.value.substring(0, maxChars);
+          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
+        }
+
+        // Menyesuaikan tinggi textarea sesuai jumlah karakter
+        adjustHeight();
+      });
+
+      // Menyesuaikan tinggi textarea saat halaman dimuat pertama kali
+      adjustHeight();
+    </script>
   </body>
 </html>

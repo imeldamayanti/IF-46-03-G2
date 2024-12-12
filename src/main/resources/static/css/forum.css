@@ -1687,6 +1687,26 @@ CSS STRUCTURE:
     margin-top: 0; /* Pastikan tidak ada margin tambahan pada teks */
   }
 
+  .delete-btn {
+    font-size: 12px;
+    color: red; /* Warna teks default */
+    text-decoration: none; /* Hilangkan garis bawah */
+    align-items: center;
+  }
+  
+  .delete-btn:hover {
+    color: #8c0000; /* Warna teks saat hover */
+    text-decoration: none; /* Tambahkan garis bawah saat hover */
+  }
+
+  .delete-btn i {
+    margin-top: 0; /* Sesuaikan untuk penyesuaian vertikal ikon */
+  }
+  
+  .delete-btn span {
+    margin-left: 0.4rem; /* Pastikan tidak ada margin tambahan pada teks */
+  }
+
   /*----------------------------------------------*/
   /* 7. FORUM-DISCUSS STRUCTURE */
   /*----------------------------------------------*/
