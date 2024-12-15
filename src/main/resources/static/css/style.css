@@ -1156,6 +1156,12 @@ CSS STRUCTURE:
     object-fit: contain;
   }
 
+  .font-header {
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    color: var(--black-color);
+  }
   .site-header {
     background-color: #F1EFE3;
     position: fixed;
@@ -1657,6 +1663,8 @@ CSS STRUCTURE:
     text-align: right;
     cursor: pointer;
   }
+
+  
   
   /* 5.1 Single Product Page
   /*----------------------------------------------*/
@@ -1705,4 +1713,51 @@ CSS STRUCTURE:
   .image-holder img {
     width:  320px;
     height: 480px;
+  }
+
+  .floating-button {
+    pointer-events: auto;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #c76e6f;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 1000; 
+  }
+
+  .fixed-size-img {
+    width: 196px; /* Atur lebar gambar sesuai kebutuhan */
+    height: 298px; /* Atur tinggi gambar sesuai kebutuhan */
+    object-fit: cover; /* Potong gambar agar sesuai dengan dimensi */
+    border-radius: 8px; /* Opsional: membuat sudut gambar membulat */
+  }
+
+  .star {
+    width: 20px;
+    height: 20px;
+  }
+
+  .star-fill {
+      fill: #FF9933; /* Warna bintang penuh */
+  }
+
+  .star-half {
+      fill: #FF9933; /* Setengah bintang emas */
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%); /* Potong setengah kiri */
+  }
+
+  .star-empty {
+      fill: lightgray; /* Warna bintang kosong */
   }

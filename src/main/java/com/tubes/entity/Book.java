@@ -9,7 +9,7 @@ public class Book {
      * Migration
      */
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "custom_sequence")
     // @SequenceGenerator(name = "custom_sequence", sequenceName = "custom_seq", allocationSize = 1)
     private Long id;
@@ -28,7 +28,7 @@ public class Book {
     @Lob
     private String description;
 
-    // @Column(nullable = true)
+    @Column(nullable = true)
     private double rate;
 
     @Column(nullable = true)
