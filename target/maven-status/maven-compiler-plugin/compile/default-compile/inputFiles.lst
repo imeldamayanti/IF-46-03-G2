@@ -1,5 +1,6 @@
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/TubesMvcApplication.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/config/SecurityConfig.java
+/Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/controllers/AdminController.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/controllers/AuthController.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/controllers/BookController.java
 /Users/kholidkamali/Playground/tubes_PBO/src/main/java/com/tubes/controllers/ForumController.java

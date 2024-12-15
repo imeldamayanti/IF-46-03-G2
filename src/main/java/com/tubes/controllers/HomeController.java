@@ -7,9 +7,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.entity.Book;
+import com.tubes.entity.User;
+import com.tubes.repository.UserRepository;
 import com.tubes.service.BookService;
 
 import org.springframework.security.core.Authentication;
@@ -21,19 +24,21 @@ public class HomeController {
     @Autowired
     private BookController bookController;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
     public String Books(Model model){   
-      
+
         List<Book> Fictionbooks = bookController.getFiction("fiction");
         model.addAttribute("books", Fictionbooks);
 
         List<Book> Comedybooks = bookController.getFiction("comedy");
         model.addAttribute("comedy", Comedybooks);
 
-        // auth user
-        Authentication user = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", user.getName());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        model.addAttribute("user", user);
 
         return "index"; 
     }
@@ -95,4 +100,3 @@ public class HomeController {
     
     // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
-    
