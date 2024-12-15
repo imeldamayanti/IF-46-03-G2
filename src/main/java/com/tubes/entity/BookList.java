@@ -1,59 +1,34 @@
-package com.tubes.entity;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-@Entity
 public class BookList {
-    
-    /**
-     * Migration
-     */
 
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
+    private List<Book> books; // List of books in the booklist
+    private int bookCount;    // Total count of books
+    private Date lastUpdated; // Date when the booklist was last updated
+    private List<Boolean> likedBooks; // List to store liked status of books
 
-    private ArrayList<Book> books;
-    private int bookCount;
-    private String lastUpdated;
-    private ArrayList<Boolean> likedBooks;
-
-    /**
-     * Constructor
-     */
-
-    public BookList(){
-        this.books = new ArrayList<Book>();
-        this.bookCount = 0;
-        this.lastUpdated = "";
-        this.likedBooks = new ArrayList<Boolean>();
+    // Constructor
+    public BookList() {
+        books = new ArrayList<>();
+        likedBooks = new ArrayList<>();
+        bookCount = 0;
+        lastUpdated = new Date();
     }
 
-    /**
-     * Getter and Setter
-     */    
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public ArrayList<Book> getBooks() {
+    // Getter and Setter for books
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(ArrayList<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
+        this.bookCount = books.size();
+        this.lastUpdated = new Date();
     }
 
+    // Getter and Setter for bookCount
     public int getBookCount() {
         return bookCount;
     }
@@ -62,47 +37,60 @@ public class BookList {
         this.bookCount = bookCount;
     }
 
-    public String getLastUpdated() {
+    // Getter and Setter for lastUpdated
+    public Date getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(String lastUpdated) {
+    public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
-    public ArrayList<Boolean> getLikedBooks() {
+    // Getter and Setter for likedBooks
+    public List<Boolean> getLikedBooks() {
         return likedBooks;
     }
 
-    public void setLikedBooks(ArrayList<Boolean> likedBooks) {
+    public void setLikedBooks(List<Boolean> likedBooks) {
         this.likedBooks = likedBooks;
     }
-    
-    /**
-        * Other Methods
-    */    
 
-    public void addBookToList(Book book){
-        this.books.add(book);
+    // Add a book to the list
+    public void addBookToList(Book book) {
+        books.add(book);
+        likedBooks.add(false); // Default liked status is false
+        bookCount++;
+        lastUpdated = new Date();
     }
 
-    public void removeBookFromBookList(Book book){
-        this.books.remove(book);
+    // Remove a book from the list
+    public void removeBookFromBookList(Book book) {
+        int index = books.indexOf(book);
+        if (index != -1) {
+            books.remove(index);
+            likedBooks.remove(index);
+            bookCount--;
+            lastUpdated = new Date();
+        }
     }
 
-    public void likeTheBook(){
-        // Pas user like buku, index buku yang dilike di arraylist books maka arraylist likedbooks di indeks yang sama jadi true
+    // Like or unlike a book in the list
+    public void likeTheBook(int index, boolean isLiked) {
+        if (index >= 0 && index < likedBooks.size()) {
+            likedBooks.set(index, isLiked);
+            lastUpdated = new Date();
+        }
     }
 
-    public void displayBookList(){
-
+    // Display the book list
+    public void displayBookList() {
+        System.out.println("Book List:");
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            boolean isLiked = likedBooks.get(i);
+            System.out.println((i + 1) + ". " + book.getName() + " (Liked: " + isLiked + ")");
+        }
+        System.out.println("Total Books: " + bookCount);
+        System.out.println("Last Updated: " + lastUpdated);
     }
-
-    // toString for debugging purposes
-    @Override
-    public String toString() {
-        return "BookList{id=" + id + ", books='" + books + "', bookCount='" + bookCount + "', lastUpdated=" 
-        + lastUpdated + ", likedBooks=" + likedBooks + "'}";
-    }
-
 }
