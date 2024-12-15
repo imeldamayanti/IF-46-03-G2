@@ -645,27 +645,27 @@
                   />
                 </div>
                 <div class="forum-profile">
-                  <!-- Render creator's name dynamically -->
-                  <h6 class="text-bold mt-1"> <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span></h6>
+                  <h6 class="text-bold mt-1">
+                    <!-- Correctly display user name without links -->
+                    <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span>
+                  </h6>
                   <small class="date-forum" th:text="${forum.dateUploaded}"></small>
                 </div>
               </div>
-              <a th:href="@{discuss}" class="card-title fw-bold" th:text="${forum.title}">
-              </a>
+              <!-- Only title gets clickable link -->
+              <a th:href="@{/discuss(forumId=${forum.id})}" class="card-title fw-bold" th:text="${forum.title}"></a>
               <p class="post-content" th:text="${forum.forumContent}"></p>
               <div class="post-footer d-flex justify-content-start align-items-center">
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                <span class="reply-count">
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <strong th:text="${forum.replyCount}"></strong>
-                </span>
+                <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
+                  <span class="reply-count">
+                    <i class="bi bi-chat-left-text me-2"></i>
+                    <strong th:text="${forum.replyCount}"></strong>
+                  </span>
+                </a>
               </div>
             </div>
           </div>
-        </div>
+        </div>        
     </section>
 
     <script src="js/jquery-1.11.0.min.js"></script>
