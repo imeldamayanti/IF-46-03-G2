@@ -179,7 +179,7 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
                 </li>
-                <li th:if="${user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
+                <li th:if="${user == null or user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
                   <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
                 </li>
               </ul>
