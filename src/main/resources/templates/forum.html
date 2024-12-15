@@ -427,7 +427,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="@{signin}">
+                    <a href="@{/signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -659,7 +659,7 @@
                 <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
                   <span class="reply-count">
                     <i class="bi bi-chat-left-text me-2"></i>
-                    <strong th:text="${forum.replyCount}"></strong>
+                    <strong th:text="${forum.replyCount}"></strong> Reply(s)
                   </span>
                 </a>
               </div>

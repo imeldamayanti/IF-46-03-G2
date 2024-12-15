@@ -36,17 +36,17 @@ public class HomeController {
         return "auth";
     }
     
-    @GetMapping("signin")
+    @GetMapping("/signin")
     public String signin() {
         return "signin";
     }
 
-    @GetMapping("signup")
+    @GetMapping("/signup")
     public String signup() {
         return "signup";
     }
     
-    @GetMapping("forgotpw")
+    @GetMapping("/forgotpw")
     public String forgotpw() {
         return "forgotpw";
     }
