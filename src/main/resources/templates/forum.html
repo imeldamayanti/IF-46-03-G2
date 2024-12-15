@@ -379,52 +379,36 @@
                   <a class="nav-link me-4" th:href="@{/home}">Home Page</a>
                 </li>
 
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link me-4 dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-expanded="false"
-                    >Pages</a
-                  >
+                <!-- <li class="nav-item dropdown">
+                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                    aria-expanded="false">Pages</a>
                   <ul class="dropdown-menu animate slide border">
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Biography</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">Biography</a>
                     </li>
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Fiction</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">Fiction</a>
                     </li>
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Romance</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">Romance</a>
                     </li>
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Comic</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">Comic</a>
                     </li>
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >History</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">History</a>
                     </li>
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Poetry</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">Poetry</a>
                     </li>
                     <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Thriller</a
-                      >
+                      <a href="index.html" class="dropdown-item fw-light">Thriller</a>
                     </li>
+                  
                   </ul>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
@@ -626,7 +610,7 @@
       <div class="container">
         <div class="top-discuss">
           <div class="section-title d-flex flex-column mb-2">
-            <h3 class="mb-1">Let's Talk</h3>
+            <h3 class="mb-1 mt-3">Let's Talk</h3>
             <p>Sharing, find support, and connect with community</p>
           </div>
 
@@ -640,7 +624,7 @@
           </a>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-3">
             <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
               Popular
             </button>
@@ -682,7 +666,6 @@
             </div>
           </div>
         </div>
-      </div>
     </section>
 
     <script src="js/jquery-1.11.0.min.js"></script>
