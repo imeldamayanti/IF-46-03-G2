@@ -649,126 +649,35 @@
         </div>
 
         <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
+          <div class="card mb-3 border shadow-sm" th:each="forum : ${forums}">
             <div class="card-body">
               <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
+                <div class="avatar-reply me-3">
                   <img
-                    src="assets/avt.jpg"
+                    th:src="@{/assets/avt.jpg}"
                     alt="Avatar"
                     class="rounded-circle"
                     style="width: 45px; height: 45px"
                   />
                 </div>
                 <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
+                  <!-- Render creator's name dynamically -->
+                  <h6 class="text-bold mt-1"> <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span></h6>
+                  <small class="date-forum" th:text="${forum.dateUploaded}"></small>
                 </div>
               </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
+              <a th:href="@{discuss}" class="card-title fw-bold" th:text="${forum.title}">
+              </a>
+              <p class="post-content" th:text="${forum.forumContent}"></p>
+              <div class="post-footer d-flex justify-content-start align-items-center">
                 <a
                   th:href="@{discuss}"
                   class="btn-link discuss-link p-0 d-flex align-items-center"
                 >
+                <span class="reply-count">
                   <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
+                  <strong th:text="${forum.replyCount}"></strong>
+                </span>
               </div>
             </div>
           </div>

@@ -1,7 +1,9 @@
 package com.tubes.controllers;
 
 import com.tubes.repository.UserRepository;
+import com.tubes.repository.ForumRepository;
 import com.tubes.repository.ReplyRepository;
+import com.tubes.entity.Forum;
 import com.tubes.entity.Reply;
 import com.tubes.entity.User;
 
@@ -24,6 +26,9 @@ public class ForumController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ForumRepository forumRepository;
 
     @GetMapping("/discuss")
     public String showDiscussionPage(Model model) {
@@ -54,5 +59,36 @@ public class ForumController {
 
         return "discuss";
     }
+
+    @GetMapping("/forum")
+    public String showForumPage(Model model){
+        List<Forum> forums = forumRepository.findAll();
+
+        Map<Integer, String> userMap = userRepository.findAll()
+                                                    .stream()
+                                                    .collect(Collectors.toMap(
+                                                        user -> user.getId().intValue(),  // Ensure type is Integer
+                                                        User::getUsername
+                                                    ));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+
+        List<Map<String, Object>> formattedReplies = forums.stream().map(forum -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", forum.getId());
+            map.put("createdBy", forum.getCreatedBy());
+            map.put("title", forum.getTitle());
+            map.put("forumContent", forum.getForumContent());
+            map.put("dateUploaded", forum.getDateUploaded().format(formatter));
+            map.put("replyCount", forum.getRepliesCount());
+            return map;
+        }).collect(Collectors.toList());
+
+        model.addAttribute("forums", formattedReplies);
+        model.addAttribute("userMap", userMap);
+
+        return "forum";
+    }
+
 }
 

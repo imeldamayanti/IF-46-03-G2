@@ -15,11 +15,6 @@ public class HomeController {
     public String welcome(){    
         return "index"; //ini ambil dari resources/template/index.html
     }
-
-    @GetMapping("/forum")
-    public String forum(){
-        return "forum";
-    }
     
     @GetMapping("/mybooks")
     public String mybooks() {
