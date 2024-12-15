@@ -179,13 +179,13 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
                 </li>
-                <li class="nav-item">
+                <li th:if="${user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
                   <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
                 </li>
               </ul>
               <div class="user-items d-flex">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
-                  <li th:if="${user != null and user.getUsername() != null and user.getRole() == 'Admin'}" class="pe-3">
+                  <li th:if="${user != null and user.getUsername() != null and user.getRole() == 'ROLE_Admin'}" class="pe-3">
                     <a th:href="@{/admin/}" class="icon-config">
                       <svg class="icon-config">
                         <use xlink:href="#config"></use>
