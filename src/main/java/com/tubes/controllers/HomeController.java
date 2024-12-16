@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
 import com.tubes.repository.UserRepository;
-import com.tubes.service.BookService;
+
 
 import org.springframework.security.core.Authentication;
 
@@ -52,10 +53,22 @@ public class HomeController {
     //     return "index"; //ini ambil dari resources/template/index.html
     // }
 
-    @GetMapping("/mybooks")
-    public String mybooks() {
-        return "mybooks";
+    @Controller
+    public class MyBooksController {
+
+        @GetMapping("/mybooks")
+        public String showMyBooksPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+            if (userDetails == null) {
+                // Jika user tidak login, arahkan ke halaman login
+                return "redirect:/signin";
+            }
+
+            // Jika login, tampilkan halaman MyBooks
+            model.addAttribute("user", userDetails);
+            return "mybooks";
+        }
     }
+
 
     @GetMapping("/bookdetail")
     public String bookdetail() {

@@ -179,9 +179,9 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
                 </li>
-                <li th:if="${user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
-                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4" th:href="@{/mybooks}" >MyBooks</a>
+                </li>                
               </ul>
               <div class="user-items d-flex">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
