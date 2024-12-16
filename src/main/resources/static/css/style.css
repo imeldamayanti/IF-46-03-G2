@@ -1769,9 +1769,10 @@ color: #F1EFE3 !important;
 
   .fixed-size-img {
     width: 196px; /* Atur lebar gambar sesuai kebutuhan */
-    height: 298px; /* Atur tinggi gambar sesuai kebutuhan */
+    height: 298px !important;/* Atur tinggi gambar sesuai kebutuhan */
     object-fit: cover; /* Potong gambar agar sesuai dengan dimensi */
     border-radius: 8px; /* Opsional: membuat sudut gambar membulat */
+    
   }
 
   .star {

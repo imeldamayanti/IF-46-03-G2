@@ -74,7 +74,15 @@ public class BookController {
 
         return "bookdetail";
     }
-    
-   
 
+    @GetMapping("/bookdetailAdmin")
+    public String bookDetailAdmin() {
+        return "bookdetailAdmin";
+    }
+
+
+    @GetMapping("/formbook")
+    public String formbook() {
+        return "formbook";
+    }
 }
