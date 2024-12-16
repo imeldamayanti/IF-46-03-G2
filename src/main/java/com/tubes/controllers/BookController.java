@@ -44,11 +44,6 @@ public class BookController {
         return "bookdetailAdmin";
     }
 
-    @GetMapping("/bookform")
-    public String bookform() {
-        return "bookform";
-    }
-
     @GetMapping("/formbook")
     public String formbook() {
         return "formbook";
