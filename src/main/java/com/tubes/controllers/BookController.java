@@ -48,4 +48,9 @@ public class BookController {
     public String bookform() {
         return "bookform";
     }
+
+    @GetMapping("/formbook")
+    public String formbook() {
+        return "formbook";
+    }
 }
