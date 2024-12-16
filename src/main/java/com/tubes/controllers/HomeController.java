@@ -27,14 +27,14 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BookService bookService;
+
     @GetMapping("/")
     public String Books(Model model){   
 
         List<Book> Fictionbooks = bookController.getFiction("fiction");
         model.addAttribute("books", Fictionbooks);
-
-        List<Book> Comedybooks = bookController.getFiction("comedy");
-        model.addAttribute("comedy", Comedybooks);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
@@ -43,15 +43,15 @@ public class HomeController {
         return "index"; 
     }
 
-    // @GetMapping("/")
-    // public String welcome(Model model){    
-    //     Authentication user = SecurityContextHolder.getContext().getAuthentication();
-
-    //     model.addAttribute("username", user.getName());
-
-    //     return "index"; //ini ambil dari resources/template/index.html
+    // @GetMapping("/books/{genre}")
+    // public String getBooksByGenre(@RequestParam("genre") String genre, Model model) {
+    //     List<Book> booksByGenre = bookService.getBooksByGenre(genre);
+    //     model.addAttribute("books", booksByGenre);
+    //     model.addAttribute("selectedGenre", genre); // Tambahkan genre yang dipilih
+    //     return "booksExample"; // Mengarahkan ke file HTML books.html
     // }
 
+  
     @GetMapping("/forum")
     public String forum(){
         return "forum";
@@ -62,10 +62,10 @@ public class HomeController {
         return "mybooks";
     }
 
-    @GetMapping("/bookdetail")
-    public String bookdetail() {
-        return "bookdetail";
-    }
+    // @GetMapping("/bookdetail")
+    // public String bookdetail() {
+    //     return "bookdetail";
+    // }
 
     @GetMapping("/faq")
     public String faq(){

@@ -416,7 +416,7 @@
     <section id="latest-posts" class="padding-large">
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
-          <!-- <h3 class="d-flex align-items-center">All Book Example</h3> -->
+          <h1 class="d-flex align-items-center justify-content-center" style="text-align: center; width: 100%;" th:text="${selectedgenre != null ? 'Books in' + selectedgenre : 'All Books'}"></h1>
         </div>
         <div class="row">
           <div class="col-md-2 posts mb-4" th:each="book : ${books}">
@@ -425,14 +425,6 @@
                 th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
                 class="img-fluid fixed-size-img"
             >
-       
-            <!-- <h4 class="card-title mb-2 text-capitalize text-dark">
-                <a th:href="@{/}" th:text="${book.name}"></a>
-            </h4> -->
-            <!-- <p class="mb-2">
-                <span th:text="${book.description}">Description goes here</span> 
-                <span><a class="text-decoration-underline text-black-50" th:href="@{/}">Read More</a></span>
-            </p> -->
           </div>
         </div>
       </div>

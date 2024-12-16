@@ -230,7 +230,7 @@
                     </h3>
 
                     <h3 style="color: #f1f1f1;">
-                      <span th:if="${user != null}"> Hello,<span  th:text="${user.getUsername()}" ></span>
+                      <span th:if="${user != null}"> Hello, <span  th:text="${user.getUsername()}" ></span>
                     </h3>
                     <h2 style="color: #f1f1f1;">Find and Rate Book Collection</h2>
                     <p style="color: #f1f1f1;">Discover your next favorite read and share your thoughts!</p>      
@@ -472,11 +472,12 @@
       <div class="container">
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Biography</h3>
-          <a th:href="@{/books}" class="btn">View All</a>
+          <!-- <p th:text="${genre}">a</p> -->
+          <a th:href="@{/books(genre='Biography')}" class="btn">View All</a>
         </div>
         <div class="row">
             <div class="col-md-2 posts mb-4" th:each="book : ${books}">
-             <a th:href="@{/}"> <img 
+             <a th:href="@{/bookdetail/{id}(id=${book.id})}"> <img 
                 th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
                 th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
                 class="img-fluid fixed-size-img"
@@ -499,8 +500,6 @@
 
               <h4 class="card-title mt-1 text-capitalize text-dark">
               <a th:href="@{/}" th:text="${book.name}+.."></a>
-
-              
               </div>
             </div>
         </div>

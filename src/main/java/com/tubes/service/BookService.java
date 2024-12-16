@@ -19,4 +19,10 @@ public class BookService {
     public List<Book> getBooksByGenre(String genre) {
         return bookRepository.findBooksByGenre(genre);
     }
+
+    public Book getBookById(Long id){
+        return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book Not Found!"+id));
+    }
+    
+
 }

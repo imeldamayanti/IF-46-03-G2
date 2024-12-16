@@ -1478,17 +1478,17 @@ CSS STRUCTURE:
 .details-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
   max-width: 600px;
 }
 
 .book-header-text {
-  color: var(--light-color) !important;
+color: #F1EFE3 !important;
 }
 
 .writer-name {
-  font-size: 1.2rem;
-  color: var(--light-color);
+  font-size: 1.8rem;
+  color: #F1EFE3;
 }
 
 .rating {
@@ -1523,7 +1523,8 @@ CSS STRUCTURE:
 }
 
 .description p {
-  font-size: 0.9em;
+  
+  font-size: 1em;
   text-align: justify;
 }
 
