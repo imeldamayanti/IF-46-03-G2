@@ -38,4 +38,14 @@ public class BookController {
         });
         return LimitedBooks;
     }
+
+    @GetMapping("/bookdetailAdmin")
+    public String bookDetailAdmin() {
+        return "bookdetailAdmin";
+    }
+
+    @GetMapping("/bookform")
+    public String bookform() {
+        return "bookform";
+    }
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -79,21 +81,20 @@ public class ForumController {
     }
     
 
-
     @GetMapping("/forum")
-    public String showForumPage(Model model){
+    public String showForumPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         List<Forum> forums = forumRepository.findAll();
-
+        
         Map<Integer, String> userMap = userRepository.findAll()
                                                     .stream()
                                                     .collect(Collectors.toMap(
-                                                        user -> user.getId().intValue(),  // Ensure type is Integer
+                                                        user -> user.getId().intValue(),
                                                         User::getUsername
                                                     ));
-
+    
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-
-        List<Map<String, Object>> formattedReplies = forums.stream().map(forum -> {
+    
+        List<Map<String, Object>> formattedForums = forums.stream().map(forum -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", forum.getId());
             map.put("createdBy", forum.getCreatedBy());
@@ -103,12 +104,22 @@ public class ForumController {
             map.put("replyCount", forum.getRepliesCount());
             return map;
         }).collect(Collectors.toList());
-
-        model.addAttribute("forums", formattedReplies);
+    
+        model.addAttribute("forums", formattedForums);
         model.addAttribute("userMap", userMap);
-
+    
+        // Tangani user login dengan aman menggunakan userDetails
+        if (userDetails != null) {
+            User user = userRepository.findByUsername(userDetails.getUsername());
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("user", null);
+        }
+    
         return "forum";
     }
+    
+    
 
 }
 

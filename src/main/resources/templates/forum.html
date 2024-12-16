@@ -378,42 +378,13 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/}">Home Page</a>
                 </li>
-
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Pages</a>
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Biography</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Fiction</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Romance</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Comic</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">History</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Poetry</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Thriller</a>
-                    </li>
-                  
-                  </ul>
-                </li> -->
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
-                <li class="nav-item">
+                <li th:if="${user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
                   <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
                 </li>
               </ul>
@@ -427,7 +398,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="@{/signin}">
+                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -663,6 +634,7 @@
                   </span>
                 </a>
               </div>
+
             </div>
           </div>
         </div>        

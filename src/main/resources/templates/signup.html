@@ -75,22 +75,39 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.querySelector("form");
-            const firstNameInput = document.getElementById("firstName");
-            const lastNameInput = document.getElementById("lastName");
-            const usernameInput = document.getElementById("username");
             const emailInput = document.getElementById("email");
             const passwordInput = document.getElementById("password");
             const passwordConfirmationInput = document.getElementById("passwordConfirmation");
 
+            const usernameError = document.createElement("small");
             const emailError = document.createElement("small");
             const passwordError = document.createElement("small");
             const confirmationError = document.createElement("small");
             const submitError = document.createElement("small");
 
+            usernameError.className = "text-danger";
             emailError.className = "text-danger";
             passwordError.className = "text-danger";
             confirmationError.className = "text-danger";
             submitError.className = "text-danger";
+
+
+            // Validasi username
+            usernameInput.addEventListener("input", () => {
+                const value = usernameInput.value;
+                const isCharNumValid = value.length >= 4 && value.length <= 15;
+                const isNoSpace = !value.includes(' ');
+
+                if (!isNoSpace) {
+                    usernameError.textContent = "Username must not have spaces.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else if (!isCharNumValid) {
+                    usernameError.textContent = "Username must consist of 4-15 characters.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else {
+                    usernameError.textContent = "";
+                }
+            });
 
             // Validasi email
             emailInput.addEventListener("input", () => {
@@ -98,7 +115,7 @@
                 const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
                 if (!isValid) {
-                    emailError.textContent = "Email harus memiliki format yang valid (contoh: user@example.com).";
+                    emailError.textContent = "Email must have valid format (ex.: user@example.com).";
                     emailInput.parentElement.appendChild(emailError);
                 } else {
                     emailError.textContent = "";
@@ -137,13 +154,12 @@
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
-                const firstName = firstNameInput.value;
-                const lastName = lastNameInput.value;
-                const username = usernameInput.value;
                 const email = emailInput.value;
                 const password = passwordInput.value;
                 const confirmation = passwordConfirmationInput.value;
 
+                const isNoSpace = !username.includes(' ');
+                const isCharNumValid = username.length >= 4 && username.length <= 15;
                 const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 const hasNumber = /\d/.test(password);
                 const hasLetter = /[a-zA-Z]/.test(password);

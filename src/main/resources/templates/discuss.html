@@ -633,10 +633,35 @@
             <h5 class="discuss-title fw-bold" th:text="${forum.title}"></h5>
             <p class="post-content" th:text="${forum.forumContent}"></p>
             
+            <!-- Reply Section -->
+            <form action="/reply" method="POST">
+              <!-- Reply Card Container -->
+              <div class="content card p-3 shadow bg-white rounded mb-3">
+                <div class="content-form mb-2">
+                  <!-- Textarea untuk balasan -->
+                  <textarea
+                    class="form-control forum-content border-0 shadow-none input-small"
+                    name="replyContent"
+                    placeholder="Write your reply here..."
+                    required
+                  ></textarea>
+                </div>
+                <!-- Bagian bawah dengan karakter dan tombol -->
+                <div class="text-end">
+                  <div class="char-count">0/2500</div>
+                  <button type="submit" class="btn btn-sm rounded-3">Post</button>
+                </div>
+              </div>
+            </form>            
+
             <hr>
             
             <!-- Render the replies section -->
             <div class="replies-container">
+              <span class="reply-count">
+                <i class="bi bi-chat-left-text me-2"></i>
+                <strong th:text="${replies != null ? replies.size() : 0}"></strong> Reply(s)
+              </span>              
               <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
                 <div class="d-flex align-items-center mb-3">
                   <div class="avatar-reply me-3">
@@ -719,6 +744,7 @@
         // Membatasi jumlah karakter maksimal 5000
         if (textLength > maxChars) {
           textarea.value = textarea.value.substring(0, maxChars);
+          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
         }
 
         // Menyesuaikan tinggi textarea sesuai jumlah karakter
