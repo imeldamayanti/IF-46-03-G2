@@ -3,7 +3,10 @@ package com.tubes.repository;
 import com.tubes.entity.Book;
 
 import jakarta.transaction.Transactional;
-import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     // @Query("SELECT b FROM Book b WHERE b.genre LIKE %:genre%")
     @Query("SELECT b FROM Book b WHERE b.genre LIKE %:genre%")
-    List<Book> findBooksByGenre(@Param("genre") String genre);
+    Page<Book> findBooksByGenre(@Param("genre") String genre, Pageable pageable);
  
     
     @Query(value = "SELECT COUNT(*) FROM information_schema.columns WHERE table_name = 'book'", nativeQuery = true)

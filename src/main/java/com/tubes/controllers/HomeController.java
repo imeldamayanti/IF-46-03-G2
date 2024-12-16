@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
 import com.tubes.repository.UserRepository;
-import com.tubes.service.BookService;
-
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 
 
@@ -27,14 +26,20 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BookService bookService;
-
     @GetMapping("/")
-    public String Books(Model model){   
+    public String Books(@RequestParam(value = "genre", required = false) String genre , Model model){   
 
-        List<Book> Fictionbooks = bookController.getFiction("fiction");
-        model.addAttribute("books", Fictionbooks);
+        Page<Book> Biography = bookController.getByGenre("iography");
+        model.addAttribute("bbooks", Biography);
+
+        Page<Book> Fiction = bookController.getByGenre("iction");
+        model.addAttribute("fbooks", Fiction);
+
+        Page<Book> Romance = bookController.getByGenre("omance");
+        model.addAttribute("rbooks", Romance);
+
+        Page<Book> History = bookController.getByGenre("istory");
+        model.addAttribute("hbooks", History);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
@@ -42,14 +47,6 @@ public class HomeController {
 
         return "index"; 
     }
-
-    // @GetMapping("/books/{genre}")
-    // public String getBooksByGenre(@RequestParam("genre") String genre, Model model) {
-    //     List<Book> booksByGenre = bookService.getBooksByGenre(genre);
-    //     model.addAttribute("books", booksByGenre);
-    //     model.addAttribute("selectedGenre", genre); // Tambahkan genre yang dipilih
-    //     return "booksExample"; // Mengarahkan ke file HTML books.html
-    // }
 
   
     @GetMapping("/forum")
@@ -61,11 +58,6 @@ public class HomeController {
     public String mybooks() {
         return "mybooks";
     }
-
-    // @GetMapping("/bookdetail")
-    // public String bookdetail() {
-    //     return "bookdetail";
-    // }
 
     @GetMapping("/faq")
     public String faq(){
@@ -98,5 +90,4 @@ public class HomeController {
         return "viewall-best";
     }
     
-    // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }

@@ -364,8 +364,19 @@
 		</nav>
 	</header>
 
-	<section id="items-listing" class="padding-large">
-		A
+	<section id="latest-posts" class="padding-large">
+		<div class="container">
+		<div class="section-title d-md-flex justify-content-between align-items-center mb-4">
+		</div>
+		<div class="row">
+			<div class="col-md-2 posts mb-4" th:each="book : ${books}">
+				<img 
+					th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
+					th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
+					class="img-fluid fixed-size-img"
+				>
+			</div>
+		</div>
 	</section>
 
 	<script src="js/jquery-1.11.0.min.js"></script>

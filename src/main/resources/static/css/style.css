@@ -52,7 +52,7 @@ CSS STRUCTURE:
 --------------------------------------------------------------*/
 :root {
     --accent-color:             #717171;
-    --white-color:              #fff;
+    --white-color:              #ffffff;
     --black-color:              #272727;
     --gray-color:               #F3F3F3;
     --gray-color-200:           #E3E3E3;
@@ -164,7 +164,7 @@ CSS STRUCTURE:
   }
   .padding-large {
     padding-top: 7em;
-    padding-bottom: 7em;
+    padding-bottom: 5em;
   }
   .padding-xlarge {
     padding-top: 9.5em;
@@ -291,7 +291,7 @@ CSS STRUCTURE:
     background-color: var(--light-color);
   }
   .btn-light:hover {
-    color: #fff;
+    color: #ffffff;
     background-color: var(--primary-color);
   }
   
