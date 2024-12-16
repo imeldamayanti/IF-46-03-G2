@@ -1365,76 +1365,113 @@ select#input-sort {
 /*-------------------------------------------------------------------------------------------------------------------*/
   
   /* FAQ Section */
-  .faq-section {
-    text-align: left;
-    padding: 2em 1em;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  .faq-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-  }
-  
-  .faq-header p {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 2em;
-  }
-  
-  .faq-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5em;
-  }
-  
-  .faq-item {
-    display: flex;
-    align-items: flex-start;
-    background-color: #f9f9f9;
-    padding: 1em;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .faq-item .icon {
-    width: 70px;
-    height: 70px;
-    margin-right: 1em;
-    margin-top: -1%;
-  }
-  
-  .faq-item .icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  
-  .faq-item .faq-text h2 {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
-  }
+.faq-section {
+  text-align: left;
+  padding: 2em 1em;
+  max-width: 900px; /* Good for limiting width on large screens */
+  margin: 0 auto;
+}
 
-  .faq-item .faq-text h7 {
-    font-size: 0.95em;
-    font-weight: bold;
-    color: #2A2C35;
+/* Hero Image Section */
+.faq-header {
+  margin-bottom: 2em; /* Consistent spacing */
+}
 
-  }
-  
-  .faq-item .faq-text p {
-    font-size: 0.95em;
-    color: #2A2C35;
-    margin-top: 1%;
-    margin-bottom: 0.5%;
-  }
-  
-  /* Contact Us Button */
+.image-container {
+  width: 200px; /* Lebar tetap */
+  height: 150px; /* Tinggi tetap */
+  overflow: hidden; /* Mencegah gambar meluap dari kontainer */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mengisi kontainer, sebagian gambar mungkin terpotong */
+  /* atau */
+  object-fit: contain; /* Seluruh gambar terlihat, mungkin ada ruang kosong */
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Match container width */
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover container */
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 5%;
+  transform: translateY(-50%); /* Correct centering */
+  text-align: left;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
+  width: fit-content; /* Prevents overlay from becoming too wide */
+}
+
+.overlay-text h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.overlay-text p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+
+
+.faq-container {
+  display: grid; /* Use grid for better layout control */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  gap: 1.5em;
+}
+
+.faq-item {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item .icon {
+  width: 70px;
+  height: 70px;
+  margin-right: 1em;
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.faq-item .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.faq-item .faq-text h7 {
+  font-size: 1em; /* Slightly increased for better readability */
+  font-weight: bold;
+  color: #2A2C35;
+  margin-bottom: 0.5em; /* Added margin for spacing */
+}
+
+.faq-item .faq-text p {
+  font-size: 1em;/* Increased for better readability */
+  color: #2A2C35;
+  margin-bottom: 0; /* Removed unnecessary margin */
+}
+
+/* Contact Us Button */
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2em; /* Consistent spacing */
 }
 
 .contact-button {
@@ -1452,45 +1489,4 @@ select#input-sort {
 
 .contact-button:hover {
   background-color: #e05500;
-}
-
-.image-container {
-  position: relative;
-  width: 500%;
-  height: 300px;
-  margin-bottom: 5%;
-  margin-left: -30%;
-  overflow: hidden;
-}
-
-.hero-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay-text {
-  position: absolute;
-  top: 60%;
-  left: 5%;
-  transform: translateY(-50%);
-  text-align: left;
-  color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.overlay-text h3 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.overlay-text p {
-  font-size: 1rem;
-  line-height: 1.4;
-  color: white;
 }

@@ -47,21 +47,21 @@
                         <input type="password" class="form-control" id="passwordConfirmation" name="passwordConfirmation" placeholder="Password Confirmation" required>
                         <label for="passwordConfirmation">Password Confirmation</label>
                     </div>
-                    <button type="submit" class="btn w-100 main-btn">
+                    <a th:href="@{signin}" class="btn w-100 main-btn">
                         Sign Up
-                    </button>
+                    </a>
                 </form>
             </div>
             <!-- Right Section -->
             <div class="col-md-5 image-section">
-                <button type="button" class="btn-close" aria-label="Close" onclick="window.location.href='home.html'" style="filter: invert(1);"></button>
+                <a class="btn-close" aria-label="Close" th:href="@{home}" style="filter: invert(1);"></a>
                 
                 <h2 class="fw-bold">Welcome!</h2>
                 <p class="mt-2 text-center">Please create an account to start</p>
                 <p class="mt-5 text-center">Already have an account?</p>
-                <button type="button" class="signup-btn py-2 w-75">
+                <a th:href="@{signin}" class="signup-btn py-2 w-75">
                     Sign In
-                </button>
+                </a>
 
                 <div class="text-center my-3">or</div>
                 <button type="button" class="btn btn-outline-light py-2 w-75 rounded-3">
