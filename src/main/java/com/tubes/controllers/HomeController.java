@@ -1,13 +1,10 @@
 package com.tubes.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.entity.Book;
@@ -48,12 +45,7 @@ public class HomeController {
         return "index"; 
     }
 
-  
-    @GetMapping("/forum")
-    public String forum(){
-        return "forum";
-    }
-    
+
     @GetMapping("/mybooks")
     public String mybooks() {
         return "mybooks";
@@ -69,17 +61,17 @@ public class HomeController {
         return "auth";
     }
     
-    @GetMapping("signin")
+    @GetMapping("/signin")
     public String signin() {
         return "signin";
     }
 
-    @GetMapping("signup")
+    @GetMapping("/signup")
     public String signup() {
         return "signup";
     }
     
-    @GetMapping("forgotpw")
+    @GetMapping("/forgotpw")
     public String forgotpw() {
         return "forgotpw";
     }
