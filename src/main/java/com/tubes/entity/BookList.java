@@ -1,42 +1,47 @@
 package com.tubes.entity;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
-
-import java.util.ArrayList;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class BookList {
-    
+
     /**
      * Migration
      */
-
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private ArrayList<Book> books;
+    @OneToMany
+    private List<Book> books;
+
     private int bookCount;
-    private String lastUpdated;
-    private ArrayList<Boolean> likedBooks;
+
+    private Date lastUpdated;
+
+    private List<Boolean> likedBooks;
 
     /**
      * Constructor
      */
-
-    public BookList(){
-        this.books = new ArrayList<Book>();
+    public BookList() {
+        this.books = new ArrayList<>();
         this.bookCount = 0;
-        this.lastUpdated = "";
-        this.likedBooks = new ArrayList<Boolean>();
+        this.lastUpdated = new Date();
+        this.likedBooks = new ArrayList<>();
     }
 
     /**
-     * Getter and Setter
-     */    
+     * Getters and Setters
+     */
 
     public long getId() {
         return id;
@@ -46,12 +51,14 @@ public class BookList {
         this.id = id;
     }
 
-    public ArrayList<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(ArrayList<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
+        this.bookCount = books != null ? books.size() : 0;
+        this.lastUpdated = new Date();
     }
 
     public int getBookCount() {
@@ -62,47 +69,62 @@ public class BookList {
         this.bookCount = bookCount;
     }
 
-    public String getLastUpdated() {
+    public Date getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(String lastUpdated) {
+    public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
-    public ArrayList<Boolean> getLikedBooks() {
+    public List<Boolean> getLikedBooks() {
         return likedBooks;
     }
 
-    public void setLikedBooks(ArrayList<Boolean> likedBooks) {
+    public void setLikedBooks(List<Boolean> likedBooks) {
         this.likedBooks = likedBooks;
     }
-    
+
     /**
-        * Other Methods
-    */    
+     * Other Methods
+     */
 
-    public void addBookToList(Book book){
-        this.books.add(book);
+    public void addBookToList(Book book) {
+        if (book != null) {
+            this.books.add(book);
+            this.likedBooks.add(false); // Default to not liked.
+            this.bookCount = books.size();
+            this.lastUpdated = new Date();
+        }
     }
 
-    public void removeBookFromBookList(Book book){
-        this.books.remove(book);
+    public void removeBookFromBookList(Book book) {
+        int index = this.books.indexOf(book);
+        if (index >= 0) {
+            this.books.remove(index);
+            this.likedBooks.remove(index);
+            this.bookCount = books.size();
+            this.lastUpdated = new Date();
+        }
     }
 
-    public void likeTheBook(){
-        // Pas user like buku, index buku yang dilike di arraylist books maka arraylist likedbooks di indeks yang sama jadi true
+    public void likeTheBook(int bookIndex, boolean isLiked) {
+        if (bookIndex >= 0 && bookIndex < this.books.size()) {
+            this.likedBooks.set(bookIndex, isLiked);
+        }
     }
 
-    public void displayBookList(){
-
+    public void displayBookList() {
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            boolean isLiked = likedBooks.get(i);
+            System.out.println(book + " | Liked: " + isLiked);
+        }
     }
 
     // toString for debugging purposes
     @Override
     public String toString() {
-        return "BookList{id=" + id + ", books='" + books + "', bookCount='" + bookCount + "', lastUpdated=" 
-        + lastUpdated + ", likedBooks=" + likedBooks + "'}";
+        return "BookList{id=" + id + ", bookCount=" + bookCount + ", lastUpdated=" + lastUpdated + "}";
     }
-
 }

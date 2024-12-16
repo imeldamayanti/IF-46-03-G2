@@ -21,7 +21,6 @@ com\tubes\entity\Reader.class
 com\tubes\service\ReplyService.class
 com\tubes\controllers\ForumController.class
 com\tubes\controllers\BookController.class
-com\tubes\entity\BookList.class
 com\tubes\repository\ReplyRepository.class
 com\tubes\repository\UserRepository.class
 com\tubes\repository\BookRepository.class
