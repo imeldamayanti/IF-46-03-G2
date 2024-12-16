@@ -1,49 +1,61 @@
 package com.tubes.entity;
-import jakarta.persistence.*;
-// import org.springframework.security.crypto.bcrypt.BCrypt;
 
-// @MappedSuperclass
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class User {
+    
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	private String email;
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String dateJoined;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = true)
-	private String username;
+    private String username;
 
-	@Column(nullable = true)
-	private int profilePic;
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    
-    public abstract void login();
-	
-	public User() {}
-    
-    public User(String username, String email, String rawPassword, String firstName, String lastName) {
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    private LocalDateTime dateJoined;
+
+    private String profilePic;
+
+    @Column(nullable = true, updatable = false, insertable = false)
+    private String role;
+
+    public User() {}
+
+    public User(String username, String email, String password, String firstName, String lastName, LocalDateTime dateJoined, String role) {
         this.username = username;
         this.email = email;
-        // this.password = hashPassword(rawPassword); // Hash password saat inisialisasi
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        // this.dateJoined = LocalDateTime.now();
+        this.dateJoined = dateJoined;
+        this.role = role;
     }
 
-	// private String hashPassword(String rawPassword) {
-    //     return BCrypt.hashpw(rawPassword, BCrypt.gensalt());
-    // }
+    // Abstract method for subclasses
+    public abstract void login();
 
+    // Getters
     public Long getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {
@@ -62,23 +74,25 @@ public abstract class User {
         return lastName;
     }
 
-    // public LocalDateTime getDateJoined() {
-    //     return dateJoined;
-    // }
-
-    public String getUsername() {
-        return username;
+    public LocalDateTime getDateJoined() {
+        return dateJoined;
     }
 
-    public int getProfilePic() {
+    public String getProfilePic() {
         return profilePic;
     }
 
+    public String getRole() {
+        return role;
+    }
 
-
-    
+    // Setters
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setEmail(String email) {
@@ -97,17 +111,15 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public void setDateJoined(String dateJoined) {
+    public void setDateJoined(LocalDateTime dateJoined) {
         this.dateJoined = dateJoined;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setProfilePic(int profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
 
-	
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

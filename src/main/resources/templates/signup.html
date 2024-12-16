@@ -54,19 +54,30 @@
             </div>
             <!-- Right Section -->
             <div class="col-md-5 image-section">
+<<<<<<< HEAD
                 <a class="btn-close" aria-label="Close" th:href="@{home}" style="filter: invert(1);"></a>
+=======
+                <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/} + '\''"></button>
+>>>>>>> 4e20a3963ea5ce537a909bd82338a09c6813837c
                 
                 <h2 class="fw-bold">Welcome!</h2>
                 <p class="mt-2 text-center">Please create an account to start</p>
                 <p class="mt-5 text-center">Already have an account?</p>
+<<<<<<< HEAD
                 <a th:href="@{signin}" class="signup-btn py-2 w-75">
                     Sign In
                 </a>
 
+=======
+                <a th:href="@{/signin}" class="signup-btn py-2 w-75">
+                    Sign In
+                </a>
+<!-- 
+>>>>>>> 4e20a3963ea5ce537a909bd82338a09c6813837c
                 <div class="text-center my-3">or</div>
                 <button type="button" class="btn btn-outline-light py-2 w-75 rounded-3">
                     <i class="fab fa-google me-2"></i> Sign In with Google
-                </button>
+                </button> -->
             </div>
         </div>
     </div>
@@ -75,17 +86,60 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.querySelector("form");
+            const firstNameInput = document.getElementById("firstName");
+            const lastNameInput = document.getElementById("lastName");
+            const usernameInput = document.getElementById("username");
             const emailInput = document.getElementById("email");
             const passwordInput = document.getElementById("password");
             const passwordConfirmationInput = document.getElementById("passwordConfirmation");
 
+            const usernameError = document.createElement("small");
             const emailError = document.createElement("small");
             const passwordError = document.createElement("small");
             const confirmationError = document.createElement("small");
+            const submitError = document.createElement("small");
 
+            usernameError.className = "text-danger";
             emailError.className = "text-danger";
             passwordError.className = "text-danger";
             confirmationError.className = "text-danger";
+            submitError.className = "text-danger";
+
+
+            // Validasi username
+            usernameInput.addEventListener("input", () => {
+                const value = usernameInput.value;
+                const isCharNumValid = value.length >= 4 && value.length <= 15;
+                const isNoSpace = !value.includes(' ');
+
+                if (!isNoSpace) {
+                    usernameError.textContent = "Username must not have spaces.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else if (!isCharNumValid) {
+                    usernameError.textContent = "Username must consist of 4-15 characters.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else {
+                    usernameError.textContent = "";
+                }
+            });
+
+
+            // Validasi username
+            usernameInput.addEventListener("input", () => {
+                const value = usernameInput.value;
+                const isCharNumValid = value.length >= 4 && value.length <= 15;
+                const isNoSpace = !value.includes(' ');
+
+                if (!isNoSpace) {
+                    usernameError.textContent = "Username must not have spaces.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else if (!isCharNumValid) {
+                    usernameError.textContent = "Username must consist of 4-15 characters.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else {
+                    usernameError.textContent = "";
+                }
+            });
 
             // Validasi email
             emailInput.addEventListener("input", () => {
@@ -93,7 +147,7 @@
                 const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
                 if (!isValid) {
-                    emailError.textContent = "Email harus memiliki format yang valid (contoh: user@example.com).";
+                    emailError.textContent = "Email must have valid format (ex.: user@example.com).";
                     emailInput.parentElement.appendChild(emailError);
                 } else {
                     emailError.textContent = "";
@@ -129,13 +183,18 @@
             });
 
             // Validasi sebelum form dikirim
-            form.addEventListener("submit", (e) => {
+            form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
+                const firstName = firstNameInput.value;
+                const lastName = lastNameInput.value;
+                const username = usernameInput.value;
                 const email = emailInput.value;
                 const password = passwordInput.value;
                 const confirmation = passwordConfirmationInput.value;
 
+                const isNoSpace = !username.includes(' ');
+                const isCharNumValid = username.length >= 4 && username.length <= 15;
                 const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
                 const hasNumber = /\d/.test(password);
                 const hasLetter = /[a-zA-Z]/.test(password);
@@ -143,15 +202,34 @@
                 const isConfirmationMatch = password === confirmation;
 
                 if (isEmailValid && isValidPassword && isConfirmationMatch) {
-                    window.location.href = "index.html";
+                    try {
+                        const response = await fetch('/api/auth/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ firstName, lastName, username, email, password })
+                        });
+
+                        if (response.ok) {
+                            window.location.href = '/signin?successSignup';
+                        } else {
+                            const errorData = await response.json();
+                            confirmationError.textContent = `Signup failed: ${errorData.message}`;
+                            form.parentElement.appendChild(confirmationError);
+                        }
+                    } catch (error) {
+                        confirmationError.textContent = `Signup failed: ${errorData.message}`;
+                        form.parentElement.appendChild('An error occurred. Please try again later.');
+                    }
                 }
             });
 
             // Tombol Sign In
-            const signInButton = document.querySelector(".signup-btn");
-            signInButton.addEventListener("click", () => {
-                window.location.href = "signin.html";
-            });
+            // const signInButton = document.querySelector(".signup-btn");
+            // signInButton.addEventListener("click", () => {
+            //     window.location.href = "signin.html";
+            // });
         });
     </script>
 </body>

@@ -1,6 +1,10 @@
+c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\config\SecurityConfig.java
+c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\AdminController.java
+c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\AuthController.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\BookController.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\ForumController.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\HomeController.java
+c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\ReplyController.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\controllers\UserController.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\entity\Admin.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\entity\Book.java
@@ -14,6 +18,7 @@ c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\repository\BookReposit
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\repository\ForumRepository.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\repository\ReplyRepository.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\repository\UserRepository.java
+c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\security\JwtAuthenticationFilter.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\seeder\BookSeeder.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\seeder\ForumAndReplySeeder.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\seeder\UserSeeder.java
@@ -23,3 +28,4 @@ c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\service\ReplyService.j
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\service\UserService.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\TubesMvcApplication.java
 c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\utils\csvUtils.java
+c:\Users\User\Music\pbo\tubes_PBO\src\main\java\com\tubes\utils\jwtUtils.java

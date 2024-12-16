@@ -52,7 +52,7 @@ CSS STRUCTURE:
 --------------------------------------------------------------*/
 :root {
     --accent-color:             #717171;
-    --white-color:              #fff;
+    --white-color:              #ffffff;
     --black-color:              #272727;
     --gray-color:               #F3F3F3;
     --gray-color-200:           #E3E3E3;
@@ -64,7 +64,7 @@ CSS STRUCTURE:
     --bs-body-color:            #272727;
     --bs-secondary-color:       #FFE8F0;
     --bs-secondary-rgb:         255, 232, 240;
-    --bs-primary-rgb:           248,109,114;
+    --bs-primary-rgb:           rgb(248,109,114);
     --bs-border-color:          #E3E3E3;
     --bs-dropdown-link-active-bg: #F5F5F5;
     --light-color:              #F8F8F8;
@@ -164,7 +164,7 @@ CSS STRUCTURE:
   }
   .padding-large {
     padding-top: 7em;
-    padding-bottom: 7em;
+    padding-bottom: 5em;
   }
   .padding-xlarge {
     padding-top: 9.5em;
@@ -291,8 +291,14 @@ CSS STRUCTURE:
     background-color: var(--light-color);
   }
   .btn-light:hover {
-    color: #fff;
+    color: #ffffff;
     background-color: var(--primary-color);
+  }
+  .btn-primary {
+    background-color: #4761e6;
+  }
+  .btn-dark:hover {
+    background-color: #1236e9;
   }
   
   /*--------------------------------------------------------------
@@ -1156,6 +1162,12 @@ CSS STRUCTURE:
     object-fit: contain;
   }
 
+  .font-header {
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    color: var(--black-color);
+  }
   .site-header {
     background-color: #F1EFE3;
     position: fixed;
@@ -1248,7 +1260,7 @@ CSS STRUCTURE:
   .swiper-next,
   .swiper-prev{
     color: var(--black-color);
-    z-index: 9999;
+    z-index: 2;
   }
   .swiper-button-disabled{
     color: var(--gray-color-500);
@@ -1463,6 +1475,28 @@ CSS STRUCTURE:
   filter:brightness(90%)
 }
 
+/* Book Details Admin Button */
+
+  .admin-book-btn {
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #4761e6;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 260px;
+  }
+
+  .delete-book-btn {
+    background-color: var(--primary-color);
+    margin-top: 1em;
+  }
+
+  .admin-book-btn:hover {
+    filter:brightness(90%)
+  }
+
 /* Right Container */
 .right-container {
   flex: 2; /* Take up more space for text content */
@@ -1472,17 +1506,17 @@ CSS STRUCTURE:
 .details-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
   max-width: 600px;
 }
 
 .book-header-text {
-  color: var(--light-color) !important;
+color: #F1EFE3 !important;
 }
 
 .writer-name {
-  font-size: 1.2rem;
-  color: var(--light-color);
+  font-size: 1.8rem;
+  color: #F1EFE3;
 }
 
 .rating {
@@ -1517,7 +1551,8 @@ CSS STRUCTURE:
 }
 
 .description p {
-  font-size: 0.9em;
+  
+  font-size: 1em;
   text-align: justify;
 }
 
@@ -1647,6 +1682,7 @@ CSS STRUCTURE:
   }
 }
 
+
   /*----------------------------------------------*/
   /* 5. SITE STRUCTURE */
   /*----------------------------------------------*/
@@ -1729,4 +1765,30 @@ CSS STRUCTURE:
     cursor: pointer;
     transition: background-color 0.3s;
     z-index: 1000; 
+  }
+
+  .fixed-size-img {
+    width: 196px; /* Atur lebar gambar sesuai kebutuhan */
+    height: 298px !important;/* Atur tinggi gambar sesuai kebutuhan */
+    object-fit: cover; /* Potong gambar agar sesuai dengan dimensi */
+    border-radius: 8px; /* Opsional: membuat sudut gambar membulat */
+    
+  }
+
+  .star {
+    width: 20px;
+    height: 20px;
+  }
+
+  .star-fill {
+      fill: #FF9933; /* Warna bintang penuh */
+  }
+
+  .star-half {
+      fill: #FF9933; /* Setengah bintang emas */
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0% 100%); /* Potong setengah kiri */
+  }
+
+  .star-empty {
+      fill: lightgray; /* Warna bintang kosong */
   }

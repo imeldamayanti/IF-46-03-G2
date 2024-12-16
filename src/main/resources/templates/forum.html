@@ -332,7 +332,7 @@
     <header id="header" class="site-header">
       <nav id="header-nav" class="navbar navbar-expand-lg py-3">
         <div class="container">
-          <a class="navbar-brand" th:href="@{/home}">
+          <a class="navbar-brand" th:href="@{/}">
             <img src="assets/BookNestFix.png" class="logo" alt="Logo" />
           </a>
           <button
@@ -355,7 +355,7 @@
             aria-labelledby="bdNavbarOffcanvasLabel"
           >
             <div class="offcanvas-header px-4 pb-0">
-              <a class="navbar-brand" th:href="@{/home}">
+              <a class="navbar-brand" th:href="@{/}">
                 <img
                   th:src="@{/assets/BookNestFix.png}"
                   class="logo"
@@ -376,60 +376,15 @@
                 class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1"
               >
                 <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/home}">Home Page</a>
+                  <a class="nav-link me-4" th:href="@{/}">Home Page</a>
                 </li>
-
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link me-4 dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-expanded="false"
-                    >Pages</a
-                  >
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Biography</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Fiction</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Romance</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Comic</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >History</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Poetry</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Thriller</a
-                      >
-                    </li>
-                  </ul>
+                <li class="nav-item">
+                  <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
-                <li class="nav-item">
+                <li th:if="${user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
                   <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
                 </li>
               </ul>
@@ -443,7 +398,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="@{signin}">
+                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -626,7 +581,7 @@
       <div class="container">
         <div class="top-discuss">
           <div class="section-title d-flex flex-column mb-2">
-            <h3 class="mb-1">Let's Talk</h3>
+            <h3 class="mb-1 mt-3">Let's Talk</h3>
             <p>Sharing, find support, and connect with community</p>
           </div>
 
@@ -640,7 +595,7 @@
           </a>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-3">
             <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
               Popular
             </button>
@@ -649,131 +604,40 @@
         </div>
 
         <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
+          <div class="card mb-3 border shadow-sm" th:each="forum : ${forums}">
             <div class="card-body">
               <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
+                <div class="avatar-reply me-3">
                   <img
-                    src="assets/avt.jpg"
+                    th:src="@{/assets/avt.jpg}"
                     alt="Avatar"
                     class="rounded-circle"
                     style="width: 45px; height: 45px"
                   />
                 </div>
                 <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
+                  <h6 class="text-bold mt-1">
+                    <!-- Correctly display user name without links -->
+                    <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span>
+                  </h6>
+                  <small class="date-forum" th:text="${forum.dateUploaded}"></small>
                 </div>
               </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
+              <!-- Only title gets clickable link -->
+              <a th:href="@{/discuss(forumId=${forum.id})}" class="card-title fw-bold" th:text="${forum.title}"></a>
+              <p class="post-content" th:text="${forum.forumContent}"></p>
+              <div class="post-footer d-flex justify-content-start align-items-center">
+                <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
+                  <span class="reply-count">
+                    <i class="bi bi-chat-left-text me-2"></i>
+                    <strong th:text="${forum.replyCount}"></strong> Reply(s)
+                  </span>
                 </a>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
             </div>
           </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar me-3">
-                  <img
-                    src="assets/avt.jpg"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-2">Alexander</h6>
-                  <small class="date-forum">October 15, 2024</small>
-                </div>
-              </div>
-              <a th:href="@{discuss}" class="card-title fw-bold"
-                >Modern Parallels to Orwell's <i>1984</i></a
-              >
-              <p class="post-content">
-                In <i>1984</i>, Orwell explores the devastating impact of a
-                totalitarian regime that controls truth and suppresses
-                individuality. Do you think aspects of our modern society mirror
-                the themes of surveillance and thought control depicted in the
-                book?
-              </p>
-              <div
-                class="post-footer d-flex justify-content-start align-items-center"
-              >
-                <a
-                  th:href="@{discuss}"
-                  class="btn-link discuss-link p-0 d-flex align-items-center"
-                >
-                  <i class="bi bi-chat-left-text me-2"></i>
-                  <span>Discuss</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </div>        
     </section>
 
     <script src="js/jquery-1.11.0.min.js"></script>

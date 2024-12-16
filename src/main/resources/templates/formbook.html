@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - BookNest</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/admin.css?v=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <html xmlns:th="http://www.thymeleaf.org">
+</head>
+<body>
+    <div class="container">
+        <div class="row g-0 content-wrapper rounded-1">
+            <!-- Left Section -->
+            <div class="p-5 form-section position-relative">
+                <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
+                <button type="button" class="btn-close" aria-label="Close" onclick="window.location.href=''"></button>
+                <h3 class="text-center fw-bold mb-4">Add Book</h3>
+                <form method="post">
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control rounded-1" id="title" placeholder="Title" required>
+                    </div>
+
+                    <!-- Author -->
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" class="form-control rounded-1" id="author" placeholder="Author" required>
+                    </div>
+
+                    <!-- Genre and Page Number -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="genre" class="form-label">Genre</label>
+                        <input type="text" class="form-control rounded-1" id="genre" placeholder="e.g. Fiction, Mystery, ..." required>
+                        <small>Separate each genre with a comma (,)</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="page-number" class="form-label">Page Number</label>
+                            <input type="number" class="form-control rounded-1" id="page-number" placeholder="e.g. 255" min="1" required>
+                        </div>
+                    </div>
+
+                    <!-- Date Published and Rating -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label for="date-published" class="form-label">Date Published</label>
+                            <input type="date" class="form-control rounded-1" id="date-published" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="rating" class="form-label">Rating</label>
+                            <input type="number" class="form-control rounded-1" id="rating" placeholder="e.g. 3,45" step="0.01" min="0" max="5" required>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control rounded-1" id="description" rows="4" placeholder="Write the book description here..." required></textarea>
+                    </div>
+
+                    <!-- Book Cover Link -->
+                    <div class="mb-3">
+                        <label for="cover-link" class="form-label">Book Cover</label>
+                        <input type="text" class="form-control rounded-1" id="cover-link" placeholder="e.g. https://example.com/" required>
+                    </div> 
+
+                    <!-- File Upload -->
+                    <!--<div class="upload-box mb-3 text-center rounded-1 py-4" id="upload-box" required>
+                        <input type="file" id="book-cover" class="form-control d-none" accept="image/*" required>
+                        <label for="book-cover" class="cursor-pointer">
+                            <i class="fa-solid fa-arrow-up-from-bracket fa-3x m-2"></i>
+                            <p class="small text-muted mb-1" id="upload-text">Drop the book cover image here, or</p>
+                            <button type="button" class="btn btn-dark btn-sm px-4" id="browse-button">Click to browse</button>
+                        </label>
+                    </div>-->
+
+                    <!-- Add Button -->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn add-btn mt-4">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript untuk Validasi -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector("form");
+            const coverLinkInput = document.getElementById("cover-link");
+
+            const coverLinkError = document.createElement("small");
+
+            coverLinkError.className = "text-danger";
+
+            // Validasi Link Cover
+            coverLinkInput.addEventListener("input", () => {
+                const value = coverLinkInput.value;
+                const isValid = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?[\w-=&]*)?$/.test(value);
+
+                if (!isValid) {
+                    coverLinkError.textContent = "Link must have valid format (ex.: https://example.com/image).";
+                    coverLinkInput.parentElement.appendChild(coverLinkError);
+                } else {
+                    coverLinkError.textContent = "";
+                }
+            });
+
+            // Validasi sebelum form dikirim
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const coverLink = coverInput.value;
+
+                const isLinkValid = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?[\w-=&]*)?$/.test(coverLink);
+
+                if (isLinkValid) {
+                    window.location.href = "bookdetailAdmin.html";
+                }
+            });
+
+            // Tombol Add
+            //const addButton = document.querySelector(".add-btn");
+            //addButton.addEventListener("click", () => {
+            //    window.location.href = "add.html";
+            //});
+        });
+    </script>
+</body>
+</html>

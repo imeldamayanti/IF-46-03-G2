@@ -6,6 +6,10 @@
     <title>Sign In - BookNest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/auth.css?v=1.0">
+<<<<<<< HEAD
+=======
+    <!-- <link rel="stylesheet" th:href="@{/css/auth.css}"> -->
+>>>>>>> 4e20a3963ea5ce537a909bd82338a09c6813837c
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <html xmlns:th="http://www.thymeleaf.org">
     <script>
@@ -34,9 +38,9 @@
             }
 
             // Jika validasi berhasil, arahkan ke halaman index.html
-            if (isValid) {
-                window.location.href = 'index.html';
-            }
+            // if (isValid) {
+            //     window.location.href = 'index.html';
+            // }
         }
     </script>
 </head>
@@ -45,10 +49,11 @@
         <div class="row g-0 content-wrapper">
             <!-- Left Section -->
             <div class="col-md-5 image-section">
-                <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
+                <img th:src="@{./assets/BookNestFix.png}" class="logo" alt="Logo">
                 <h2 class="fw-bold">Welcome Back!</h2>
                 <p class="mt-2 text-center">Sign in and start your journey</p>
                 <p class="mt-5 text-center">Don’t have an account yet?</p>
+<<<<<<< HEAD
                 <!--button type="button" class="signup-btn py-2 w-75" 
                         th:onclick="'window.location.href=\'' + @{/signup} + '\''">
                     Sign Up
@@ -56,14 +61,28 @@
                 <a class="signup-btn py-2 w-75" th:href="@{signup}">
                     Sign Up
                 </a>
+=======
+                <a class="signup-btn py-2 w-75" th:href="@{/signup}">
+                    Sign Up
+                </a>
+                <!-- <button type="button" class="signup-btn py-2 w-75" th:onclick="'window.location.href=\'' + @{/signup} + '\''">
+                    Sign Up
+                </button> -->
+>>>>>>> 4e20a3963ea5ce537a909bd82338a09c6813837c
 
             </div>
             <!-- Right Section -->
             <div class="col-md-7 p-5 form-section position-relative">
-                <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/home} + '\''"></button>
-                
+                <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/} + '\''"></button>
+                <div th:if="${param.error}" class="alert alert-danger">Invalid username or password</div>
+                <div th:if="${param.successSignup}" class="alert alert-success">Signup successful!</div>
                 <h2 class="text-center fw-bold mb-4 mt-1">Sign In</h2>
+<<<<<<< HEAD
                     <form method="post" th:action="@{/login}" onsubmit="validateForm(event)">
+=======
+                <!-- <form method="post" th:action="@{/login}" onsubmit="validateForm(event)"> -->
+                <form method="post" th:action="@{/api/auth/login}">
+>>>>>>> 4e20a3963ea5ce537a909bd82338a09c6813837c
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                         <label for="username">Username</label>
@@ -76,10 +95,10 @@
                         <a th:href="@{/forgotpw}" class="small forgot-password-link">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn w-100 main-btn">Sign In</button>
-                    <div class="text-center my-3">or</div>
+                    <!-- <div class="text-center my-3">or</div>
                     <button type="button" class="btn btn-outline-dark w-100 py-2 rounded-3">
                         <i class="fab fa-google me-2"></i> Sign In with Google
-                    </button>
+                    </button> -->
                 </form>
             </div>
         </div>
