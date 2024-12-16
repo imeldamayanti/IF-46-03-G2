@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Book</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/admin.css?v=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <html xmlns:th="http://www.thymeleaf.org">
+</head>
+<body>
+  <div class="container py-5">
+    <!-- Card Wrapper -->
+    <div class="card shadow-lg rounded-1 p-5 mx-auto" style="max-width: 80%; width: 80%">
+        <!-- Logo -->
+        <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
+        <!-- Close Button -->
+        <div class="d-flex justify-content-center align-items-center mb-3">
+            <h3 class="fw-bold">Add Book</h3>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        <!-- Form Start -->
+        <form method="post" action="">
+          <!-- Title -->
+          <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control rounded-3" id="title" placeholder="Title" required>
+          </div>
+
+          <!-- Author -->
+          <div class="mb-3">
+              <label for="author" class="form-label">Author</label>
+              <input type="text" class="form-control rounded-3" id="author" placeholder="Author" required>
+          </div>
+
+          <!-- Genre and Page Number -->
+          <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                  <label for="genre" class="form-label">Genre</label>
+                  <select class="form-select genre rounded-3" id="genre" style="background-color: #E8E8E8;" required>
+                      <option value="" disabled selected>Choose a genre</option>
+                      <option value="biography">Biography</option>
+                      <option value="comic">Comic</option>
+                      <option value="fiction">Fiction</option>
+                      <option value="history">History</option>
+                      <option value="poetry">Poetry</option>
+                      <option value="romance">Romance</option>
+                      <option value="thriller">Thriller</option>
+                  </select>
+              </div>
+              <div class="col-md-6">
+                  <label for="page-number" class="form-label">Page Number</label>
+                  <input type="number" class="form-control rounded-3" id="page-number" placeholder="Page Number" min="1" required>
+              </div>
+          </div>
+
+          <!-- Date Published and Rating -->
+          <div class="row mb-3">
+              <div class="col-md-6 mb-3 mb-md-0">
+                  <label for="date-published" class="form-label">Date Published</label>
+                  <input type="date" class="form-control rounded-3" id="date-published" required>
+              </div>
+              <div class="col-md-6">
+                  <label for="rating" class="form-label">Rating</label>
+                  <input type="number" class="form-control rounded-3" id="rating" placeholder="Rating" step="0.1" min="0" max="5" required>
+              </div>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-4">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control rounded-3" id="description" rows="4" placeholder="Write the book description here..." required></textarea>
+          </div>
+
+          <!-- File Upload -->
+          <div class="upload-box mb-3 text-center rounded-3 py-4" id="upload-box" required>
+              <input type="file" id="book-cover" class="d-none" accept="image/*" required>
+              <label for="book-cover" class="cursor-pointer">
+                  <i class="bi bi-upload fs-2"></i>
+                  <p class="small text-muted mb-1" id="upload-text">Drop the book cover image here, or</p>
+                  <button type="button" class="btn btn-dark btn-sm px-4" id="browse-button">Click to browse</button>
+              </label>
+          </div>
+
+          <!-- Add Button -->
+          <div class="text-center">
+              <button type="submit" class="btn btn-dark py-2 fw-semibold rounded-3 mt-5" style="width: 50%;">Add</button>
+          </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // JS logic for file upload
+  const fileInput = document.getElementById("book-cover");
+  const uploadBox = document.getElementById("upload-box");
+  // const browseButton = document.getElementById("browse-button");
+
+  // Trigger file explorer when clicking the upload-box or the browse button
+  uploadBox.addEventListener("click", () => fileInput.click());
+  // browseButton.addEventListener("click", () => fileInput.click());
+
+  // Update the placeholder text with the selected file name
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+      uploadBox.querySelector("p").textContent = fileInput.files[0].name;
+    }
+    
+  });
+</script>
+</body>
+</html>

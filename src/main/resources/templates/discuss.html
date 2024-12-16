@@ -613,6 +613,18 @@
       <div class="container forum-main">
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
+            <div
+                class="post-footer d-flex justify-content-end align-items-center"
+              >
+                <!-- Tombol Delete -->
+                <a
+                  th:href="@{/delete}"
+                  class="btn-link delete-btn p-0 d-flex align-items-center"
+                >
+                  <i class="bi bi-trash3"></i>
+                  <span>Delete</span>
+                </a>
+            </div>
             <div class="d-flex align-items-center mb-3">
               <div class="avatar me-3">
                 <img
@@ -650,6 +662,7 @@
             </div>
 
             <div class="replies-container">
+              <div class="reply-count">5 Reply(s)</div>
               <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
                 <div class="d-flex align-items-center mb-3">
                   <div class="avatar-reply me-3">
@@ -732,6 +745,7 @@
         // Membatasi jumlah karakter maksimal 5000
         if (textLength > maxChars) {
           textarea.value = textarea.value.substring(0, maxChars);
+          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
         }
 
         // Menyesuaikan tinggi textarea sesuai jumlah karakter

@@ -1,6 +1,9 @@
 body {
     font-family: 'Nunito', sans-serif;
     background-color: #D7D4CB;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .content-wrapper {
@@ -121,7 +124,8 @@ a {
 
 .container {
     display: flex;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    /* height: 100%; */
 }
