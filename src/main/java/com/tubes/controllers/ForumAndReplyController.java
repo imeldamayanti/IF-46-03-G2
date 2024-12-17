@@ -44,12 +44,17 @@ public class ForumAndReplyController {
     @GetMapping("/discuss")
     public String showDiscussionPage(
         @RequestParam("forumId") Integer forumId,
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "10") int size,
         Model model,
-        Principal principal // Mendapatkan informasi pengguna yang login
+        Principal principal
     ) {
-        // Fetch replies for the specific forum
-        List<Reply> replies = replyRepository.findByForumId(forumId);
-
+        // Fetch all replies without pagination
+        List<Reply> allReplies = replyRepository.findByForumId(forumId);
+    
+        // Total replies
+        int totalReplies = allReplies.size();
+    
         // Map user IDs to usernames
         Map<Integer, String> userMap = userRepository.findAll()
                                                     .stream()
@@ -57,11 +62,11 @@ public class ForumAndReplyController {
                                                         user -> user.getId().intValue(),
                                                         User::getUsername
                                                     ));
-
+    
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-
+    
         // Map replies to a format suitable for Thymeleaf
-        List<Map<String, Object>> formattedReplies = replies.stream().map(reply -> {
+        List<Map<String, Object>> formattedReplies = allReplies.stream().map(reply -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", reply.getId());
             map.put("createdBy", reply.getCreatedBy());
@@ -69,31 +74,43 @@ public class ForumAndReplyController {
             map.put("dateUploaded", reply.getDateUploaded().format(formatter));
             return map;
         }).collect(Collectors.toList());
-
+    
+        // Pagination logic
+        int totalPages = (int) Math.ceil((double) formattedReplies.size() / size);
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+    
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, formattedReplies.size());
+    
+        List<Map<String, Object>> paginatedReplies = formattedReplies.subList(startIndex, endIndex);
+    
         Long forumIdAsLong = forumId.longValue();
-
-        // Fetch the specific Forum details
+    
         Forum forum = forumRepository.findById(forumIdAsLong).orElse(null);
-
+    
         if (forum == null) {
             model.addAttribute("error", "Forum not found");
             return "error";
         }
-
-        // Map the forum's date to the same formatter
+    
         String formattedForumDate = forum.getDateUploaded().format(formatter);
-
-        // Pass the forum details and the formatted date to the Thymeleaf view
-        model.addAttribute("replies", formattedReplies);
+    
+        model.addAttribute("replies", paginatedReplies);
         model.addAttribute("userMap", userMap);
         model.addAttribute("forum", forum);
         model.addAttribute("formattedForumDate", formattedForumDate);
-
-        // Pass authentication status to Thymeleaf
         model.addAttribute("isAuthenticated", principal != null);
-
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+    
+        // Kirim total replies ke view
+        model.addAttribute("totalReplies", totalReplies);
+    
         return "discuss";
     }
+    
 
     
 
