@@ -158,7 +158,7 @@ public class ForumController {
         User user = userRepository.findByUsername(userDetails.getUsername());
     
         // Cari ID maksimum di database
-        Optional<Long> maxId = forumRepository.findMaxId();
+        Optional<Long> maxId = forumRepository.findMaxForumId();
         Long nextId = maxId.map(id -> id + 1).orElse(1L); // Jika tidak ada ID, mulai dari 1
     
         // Buat Forum instance dengan ID yang dihitung
@@ -174,5 +174,52 @@ public class ForumController {
         return "redirect:/forum";
     }
     
+    @PostMapping("/submit-reply")
+    public String submitReply(
+        @RequestParam("replyContent") String replyContent,
+        @RequestParam("forumId") Long forumId,
+        @AuthenticationPrincipal UserDetails userDetails,
+        Model model
+    ) {
+        // Periksa apakah pengguna sudah login
+        if (userDetails == null) {
+            return "redirect:/signin";
+        }
+
+        // Cari user berdasarkan username
+        User user = userRepository.findByUsername(userDetails.getUsername());
+
+        if (user == null) {
+            model.addAttribute("error", "User not found.");
+            return "error";
+        }
+
+        Optional<Long> maxId = replyRepository.findMaxReplyId();
+        Long nextId = maxId.map(id -> id + 1).orElse(1L); // Jika tidak ada ID, mulai dari 1
+
+        // Simpan reply melalui ReplyService
+        Reply reply = new Reply();
+        reply.setId(nextId);
+        reply.setCreatedBy(user.getId().intValue());
+        reply.setReplyContent(replyContent);
+        reply.setDateUploaded(LocalDate.now());
+
+        // Atur forum yang menjadi referensi balasan
+        Forum forum = forumRepository.findById(forumId).orElse(null);
+
+        if (forum == null) {
+            model.addAttribute("error", "Forum not found.");
+            return "error";
+        }
+
+        reply.setForum(forum);
+        replyRepository.save(reply);
+
+        forum.addReply(reply);
+        forumRepository.save(forum);
+
+        return "redirect:/discuss?forumId=" + forumId;
+    }
+
 }
 

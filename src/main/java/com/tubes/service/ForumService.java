@@ -13,7 +13,7 @@ public class ForumService {
     private ForumRepository forumRepository;
 
     public Long getNextId() {
-        Long maxId = forumRepository.findMaxId().orElse(0L);
+        Long maxId = forumRepository.findMaxForumId().orElse(0L);
         return maxId + 1;
     }
 

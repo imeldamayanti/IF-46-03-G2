@@ -13,5 +13,6 @@ public interface ForumRepository extends JpaRepository<Forum, Long> {
 	// 
 
     @Query("SELECT MAX(f.id) FROM Forum f")
-    Optional<Long> findMaxId();
+    Optional<Long> findMaxForumId();
+    
 } 
