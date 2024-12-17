@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import java.util.Optional;
 
 @Controller
-public class ForumController {
+public class ForumAndReplyController {
 
     @Autowired
     private ReplyRepository replyRepository;
