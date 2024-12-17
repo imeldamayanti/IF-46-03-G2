@@ -252,37 +252,6 @@
         />
       </symbol>
     </svg>
-
-    <!-- <div id="preloader" class="preloader-container">
-      <div class="book">
-        <div class="inner">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
-        </div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div> -->
-
     <div class="search-popup">
       <div class="search-popup-container">
         <form role="search" method="get" class="search-form" action="">
@@ -300,32 +269,6 @@
             </svg>
           </button>
         </form>
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="#" title="Romance">Romance</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Thriller">Thriller</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Sci-fi">Sci-fi</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Cooking">Cooking</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Health">Health</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Lifestyle">Lifestyle</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Fiction">Fiction</a>
-          </li>
-        </ul>
       </div>
     </div>
 
@@ -378,35 +321,6 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/}">Home Page</a>
                 </li>
-
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Pages</a>
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Biography</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Fiction</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Romance</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Comic</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">History</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Poetry</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Thriller</a>
-                    </li>
-                  
-                  </ul>
-                </li> -->
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li><li class="nav-item">
@@ -426,11 +340,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
+                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -634,25 +544,28 @@
             <p class="post-content" th:text="${forum.forumContent}"></p>
             
             <!-- Reply Section -->
-            <form action="/reply" method="POST">
-              <!-- Reply Card Container -->
-              <div class="content card p-3 shadow bg-white rounded mb-3">
-                <div class="content-form mb-2">
-                  <!-- Textarea untuk balasan -->
-                  <textarea
-                    class="form-control forum-content border-0 shadow-none input-small"
-                    name="replyContent"
-                    placeholder="Write your reply here..."
-                    required
-                  ></textarea>
+            <div th:if="${isAuthenticated}">
+              <form action="/submit-reply" method="POST">
+                <!-- Input tersembunyi untuk mengirimkan forumId ke server -->
+                <input type="hidden" name="forumId" th:value="${forum.id}" />
+                
+                <div class="content card p-3 shadow bg-white rounded mb-3">
+                  <div class="content-form mb-2">
+                    <textarea
+                      class="form-control forum-content border-0 shadow-none input-small"
+                      name="replyContent"
+                      placeholder="Write your reply here..."
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="text-end">
+                    <div class="char-count">0/2500</div>
+                    <button type="submit" class="btn btn-sm rounded-3">Post</button>
+                  </div>
                 </div>
-                <!-- Bagian bawah dengan karakter dan tombol -->
-                <div class="text-end">
-                  <div class="char-count">0/2500</div>
-                  <button type="submit" class="btn btn-sm rounded-3">Post</button>
-                </div>
-              </div>
-            </form>            
+              </form>
+            </div>
+        
 
             <hr>
             

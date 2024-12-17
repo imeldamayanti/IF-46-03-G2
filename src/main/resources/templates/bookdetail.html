@@ -343,23 +343,23 @@
         <!-- Right Container: Details -->
         <div class="right-container mt-4">
           <div class="details-container">
-            <h2 class="book-header-text" th:text="${book.name}"></h2>
-            <h3 class="book-header-text writer-name" th:text="${book.author}"></h3>
+            <h3 class="book-header-text" th:text="${book.name}"></h3>
+            <h5 class="book-header-text writer-name" th:text="${book.author}"></h5>
             
             <div class="rating text-warning d-flex align-items-center">
               <svg class="star star-fill" 
               th:each="i : ${#numbers.sequence(1, T(java.lang.Math).floor(book.rate).intValue())}">
               <use xlink:href="#star-fill"></use>
-              </svg>
+            </svg>
 
               <svg class="star star-half" th:if="${book.rate % 1 >= 0.1}">
                 <use xlink:href="#star-half"></use>
-             </svg>         
+              </svg>         
              
-             <h4 class="mt-2 mx-2" th:href="@{/}" th:text="${book.rate}"></h4>
+            <h4 class="mt-2 mx-2" th:href="@{/}" th:text="${book.rate}"></h4>
             </div>
             <div class="mt-5">
-              
+                
               <div class="description">
                 <p class="description-text" th:text="${book.description}">
                 </p>
@@ -367,19 +367,19 @@
               </div>
                        
             
-          <!-- Genre -->
-          <div class="genres-container">
-            <p class="genres-title">Genres:</p>
-            <div class="genres-list">
-              <span class="genre-item"  th:each="genre : ${genres}" th:text="${genre}"></span>
-            </div>
-          </div>
-          
-          <!-- Page & Date Info -->
-          <div class="page-and-date">
-            <span>368 pages, Paperback</span>
-            <span>First published May 22, 2006</span>
-          </div>
+              <!-- Genre -->
+              <div class="genres-container">
+                <p class="genres-title">Genres:</p>
+                <div class="genres-list">
+                  <span class="genre-item"  th:each="genre : ${genres}" th:text="${genre}"></span>
+                </div>
+              </div>
+              
+              <!-- Page & Date Info -->
+              <div class="page-and-date">
+                <span>368 pages, Paperback</span>
+                <span>First published May 22, 2006</span>
+              </div>
 
 
             </div> 

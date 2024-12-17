@@ -1507,7 +1507,7 @@ CSS STRUCTURE:
   display: flex;
   flex-direction: column;
   /* gap: 10px; */
-  max-width: 600px;
+  max-width: 70%;
 }
 
 .book-header-text {

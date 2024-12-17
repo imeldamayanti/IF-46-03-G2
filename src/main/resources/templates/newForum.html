@@ -378,54 +378,6 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/}">Home Page</a>
                 </li>
-
-                <!-- <li class="nav-item dropdown">
-                  <a
-                    class="nav-link me-4 dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-expanded="false"
-                    >Pages</a
-                  >
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Biography</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Fiction</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Romance</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Comic</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >History</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Poetry</a
-                      >
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light"
-                        >Thriller</a
-                      >
-                    </li>
-                  </ul>
-                </li> --> 
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
@@ -446,11 +398,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a
-                      href="#"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
+                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -635,26 +583,36 @@
           <h3 class="mb-1">Let's Talk</h3>
           <p>Sharing, find support, and connect with community</p>
         </div>
-        <form>
+        <form th:action="@{/submit-forum}" method="POST">
           <div class="title card p-3 shadow bg-white rounded mb-3">
-            <input type="text" class="form-control forum-title input-default" placeholder="Write your forum title here..." style="border: none; outline: none; background-color: transparent;" required>
-            <div class="char-count-title" style="font-size: 14px; color: #555;"></div>
+            <input 
+              type="text" 
+              class="form-control forum-title input-default" 
+              name="forumTitle"
+              placeholder="Write your forum title here..." 
+              style="border: none; outline: none; background-color: transparent;" 
+              required
+            >
+            <div class="char-count-title"></div>
           </div>
           <div class="content card p-3 shadow bg-white rounded">
             <div class="content-form mb-2">
               <textarea
                 class="form-control forum-content border-0 shadow-none input-large"
-                placeholder="Write down your interesting thoughts or theories here..." required
+                name="forumContent"
+                placeholder="Write down your interesting thoughts or theories here..."
+                required
               ></textarea>
             </div>
             <div class="text-end" style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 10px;">
-              <div class="char-count" style="font-size: 14px; color: #555;">0/2500</div>
-              <button class="btn btn-sm rounded-3">Send</button>
+              <div class="char-count">0/2500</div>
+              <button type="submit" class="btn btn-sm rounded-3">Send</button>
             </div>
           </div>
-        </form>
+        </form>     
       </div>
     </section>
+    
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script
@@ -664,76 +622,70 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
-
-    <!--JavaScript untuk input judul forum-->
+    
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const inputTitle = document.querySelector(".forum-title"); // Input textarea
-        const charCountDisplay = document.querySelector(".char-count-title"); // Counter
-        const maxChars = 100; // Batas maksimum karakter
-    
-        // Fungsi untuk memperbarui tampilan jumlah karakter dan membatasi input
-        inputTitle.addEventListener("input", function () {
-          const textLength = inputTitle.value.length;
-    
-          // Menampilkan jumlah karakter yang digunakan
-          charCountDisplay.textContent = `${textLength}/${maxChars}`;
-    
-          // Membatasi input jika melebihi batas maksimum
-          if (textLength > maxChars) {
-            inputTitle.value = inputTitle.value.substring(0, maxChars);
-            charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
-          }
-        });
-    
-        // Inisialisasi tampilan jumlah karakter saat halaman dimuat
-        charCountDisplay.textContent = `0/${maxChars}`;
+    document.addEventListener("DOMContentLoaded", function () {
+      // Select the input and textarea elements
+      const inputTitle = document.querySelector("[name='forumTitle']"); // Select forum title input
+      const charCountTitle = document.querySelector(".char-count-title"); // Counter for title
+      const textareaContent = document.querySelector("[name='forumContent']"); // Select forum content textarea
+      const charCountContent = document.querySelector(".char-count"); // Counter for content textarea
+
+      // Set maximum character limits
+      const maxTitleChars = 100;
+      const maxContentChars = 2500;
+
+      /**
+       * Handle the title input change with character restriction and update the counter.
+       */
+      inputTitle.addEventListener("input", function () {
+        const textLength = inputTitle.value.length;
+
+        // Update the title's character count display
+        charCountTitle.textContent = `${Math.min(textLength, maxTitleChars)}/${maxTitleChars}`;
+
+        // Restrict input length if it exceeds the maximum allowed characters
+        if (textLength > maxTitleChars) {
+          inputTitle.value = inputTitle.value.substring(0, maxTitleChars);
+        }
       });
-    </script>
-    
-    <!--JavaScript untuk text area content forum-->
-    <script>
-      const textarea = document.querySelector(".forum-content");
-      const charCountDisplay = document.querySelector(".char-count");
-      const maxChars = 2500;
 
-      // Fungsi untuk menyesuaikan tinggi textarea
-      function adjustHeight() {
-        const textLength = textarea.value.length;
-        let newHeight;
+      // Initialize the title's character counter on page load
+      charCountTitle.textContent = `0/${maxTitleChars}`;
 
-        if (textLength === 0) {
-          newHeight = 100; // Jika tidak ada teks, set tinggi menjadi 100px
-        } else {
-          newHeight = 100 + Math.min(100, textLength / 10); // Menghitung tinggi baru
+      /**
+       * Handle the forum content textarea changes with character restriction and dynamic resizing.
+       */
+      textareaContent.addEventListener("input", function () {
+        const textLength = textareaContent.value.length;
+
+        // Update the content's character count display
+        charCountContent.textContent = `${Math.min(textLength, maxContentChars)}/${maxContentChars}`;
+
+        // Restrict input length if it exceeds the maximum allowed characters
+        if (textLength > maxContentChars) {
+          textareaContent.value = textareaContent.value.substring(0, maxContentChars);
         }
 
-        // Memastikan tinggi tidak kurang dari 100px
-        newHeight = Math.max(newHeight, 100);
+        // Dynamically resize the textarea height based on content
+        adjustTextareaHeight(textareaContent);
+      });
 
-        // Menyesuaikan tinggi textarea
-        textarea.style.height = `${newHeight}px`;
+      /**
+       * Function to adjust the height of a textarea dynamically based on content.
+       */
+      function adjustTextareaHeight(textarea) {
+        const minHeight = 100; // Set a minimum height
+        const additionalHeight = Math.min(100, textarea.value.length / 10);
+
+        // Adjust the height to fit the content
+        textarea.style.height = `${Math.max(minHeight, minHeight + additionalHeight)}px`;
       }
 
-      // Event listener untuk setiap input pada textarea
-      textarea.addEventListener("input", function () {
-        const textLength = textarea.value.length;
-
-        // Menampilkan jumlah karakter
-        charCountDisplay.textContent = `${textLength}/${maxChars}`;
-
-        // Membatasi jumlah karakter maksimal 2500
-        if (textLength > maxChars) {
-          textarea.value = textarea.value.substring(0, maxChars);
-          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
-        }
-
-        // Menyesuaikan tinggi textarea sesuai jumlah karakter
-        adjustHeight();
-      });
-
-      // Menyesuaikan tinggi textarea saat halaman dimuat pertama kali
-      adjustHeight();
-    </script>
+      // Initialize the content counter and textarea height on page load
+      charCountContent.textContent = `0/${maxContentChars}`;
+      adjustTextareaHeight(textareaContent);
+    });
+    </script>    
   </body>
 </html>
