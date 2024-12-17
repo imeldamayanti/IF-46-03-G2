@@ -1830,3 +1830,81 @@ CSS STRUCTURE:
   .replies {
     margin-top: 20px;
   }
+
+  
+  /*----------------------------------------------*/
+  /* 7. PAGINATION STRUCTURE */
+  /*----------------------------------------------*/
+
+  /* Umum */
+  .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    gap: 4px; /* Jarak antar tombol */
+  }
+
+  /* Tombol Previous Disabled */
+  .page-item.disabled.previous .page-link {
+    background-color: #d3d3d3; /* Abu-abu untuk Previous dalam kondisi disable */
+    color: #6c757d;
+    pointer-events: none;
+    border: 1px solid #d3d3d3;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: none;
+  }
+
+  /* Tombol aktif dan dalam keadaan aktif */
+  .page-item.active .page-link {
+    background-color: var(--primary-color); /* Biru aktif */
+    color: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 6px 8px;
+    transition: background-color 0.2s ease;
+  }
+
+  /* Tombol yang bisa diklik normal */
+  .page-item:not(.disabled) .page-link {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 6px 8px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .page-item:not(.disabled) .page-link:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+
+  /* Tombol Disabled untuk kondisi lainnya */
+  .page-item.disabled .page-link,
+  .page-item.disabled span {
+    background-color: #d3d3d3; /* Abu-abu */
+    color: #6c757d;
+    pointer-events: none;
+    border: 1px solid #d3d3d3;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: none;
+  }
+
+  /* Tombol Previous & Next */
+  .page-link {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* Responsif jika tombol halaman sangat banyak */
+  @media (max-width: 768px) {
+    .page-link {
+      padding: 4px 6px;
+    }
+    .pagination {
+      gap: 2px;
+    }
+  }

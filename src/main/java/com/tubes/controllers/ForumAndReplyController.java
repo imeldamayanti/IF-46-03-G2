@@ -8,6 +8,7 @@ import com.tubes.entity.Reply;
 import com.tubes.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -94,19 +98,28 @@ public class ForumAndReplyController {
     
 
     @GetMapping("/forum")
-    public String showForumPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        List<Forum> forums = forumRepository.findAll();
-        
+    public String showForumPage(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "10") int size,
+        Model model
+    ) {
+        // Get paginated forums
+        Pageable pageable = PageRequest.of(page - 1, size); // PageRequest is 0-based
+        Page<Forum> forumPage = forumRepository.findAll(pageable);
+
+        // Map user IDs to usernames
         Map<Integer, String> userMap = userRepository.findAll()
                                                     .stream()
                                                     .collect(Collectors.toMap(
                                                         user -> user.getId().intValue(),
                                                         User::getUsername
                                                     ));
-    
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-    
-        List<Map<String, Object>> formattedForums = forums.stream().map(forum -> {
+
+        // Format paginated forums
+        List<Map<String, Object>> formattedForums = forumPage.getContent().stream().map(forum -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", forum.getId());
             map.put("createdBy", forum.getCreatedBy());
@@ -116,20 +129,25 @@ public class ForumAndReplyController {
             map.put("replyCount", forum.getRepliesCount());
             return map;
         }).collect(Collectors.toList());
-    
+
+        // Add pagination and forum data to the model
         model.addAttribute("forums", formattedForums);
         model.addAttribute("userMap", userMap);
-    
-        // Tangani user login dengan aman menggunakan userDetails
+        model.addAttribute("currentPage", Math.max(1, forumPage.getNumber() + 1));
+        model.addAttribute("totalPages", forumPage.getTotalPages());
+        model.addAttribute("pageSize", size);           
+
+        // Handle user login securely using userDetails
         if (userDetails != null) {
             User user = userRepository.findByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
         } else {
             model.addAttribute("user", null);
         }
-    
+
         return "forum";
     }
+
 
     @GetMapping("/newForum")
     public String showNewForm(Model model, @AuthenticationPrincipal UserDetails userDetails) {
