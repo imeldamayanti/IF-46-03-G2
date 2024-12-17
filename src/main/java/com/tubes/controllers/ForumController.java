@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Controller
 public class ForumController {
@@ -148,24 +149,30 @@ public class ForumController {
             @RequestParam("forumContent") String forumContent,
             @AuthenticationPrincipal UserDetails userDetails,
             Model model) {
-
+    
         if (userDetails == null) {
             return "redirect:/signin";
         }
-
+    
         // Fetch logged-in user
         User user = userRepository.findByUsername(userDetails.getUsername());
-
-        // Create a new Forum instance and save it
+    
+        // Cari ID maksimum di database
+        Optional<Long> maxId = forumRepository.findMaxId();
+        Long nextId = maxId.map(id -> id + 1).orElse(1L); // Jika tidak ada ID, mulai dari 1
+    
+        // Buat Forum instance dengan ID yang dihitung
         Forum forum = new Forum();
+        forum.setId(nextId);
         forum.setTitle(forumTitle);
         forum.setForumContent(forumContent);
         forum.setCreatedBy(user.getId().intValue());
         forum.setDateUploaded(LocalDate.now());
-
+    
         forumRepository.save(forum);
-
+    
         return "redirect:/forum";
     }
+    
 }
 
