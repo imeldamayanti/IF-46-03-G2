@@ -634,25 +634,24 @@
             <p class="post-content" th:text="${forum.forumContent}"></p>
             
             <!-- Reply Section -->
-            <form action="/reply" method="POST">
-              <!-- Reply Card Container -->
-              <div class="content card p-3 shadow bg-white rounded mb-3">
-                <div class="content-form mb-2">
-                  <!-- Textarea untuk balasan -->
-                  <textarea
-                    class="form-control forum-content border-0 shadow-none input-small"
-                    name="replyContent"
-                    placeholder="Write your reply here..."
-                    required
-                  ></textarea>
+            <div th:if="${isAuthenticated}">
+              <form action="/submit-reply" method="POST">
+                <div class="content card p-3 shadow bg-white rounded mb-3">
+                  <div class="content-form mb-2">
+                    <textarea
+                      class="form-control forum-content border-0 shadow-none input-small"
+                      name="replyContent"
+                      placeholder="Write your reply here..."
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="text-end">
+                    <div class="char-count">0/2500</div>
+                    <button type="submit" class="btn btn-sm rounded-3">Post</button>
+                  </div>
                 </div>
-                <!-- Bagian bawah dengan karakter dan tombol -->
-                <div class="text-end">
-                  <div class="char-count">0/2500</div>
-                  <button type="submit" class="btn btn-sm rounded-3">Post</button>
-                </div>
-              </div>
-            </form>            
+              </form>
+            </div>          
 
             <hr>
             

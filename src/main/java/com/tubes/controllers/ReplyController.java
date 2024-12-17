@@ -16,11 +16,6 @@ public class ReplyController {
     @Autowired
     private ReplyRepository replyRepository;
 
-    @GetMapping("/reply")
-    public String showReplyForm() {
-        return "reply";
-    }
-
     @PostMapping("/submit-reply")
     public String submitReply(@RequestParam String replyContent, @RequestParam String dateUploaded) {
         Reply reply = new Reply();
