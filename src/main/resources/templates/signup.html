@@ -75,6 +75,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.querySelector("form");
+            const firstNameInput = document.getElementById("firstName");
+            const lastNameInput = document.getElementById("lastName");
+            const usernameInput = document.getElementById("username");
             const emailInput = document.getElementById("email");
             const passwordInput = document.getElementById("password");
             const passwordConfirmationInput = document.getElementById("passwordConfirmation");
@@ -90,6 +93,24 @@
             passwordError.className = "text-danger";
             confirmationError.className = "text-danger";
             submitError.className = "text-danger";
+
+
+            // Validasi username
+            usernameInput.addEventListener("input", () => {
+                const value = usernameInput.value;
+                const isCharNumValid = value.length >= 4 && value.length <= 15;
+                const isNoSpace = !value.includes(' ');
+
+                if (!isNoSpace) {
+                    usernameError.textContent = "Username must not have spaces.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else if (!isCharNumValid) {
+                    usernameError.textContent = "Username must consist of 4-15 characters.";
+                    usernameInput.parentElement.appendChild(usernameError);
+                } else {
+                    usernameError.textContent = "";
+                }
+            });
 
 
             // Validasi username
@@ -154,6 +175,9 @@
             form.addEventListener("submit", async (e) => {
                 e.preventDefault();
 
+                const firstName = firstNameInput.value;
+                const lastName = lastNameInput.value;
+                const username = usernameInput.value;
                 const email = emailInput.value;
                 const password = passwordInput.value;
                 const confirmation = passwordConfirmationInput.value;
