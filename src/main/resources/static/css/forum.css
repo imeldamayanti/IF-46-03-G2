@@ -945,7 +945,6 @@ CSS STRUCTURE:
     cursor: default;
     -webkit-transform: translateY(-40px);
     transform: translateY(-40px);
-    -webkit-backface-visibility: hidden;
     -webkit-transition-property: -webkit-transform;
     transition-property: transform;
     -webkit-transition-duration: 0.3s;
@@ -1599,7 +1598,7 @@ CSS STRUCTURE:
 
   .bottom-discuss {
     position: sticky;
-    padding-top: 230px;
+    padding-top: 250px;
     z-index: 0; 
   }
 

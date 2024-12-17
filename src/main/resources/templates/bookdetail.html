@@ -336,8 +336,14 @@
           </div>        
           <!-- Add to List Button-->
           <div class="button-container">
-            <button class="add-to-list">Add to list</button>
+            <button class="add-to-list" onclick="showPopup()">Add to list</button>
           </div>
+
+          <div id="popup" style="display: none; position: fixed; bottom: 10px; left: 10px; background: #FFE8F0; border: 1px solid black; padding: 5px; z-index: 1000; border-radius: 8px;">
+            <p>Book added to <a href="booklist.html">My Book</a>!</p>
+            
+          </div>
+               
         </div>
 
         <!-- Right Container: Details -->
@@ -541,25 +547,22 @@
       </div>
     </section>
 
-
-  
-    <svg style="display: none;">
-      <symbol id="star-fill" viewBox="0 0 16 16">
-        <path d="M8 0l2.12 5.47L16 6.18l-4 4.07L13 16l-5-3-5 3 1.88-5.75-4-4.07 5.88-.71L8 0z" fill="currentColor" />
-      </symbol>
-      <symbol id="star-outline" viewBox="0 -1 16 20">
-        <path d="M8 0l2.12 5.47L16 6.18l-4 4.07L13 16l-5-3-5 3 1.88-5.75-4-4.07 5.88-.71L8 0z" stroke="currentColor" fill="none" stroke-width="1.5"/>
-      </symbol>
-    </svg>
-    
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="js/script.js"></script>
-
     <script>
+      function showPopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'block';
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    }
+
+      function hidePopup() {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'none';
+    }
+
       document.addEventListener("DOMContentLoaded", () => {
         const descriptionText = document.querySelector(".description-text");
         const seeMoreLink = document.querySelector(".see-more-link");
@@ -577,7 +580,21 @@
         });
       });
     </script>
+<svg style="display: none;">
+  <symbol id="star-fill" viewBox="0 0 16 16">
+    <path d="M8 0l2.12 5.47L16 6.18l-4 4.07L13 16l-5-3-5 3 1.88-5.75-4-4.07 5.88-.71L8 0z" fill="currentColor" />
+  </symbol>
+  <symbol id="star-outline" viewBox="0 -1 16 20">
+    <path d="M8 0l2.12 5.47L16 6.18l-4 4.07L13 16l-5-3-5 3 1.88-5.75-4-4.07 5.88-.71L8 0z" stroke="currentColor" fill="none" stroke-width="1.5"/>
+  </symbol>
+</svg>
 
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 
 </body>
 </html>
