@@ -16,13 +16,13 @@
             <!-- Left Section -->
             <div class="p-5 form-section position-relative">
                 <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo">
-                <button type="button" class="btn-close" aria-label="Close" onclick="window.location.href=''"></button>
+                <a class="btn-close" aria-label="Close" th:href="@{/admin/}"></a>
                 <h3 class="text-center fw-bold mb-4">Add Book</h3>
                 <form method="post">
                     <!-- Title -->
                     <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control rounded-1" id="title" placeholder="Title" required>
+                        <label for="name" class="form-label">Title</label>
+                        <input type="text" class="form-control rounded-1" id="name" placeholder="Title" required>
                     </div>
 
                     <!-- Author -->
@@ -67,6 +67,9 @@
                         <label for="cover-link" class="form-label">Book Cover</label>
                         <input type="text" class="form-control rounded-1" id="cover-link" placeholder="e.g. https://example.com/" required>
                     </div> 
+                    <div id="imagePreviewContainer" class="mb-4">
+                        <img id="coverPreview" src="" alt="Cover Image Preview" class="img-fluid" style="max-width: 30%; display: none;">
+                    </div>
 
                     <!-- File Upload -->
                     <!--<div class="upload-box mb-3 text-center rounded-1 py-4" id="upload-box" required>
@@ -87,20 +90,39 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- JavaScript untuk Validasi -->
     <script>
+        $(document).ready(function () {
+            $('#cover-link').on('input', function() {
+                var coverUrl = $(this).val();
+                var preview = $('#coverPreview');
+                if (coverUrl) {
+                    preview.attr('src', coverUrl);
+                    preview.show(); 
+                } else {
+                    preview.hide();
+                }
+            });
+        });
+
         document.addEventListener("DOMContentLoaded", () => {
             const form = document.querySelector("form");
-            const coverLinkInput = document.getElementById("cover-link");
 
             const coverLinkError = document.createElement("small");
+
+            const coverLinkInput = document.getElementById("cover-link");
 
             coverLinkError.className = "text-danger";
 
             // Validasi Link Cover
             coverLinkInput.addEventListener("input", () => {
+                const coverLinkInput = document.getElementById("cover-link");
                 const value = coverLinkInput.value;
-                const isValid = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?[\w-=&]*)?$/.test(value);
+                // const isValid = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?[\w-=&]*)?$/.test(value);
+                const isValid = /^(https?:\/\/)([^\s]+)$/.test(value);
 
                 if (!isValid) {
                     coverLinkError.textContent = "Link must have valid format (ex.: https://example.com/image).";
@@ -112,22 +134,57 @@
 
             // Validasi sebelum form dikirim
             form.addEventListener("submit", (e) => {
+                const coverLinkInput = document.getElementById("cover-link");
+
                 e.preventDefault();
 
-                const coverLink = coverInput.value;
+                // const isLinkValid = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?[\w-=&]*)?$/.test(coverLinkInput.value);
+                const isLinkValid = /^(https?:\/\/)([^\s]+)$/.test(coverLinkInput.value);
 
-                const isLinkValid = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(\/[\w-]*)*(\?[\w-=&]*)?$/.test(coverLink);
-
-                if (isLinkValid) {
-                    window.location.href = "bookdetailAdmin.html";
+                if (!isLinkValid) {
+                    alert("Link masih invalid!");
+                    return; 
                 }
-            });
 
-            // Tombol Add
-            //const addButton = document.querySelector(".add-btn");
-            //addButton.addEventListener("click", () => {
-            //    window.location.href = "add.html";
-            //});
+                const name = document.getElementById("name").value;
+                const author = document.getElementById("author").value;
+                const genre = document.getElementById("genre").value;
+                const dateReleased = document.getElementById("date-published").value;
+                const totalPage = document.getElementById("page-number").value;
+                const description = document.getElementById("description").value;
+                const rate = document.getElementById("rating").value;
+                const coverLink = coverLinkInput.value;
+
+                const bookData = {
+                    name: name,
+                    author: author,
+                    genre: genre,
+                    dateReleased: dateReleased, 
+                    totalPage: parseInt(totalPage),
+                    description: description,
+                    rate: parseFloat(rate), 
+                    cover: coverLink,
+                };
+
+                fetch("/books/create", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(bookData),
+                })
+                .then((response) => {
+                    console.log(response)
+                    if (response.ok) {
+                        window.location.href = "/admin/";
+                    } else {
+                        alert("Terjadi kesalahan pada server");
+                    }
+                })
+                .catch((error) => {
+                    alert("Terjadi kesalahan");
+                });
+            });
         });
     </script>
 </body>

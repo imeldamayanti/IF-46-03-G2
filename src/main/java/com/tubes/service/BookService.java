@@ -51,6 +51,10 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    public void addBook(Book book) {
+        bookRepository.save(book);
+    }
+
     public Book updateBook(Long bookId, String name, String author, String genre,
         String dateReleased, int totalPages, String description,
         double rate, String cover
@@ -67,7 +71,6 @@ public class BookService {
         existingBook.setRate(rate);
         existingBook.setCover(cover);
 
-        // Save and return the updated book
         return bookRepository.save(existingBook);
     }
 }

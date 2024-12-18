@@ -1,5 +1,6 @@
 package com.tubes.controllers;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -89,13 +91,6 @@ public class BookController {
         return "formbook";
     }
 
-    // @GetMapping("/edit/{id}")
-    // public String editBookForm(@PathVariable Long id, Model model) {
-    //     Book book = bookService.getBookById(id);
-    //     model.addAttribute("book", book);
-    //     return "editBook";
-    // }
-
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, @ModelAttribute Book book) {
         bookService.updateBook(id, book);
@@ -107,6 +102,15 @@ public class BookController {
         bookService.deleteBook(id);
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/admin/");
+    }
+
+    @PostMapping("/books/create")
+    public String addBook(
+        @RequestBody Book book,
+        HttpServletRequest request
+    ) {
+        bookService.addBook(book);
+        return "redirect:/admin/";
     }
 
     @PostMapping("/books/update")

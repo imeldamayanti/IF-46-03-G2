@@ -330,7 +330,6 @@
 			</div>
 			<div class="d-flex justify-content-end mb-3">
 				<a class="btn btn-warning btn-sm" Th:href="@{/add}">Add Books</a>
-				<!-- th:href="@{/delete/{id}(id=${book.id})}" -->
 			</div>
 			<div class="row">
 				<div class="col-lg-2 mb-4" th:each="book : ${books}">
@@ -345,7 +344,7 @@
 						</div>
 						<div class="card-footer text-center">
 							<!-- <a th:href="@{/editBook/{id}(id=${book.id})}" class="btn btn-primary btn-sm w-42">Edit</a> -->
-							<button class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal"
 								th:data-id="${book.id}"
 								th:data-name="${book.name}"
 								th:data-author="${book.author}"
