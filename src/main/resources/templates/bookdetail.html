@@ -189,36 +189,9 @@
                 class="navbar-nav text-uppercase justify-content-start justify-content-lg-center align-items-start align-items-lg-center flex-grow-1">
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/}">Home Page</a>
-                </li>
-               
-              
-                <li class="nav-item dropdown">
-                  <a class="nav-link me-4 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                    aria-expanded="false">Pages</a>
-                  <ul class="dropdown-menu animate slide border">
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Biography</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Fiction</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Romance</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Comic</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">History</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Poetry</a>
-                    </li>
-                    <li>
-                      <a href="index.html" class="dropdown-item fw-light">Thriller</a>
-                    </li>
-                  
-                  </ul>
+                </li>      
+                <li class="nav-item">
+                  <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
@@ -383,8 +356,8 @@
               
               <!-- Page & Date Info -->
               <div class="page-and-date">
-                <span>368 pages, Paperback</span>
-                <span>First published May 22, 2006</span>
+                <span th:text="${book.totalPage} + ' Pages'"></span>
+                <span th:text="'First published ' + ${book.dateReleased}"></span>
               </div>
 
 
