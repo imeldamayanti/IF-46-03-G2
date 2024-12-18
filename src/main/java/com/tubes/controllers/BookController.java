@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tubes.service.BookService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.tubes.entity.Book;
 import com.tubes.repository.BookRepository;
 
@@ -15,7 +18,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -75,14 +80,53 @@ public class BookController {
         return "bookdetail";
     }
 
+
     @GetMapping("/bookdetailAdmin")
     public String bookDetailAdmin() {
         return "bookdetailAdmin";
     }
 
 
-    @GetMapping("/formbook")
+    @GetMapping("/add")
     public String formbook() {
         return "formbook";
+    }
+
+
+    // @GetMapping("/edit/{id}")
+    // public String editBookForm(@PathVariable Long id, Model model) {
+    //     Book book = bookService.getBookById(id);
+    //     model.addAttribute("book", book);
+    //     return "editBook";
+    // }
+
+    @PostMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, @ModelAttribute Book book) {
+        bookService.updateBook(id, book);
+        return "redirect:/admin/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable Long id, HttpServletRequest request) {
+        bookService.deleteBook(id);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + (referer != null ? referer : "/admin/");
+    }
+
+    @PostMapping("/books/update")
+    public String updateBook(@ModelAttribute Book book, Model model, HttpServletRequest request) {
+        bookService.updateBook(
+            book.getId(), 
+            book.getName(), 
+            book.getAuthor(), 
+            book.getGenre(), 
+            book.getDateReleased(), 
+            book.getTotalPage(), 
+            book.getDescription(), 
+            book.getRate(), 
+            book.getCover()
+        );
+        String referer = request.getHeader("Referer");
+        return "redirect:" + (referer != null ? referer : "/admin/");
     }
 }
