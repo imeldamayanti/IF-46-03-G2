@@ -49,13 +49,25 @@ public class ForumAndReplyController {
         Model model,
         Principal principal
     ) {
-        // Fetch all replies without pagination
+        Forum forum = forumRepository.findById(forumId.longValue()).orElse(null);
+        if (forum == null) {
+            model.addAttribute("error", "Forum not found");
+            return "error";
+        }
+    
         List<Reply> allReplies = replyRepository.findByForumId(forumId);
-    
-        // Total replies
         int totalReplies = allReplies.size();
+        int totalPages = (int) Math.ceil((double) totalReplies / size);
+        if (totalPages == 0) totalPages = 1;
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
     
-        // Map user IDs to usernames
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, totalReplies);
+        if (startIndex < 0) startIndex = 0;
+    
+        List<Reply> paginatedReplies = allReplies.subList(startIndex, endIndex);
+    
         Map<Integer, String> userMap = userRepository.findAll()
                                                     .stream()
                                                     .collect(Collectors.toMap(
@@ -64,9 +76,7 @@ public class ForumAndReplyController {
                                                     ));
     
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-    
-        // Map replies to a format suitable for Thymeleaf
-        List<Map<String, Object>> formattedReplies = allReplies.stream().map(reply -> {
+        List<Map<String, Object>> formattedReplies = paginatedReplies.stream().map(reply -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", reply.getId());
             map.put("createdBy", reply.getCreatedBy());
@@ -75,43 +85,18 @@ public class ForumAndReplyController {
             return map;
         }).collect(Collectors.toList());
     
-        // Pagination logic
-        int totalPages = (int) Math.ceil((double) formattedReplies.size() / size);
-        if (page < 1) page = 1;
-        if (page > totalPages) page = totalPages;
-    
-        int startIndex = (page - 1) * size;
-        int endIndex = Math.min(startIndex + size, formattedReplies.size());
-    
-        List<Map<String, Object>> paginatedReplies = formattedReplies.subList(startIndex, endIndex);
-    
-        Long forumIdAsLong = forumId.longValue();
-    
-        Forum forum = forumRepository.findById(forumIdAsLong).orElse(null);
-    
-        if (forum == null) {
-            model.addAttribute("error", "Forum not found");
-            return "error";
-        }
-    
-        String formattedForumDate = forum.getDateUploaded().format(formatter);
-    
-        model.addAttribute("replies", paginatedReplies);
+        model.addAttribute("replies", formattedReplies);
         model.addAttribute("userMap", userMap);
         model.addAttribute("forum", forum);
-        model.addAttribute("formattedForumDate", formattedForumDate);
+        model.addAttribute("formattedForumDate", forum.getDateUploaded().format(formatter));
         model.addAttribute("isAuthenticated", principal != null);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("pageSize", size);
-    
-        // Kirim total replies ke view
         model.addAttribute("totalReplies", totalReplies);
     
         return "discuss";
     }
-    
-
     
 
     @GetMapping("/forum")
