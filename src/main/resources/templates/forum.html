@@ -381,7 +381,7 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
                 </li>
-                <li class="nav-item">
+              <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
@@ -585,27 +585,21 @@
         <div class="top-discuss">
           <div class="section-title d-flex flex-column mb-2">
             <h3 class="mb-1 mt-3">Let's Talk</h3>
-            <p>Sharing, find support, and connect with community</p>
+            <p>Sharing, find support, and connect with the community</p>
           </div>
-
+    
           <div class="mb-4">
-            <a
-              id="discuss-btn"
-              class="btn btn-sm rounded-3"
-              th:href="@{/newForum}"
-            >
+            <a id="discuss-btn" class="btn btn-sm rounded-3" th:href="@{/newForum}">
               New Discussion
-          </a>
+            </a>
           </div>
-
+    
           <div class="mb-3">
-            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
-              Popular
-            </button>
+            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">Popular</button>
             <button id="latest-btn" class="btn btn-sm rounded-3">Latest</button>
           </div>
         </div>
-
+    
         <div class="bottom-discuss">
           <div class="card mb-3 border shadow-sm" th:each="forum : ${forums}">
             <div class="card-body">
@@ -620,28 +614,66 @@
                 </div>
                 <div class="forum-profile">
                   <h6 class="text-bold mt-1">
-                    <!-- Correctly display user name without links -->
-                    <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span>
+                    <span
+                      th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"
+                    ></span>
                   </h6>
                   <small class="date-forum" th:text="${forum.dateUploaded}"></small>
                 </div>
               </div>
-              <!-- Only title gets clickable link -->
-              <a th:href="@{/discuss(forumId=${forum.id})}" class="card-title fw-bold" th:text="${forum.title}"></a>
+              <a
+                th:href="@{/discuss(forumId=${forum.id})}"
+                class="card-title fw-bold"
+                th:text="${forum.title}"
+              ></a>
               <p class="post-content" th:text="${forum.forumContent}"></p>
-              <div class="post-footer d-flex justify-content-start align-items-center">
-                <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
+              <div
+                class="post-footer d-flex justify-content-start align-items-center"
+              >
+                <a
+                  th:href="@{/discuss(forumId=${forum.id})}"
+                  class="btn-link discuss-link p-0 d-flex align-items-center"
+                >
                   <span class="reply-count">
                     <i class="bi bi-chat-left-text me-2"></i>
                     <strong th:text="${forum.replyCount}"></strong> Reply(s)
                   </span>
                 </a>
               </div>
-
             </div>
           </div>
-        </div>        
+        </div>
+                  
+        <!-- Forum Pagination -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+
+            <!-- Previous Button -->
+            <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+              <a class="page-link" th:if="${currentPage > 1}" th:href="@{/forum(page=${currentPage - 1}, size=${pageSize})}">
+                Previous
+              </a>
+              <span class="page-link" th:if="${currentPage == 1}">Previous</span>
+            </li>
+
+            <!-- Page Numbers -->
+            <li class="page-item ${i == currentPage ? 'active' : ''}" 
+                th:each="i : ${#numbers.sequence(1, totalPages)}">
+              <a class="page-link" th:href="@{/forum(page=${i}, size=${pageSize})}" th:text="${i}"></a>
+            </li>
+
+            <!-- Next Button -->
+            <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+              <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{/forum(page=${currentPage + 1}, size=${pageSize})}">
+                Next
+              </a>
+              <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </section>
+    
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script
