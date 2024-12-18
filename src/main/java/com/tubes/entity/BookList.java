@@ -5,6 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Entity
@@ -20,7 +21,7 @@ public class BookList {
 
     private ArrayList<Book> books;
     private int bookCount;
-    private String lastUpdated;
+    private LocalDateTime lastUpdated;
     private ArrayList<Boolean> likedBooks;
 
     /**
@@ -30,7 +31,7 @@ public class BookList {
     public BookList(){
         this.books = new ArrayList<Book>();
         this.bookCount = 0;
-        this.lastUpdated = "";
+        this.lastUpdated = LocalDateTime.now();
         this.likedBooks = new ArrayList<Boolean>();
     }
 
@@ -52,6 +53,8 @@ public class BookList {
 
     public void setBooks(ArrayList<Book> books) {
         this.books = books;
+        this.bookCount = books != null ? books.size() : 0;
+        this.lastUpdated = LocalDateTime.now();
     }
 
     public int getBookCount() {
@@ -62,11 +65,11 @@ public class BookList {
         this.bookCount = bookCount;
     }
 
-    public String getLastUpdated() {
+    public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(String lastUpdated) {
+    public void setLastUpdated(LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
@@ -83,22 +86,39 @@ public class BookList {
     */    
 
     public void addBookToList(Book book){
-        this.books.add(book);
+        if (book != null) {
+            this.books.add(book);
+            this.likedBooks.add(false); // Default to not liked.
+            this.bookCount = books.size();
+            this.lastUpdated = LocalDateTime.now();
+        }
     }
 
     public void removeBookFromBookList(Book book){
-        this.books.remove(book);
+        int index = this.books.indexOf(book);
+        if (index >= 0) {
+            this.books.remove(index);
+            this.likedBooks.remove(index);
+            this.bookCount = books.size();
+            this.lastUpdated = LocalDateTime.now();
+        }
     }
 
-    public void likeTheBook(){
-        // Pas user like buku, index buku yang dilike di arraylist books maka arraylist likedbooks di indeks yang sama jadi true
+    public void likeTheBook(int bookIndex, boolean isLiked){
+        if (bookIndex >= 0 && bookIndex < this.books.size()) {
+            this.likedBooks.set(bookIndex, isLiked);
+        } 
     }
 
     public void displayBookList(){
-
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            boolean isLiked = likedBooks.get(i);
+            System.out.println(book + " | Liked: " + isLiked);
+        }
     }
 
-    // toString for debugging purposes
+    // toLocalDate for debugging purposes
     @Override
     public String toString() {
         return "BookList{id=" + id + ", books='" + books + "', bookCount='" + bookCount + "', lastUpdated=" 

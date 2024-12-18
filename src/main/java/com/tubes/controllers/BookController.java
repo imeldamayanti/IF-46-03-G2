@@ -2,7 +2,6 @@ package com.tubes.controllers;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.tubes.service.BookService;
 
@@ -79,22 +78,23 @@ public class BookController {
         return "bookdetail";
     }
 
+
     @GetMapping("/bookdetailAdmin")
     public String bookDetailAdmin() {
         return "bookdetailAdmin";
     }
 
-    @GetMapping("/formbook")
+    @GetMapping("/add")
     public String formbook() {
         return "formbook";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editBookForm(@PathVariable Long id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
-        return "editBook";
-    }
+    // @GetMapping("/edit/{id}")
+    // public String editBookForm(@PathVariable Long id, Model model) {
+    //     Book book = bookService.getBookById(id);
+    //     model.addAttribute("book", book);
+    //     return "editBook";
+    // }
 
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, @ModelAttribute Book book) {
