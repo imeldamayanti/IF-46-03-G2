@@ -52,7 +52,7 @@ CSS STRUCTURE:
 --------------------------------------------------------------*/
 :root {
     --accent-color:             #717171;
-    --white-color:              #fff;
+    --white-color:              #ffffff;
     --black-color:              #272727;
     --gray-color:               #F3F3F3;
     --gray-color-200:           #E3E3E3;
@@ -164,7 +164,7 @@ CSS STRUCTURE:
   }
   .padding-large {
     padding-top: 7em;
-    padding-bottom: 7em;
+    padding-bottom: 5em;
   }
   .padding-xlarge {
     padding-top: 9.5em;
@@ -291,7 +291,7 @@ CSS STRUCTURE:
     background-color: var(--light-color);
   }
   .btn-light:hover {
-    color: #fff;
+    color: #ffffff;
     background-color: var(--primary-color);
   }
   .btn-primary {
@@ -1162,6 +1162,12 @@ CSS STRUCTURE:
     object-fit: contain;
   }
 
+  .font-header {
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    color: var(--black-color);
+  }
   .site-header {
     background-color: #F1EFE3;
     position: fixed;
@@ -1500,17 +1506,17 @@ CSS STRUCTURE:
 .details-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
   max-width: 600px;
 }
 
 .book-header-text {
-  color: var(--light-color) !important;
+color: #F1EFE3 !important;
 }
 
 .writer-name {
-  font-size: 1.2rem;
-  color: var(--light-color);
+  font-size: 1.8rem;
+  color: #F1EFE3;
 }
 
 .rating {
@@ -1545,7 +1551,8 @@ CSS STRUCTURE:
 }
 
 .description p {
-  font-size: 0.9em;
+  
+  font-size: 1em;
   text-align: justify;
 }
 
@@ -1762,9 +1769,10 @@ CSS STRUCTURE:
 
   .fixed-size-img {
     width: 196px; /* Atur lebar gambar sesuai kebutuhan */
-    height: 298px; /* Atur tinggi gambar sesuai kebutuhan */
+    height: 298px !important;/* Atur tinggi gambar sesuai kebutuhan */
     object-fit: cover; /* Potong gambar agar sesuai dengan dimensi */
     border-radius: 8px; /* Opsional: membuat sudut gambar membulat */
+    
   }
 
   .star {
@@ -1783,4 +1791,15 @@ CSS STRUCTURE:
 
   .star-empty {
       fill: lightgray; /* Warna bintang kosong */
+  }
+
+
+  /* Auth
+  /*----------------------------------------------*/
+  .auth-btn {
+    max-width: 10vw;
+    max-height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }

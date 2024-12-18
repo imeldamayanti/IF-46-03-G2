@@ -23,7 +23,7 @@
     />
 
     <link rel="stylesheet" type="text/css" href="css/forum.css" />
-    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0">
+    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0" />
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}" /> -->
     <link rel="icon" type="image/png" href="assets/IconTitle.png" />
     <link
@@ -409,7 +409,8 @@
                 </li> -->
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
-                </li><li class="nav-item">
+                </li>
+                <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
@@ -611,59 +612,85 @@
 
     <section id="forum-main" class="position-relative padding-large">
       <div class="container forum-main">
+        <!-- Main Forum Details -->
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
             <div
-                class="post-footer d-flex justify-content-end align-items-center"
+              class="post-footer d-flex justify-content-end align-items-center"
+            >
+              <a
+                th:href="@{/delete/{id}(id=${postId})}"
+                class="btn-link delete-btn p-0 d-flex align-items-center"
               >
-                <!-- Tombol Delete -->
-                <a
-                  th:href="@{/delete}"
-                  class="btn-link delete-btn p-0 d-flex align-items-center"
-                >
+                <span class="reply-count">
                   <i class="bi bi-trash3"></i>
-                  <span>Delete</span>
-                </a>
+                  Delete
+                </span>
+              </a>
             </div>
             <div class="d-flex align-items-center mb-3">
-              <div class="avatar me-3">
+              <div class="avatar-reply me-3">
                 <img
-                  src="assets/avt.jpg"
+                  src="/assets/avt.jpg"
                   alt="Avatar"
                   class="rounded-circle"
                   style="width: 45px; height: 45px"
                 />
               </div>
               <div class="forum-profile">
-                <h6 class="text-bold mt-1">Alexander</h6>
-                <small class="date-forum">October 15, 2024</small>
+                <h6
+                  class="text-bold mt-1"
+                  th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"
+                ></h6>
+                <!-- Bind the formatted date here -->
+                <small
+                  class="date-forum"
+                  th:text="${formattedForumDate}"
+                ></small>
               </div>
             </div>
-            <h5 class="discuss-title fw-bold">
-              Modern Parallels to Orwell's <i>1984</i>
-            </h5>
-            <p class="post-content">
-              In <i>1984</i>, Orwell explores the devastating impact of a
-              totalitarian regime that controls truth and suppresses
-              individuality. Do you think aspects of our modern society mirror
-              the themes of surveillance and thought control depicted in the
-              book?
-            </p>
-            <div class="card p-2 shadow-sm border bg-white rounded mb-3">
-              <div class="mb-2">
-                <textarea
-                  class="form-control border-0 input-small"
-                  placeholder="Add a thoughtful comments..."
-                ></textarea>
+            <!-- Render forum title and content dynamically -->
+            <h5 class="discuss-title fw-bold" th:text="${forum.title}"></h5>
+            <p class="post-content" th:text="${forum.forumContent}"></p>
+
+            <!-- Reply Section -->
+            <form action="/reply" method="POST">
+              <!-- Reply Card Container -->
+              <div class="content card p-3 shadow bg-white rounded mb-3">
+                <div class="content-form mb-2">
+                  <!-- Textarea untuk balasan -->
+                  <textarea
+                    class="form-control forum-content border-0 shadow-none input-small"
+                    name="replyContent"
+                    placeholder="Write your reply here..."
+                    required
+                  ></textarea>
+                </div>
+                <!-- Bagian bawah dengan karakter dan tombol -->
+                <div class="text-end">
+                  <div class="char-count">0/2500</div>
+                  <button type="submit" class="btn btn-sm rounded-3">
+                    Post
+                  </button>
+                </div>
               </div>
+            </form>
 
-              <div class="char-count">0/5000</div>
-              <button class="btn btn-sm post-button rounded-3">Post</button>
-            </div>
+            <hr />
 
+            <!-- Render the replies section -->
             <div class="replies-container">
-              <div class="reply-count">5 Reply(s)</div>
-              <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
+              <span class="reply-count">
+                <i class="bi bi-chat-left-text me-2"></i>
+                <strong
+                  th:text="${replies != null ? replies.size() : 0}"
+                ></strong>
+                Reply(s)
+              </span>
+              <div
+                class="card p-3 shadow-sm border bg-white rounded replies"
+                th:each="reply : ${replies}"
+              >
                 <div class="d-flex align-items-center mb-3">
                   <div class="avatar-reply me-3">
                     <img
@@ -674,15 +701,22 @@
                     />
                   </div>
                   <div class="forum-profile">
-                    <!-- Dynamically render the user's name with a fallback -->
-                    <h6 class="text-bold mt-1" th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}">User</h6>
-                    <small class="date-forum" th:text="${reply.dateUploaded}"></small>
+                    <h6
+                      class="text-bold mt-1"
+                      th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}"
+                    ></h6>
+                    <small
+                      class="date-forum"
+                      th:text="${reply.dateUploaded}"
+                    ></small>
                   </div>
                 </div>
                 <p class="post-content" th:text="${reply.replyContent}"></p>
               </div>
             </div>
-            
+          </div>
+        </div>
+      </div>
     </section>
 
     <script>
@@ -745,7 +779,7 @@
         // Membatasi jumlah karakter maksimal 5000
         if (textLength > maxChars) {
           textarea.value = textarea.value.substring(0, maxChars);
-          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
+          charCountDisplay.textContent = `${textLength - 1}/${maxChars}`;
         }
 
         // Menyesuaikan tinggi textarea sesuai jumlah karakter

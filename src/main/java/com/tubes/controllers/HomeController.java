@@ -1,7 +1,5 @@
 package com.tubes.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.entity.Book;
-import com.tubes.service.BookService;
-
+import com.tubes.entity.User;
+import com.tubes.repository.UserRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 
 
@@ -21,45 +20,35 @@ public class HomeController {
     @Autowired
     private BookController bookController;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/")
-    public String Books(Model model){   
-      
-        List<Book> Fictionbooks = bookController.getFiction("fiction");
-        model.addAttribute("books", Fictionbooks);
+    public String Books(@RequestParam(value = "genre", required = false) String genre , Model model){   
 
-        List<Book> Comedybooks = bookController.getFiction("comedy");
-        model.addAttribute("comedy", Comedybooks);
+        Page<Book> Biography = bookController.getByGenre("iography");
+        model.addAttribute("bbooks", Biography);
 
-        // auth user
-        Authentication user = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", user.getName());
+        Page<Book> Fiction = bookController.getByGenre("iction");
+        model.addAttribute("fbooks", Fiction);
+
+        Page<Book> Romance = bookController.getByGenre("omance");
+        model.addAttribute("rbooks", Romance);
+
+        Page<Book> History = bookController.getByGenre("istory");
+        model.addAttribute("hbooks", History);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(auth.getName());
+        model.addAttribute("user", user);
 
         return "index"; 
     }
 
-    // @GetMapping("/")
-    // public String welcome(Model model){    
-    //     Authentication user = SecurityContextHolder.getContext().getAuthentication();
 
-    //     model.addAttribute("username", user.getName());
-
-    //     return "index"; //ini ambil dari resources/template/index.html
-    // }
-
-    @GetMapping("/forum")
-    public String forum(){
-        return "forum";
-    }
-    
     @GetMapping("/mybooks")
     public String mybooks() {
         return "mybooks";
-    }
-
-    @GetMapping("/bookdetail")
-    public String bookdetail() {
-        return "bookdetail";
     }
 
     @GetMapping("/faq")
@@ -72,17 +61,17 @@ public class HomeController {
         return "auth";
     }
     
-    @GetMapping("signin")
+    @GetMapping("/signin")
     public String signin() {
         return "signin";
     }
 
-    @GetMapping("signup")
+    @GetMapping("/signup")
     public String signup() {
         return "signup";
     }
     
-    @GetMapping("forgotpw")
+    @GetMapping("/forgotpw")
     public String forgotpw() {
         return "forgotpw";
     }
@@ -93,6 +82,4 @@ public class HomeController {
         return "viewall-best";
     }
     
-    // nanti logic atau BE nya bakal di sini untuk masing2 page (ini contoh home aja)
 }
-    
