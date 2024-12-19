@@ -329,7 +329,7 @@
 					th:text="${selectedgenre != null ? 'Books in ' + selectedgenre : 'All Books'}"></h1>
 			</div>
 			<div class="d-flex justify-content-end mb-3">
-				<a class="btn btn-warning btn-sm" Th:href="@{/add}">Add Books</a>
+				<a class="btn btn-warning btn-sm" Th:href="@{/books/add}">Add Books</a>
 			</div>
 			<div class="row">
 				<div class="col-lg-2 mb-4" th:each="book : ${books}">
@@ -343,8 +343,8 @@
 							</h5>
 						</div>
 						<div class="card-footer text-center">
-							<!-- <a th:href="@{/editBook/{id}(id=${book.id})}" class="btn btn-primary btn-sm w-42">Edit</a> -->
-							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal"
+							<a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-primary btn-sm w-42">Edit</a>
+							<!-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal"
 								th:data-id="${book.id}"
 								th:data-name="${book.name}"
 								th:data-author="${book.author}"
@@ -356,8 +356,8 @@
 								th:data-cover="${book.cover}"
 							>
 								Edit
-							</button>
-							<a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm w-42">Delete</a>
+							</button> -->
+							<a th:href="@{/books/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm w-42">Delete</a>
 						</div>
 					</div>
 				</div>
@@ -402,7 +402,7 @@
 
 		</div>
 	</section>
-
+<!-- 
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -458,7 +458,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<script src="js/jquery-1.11.0.min.js"></script>
 	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -470,50 +470,50 @@
 	<script type="text/javascript" src="js/script.js"></script>
 
 	<script>
-		$(document).ready(function () {
-			// Trigger modal and fill it with the current book data
-			$('#editModal').on('show.bs.modal', function (event) {
-				var button = $(event.relatedTarget); // Button that triggered the modal
-				var bookId = button.data('id');
-				var bookName = button.data('name');
-				var bookAuthor = button.data('author');
-				var bookGenre = button.data('genre');
-				var bookDateReleased = button.data('released');
-				var bookTotalPage = button.data('pages');
-				var bookDescription = button.data('description');
-				var bookRate = button.data('rate');
-				var bookCover = button.data('cover');
+		// $(document).ready(function () {
+		// 	// Trigger modal and fill it with the current book data
+		// 	$('#editModal').on('show.bs.modal', function (event) {
+		// 		var button = $(event.relatedTarget); // Button that triggered the modal
+		// 		var bookId = button.data('id');
+		// 		var bookName = button.data('name');
+		// 		var bookAuthor = button.data('author');
+		// 		var bookGenre = button.data('genre');
+		// 		var bookDateReleased = button.data('released');
+		// 		var bookTotalPage = button.data('pages');
+		// 		var bookDescription = button.data('description');
+		// 		var bookRate = button.data('rate');
+		// 		var bookCover = button.data('cover');
 	
-				// Set the values in the modal
-				$('#bookId').val(bookId);
-				$('#name').val(bookName);
-				$('#author').val(bookAuthor);
-				$('#genre').val(bookGenre);
-				$('#dateReleased').val(bookDateReleased);
-				$('#totalPage').val(bookTotalPage);
-				$('#description').val(bookDescription);
-				$('#rate').val(bookRate);
-				$('#cover').val(bookCover);
+		// 		// Set the values in the modal
+		// 		$('#bookId').val(bookId);
+		// 		$('#name').val(bookName);
+		// 		$('#author').val(bookAuthor);
+		// 		$('#genre').val(bookGenre);
+		// 		$('#dateReleased').val(bookDateReleased);
+		// 		$('#totalPage').val(bookTotalPage);
+		// 		$('#description').val(bookDescription);
+		// 		$('#rate').val(bookRate);
+		// 		$('#cover').val(bookCover);
 
-				if (bookCover) {
-					$('#coverPreview').attr('src', bookCover);
-					$('#coverPreview').show(); 
-				} else {
-					$('#coverPreview').hide();
-				}
-			});
+		// 		if (bookCover) {
+		// 			$('#coverPreview').attr('src', bookCover);
+		// 			$('#coverPreview').show(); 
+		// 		} else {
+		// 			$('#coverPreview').hide();
+		// 		}
+		// 	});
 
-			$('#cover').on('input', function() {
-				var coverUrl = $(this).val();
-				var preview = $('#coverPreview');
-				if (coverUrl) {
-					preview.attr('src', coverUrl);
-					preview.show(); 
-				} else {
-					preview.hide();
-				}
-			});
-		});
+		// 	$('#cover').on('input', function() {
+		// 		var coverUrl = $(this).val();
+		// 		var preview = $('#coverPreview');
+		// 		if (coverUrl) {
+		// 			preview.attr('src', coverUrl);
+		// 			preview.show(); 
+		// 		} else {
+		// 			preview.hide();
+		// 		}
+		// 	});
+		// });
 	</script>
 </body>
 
