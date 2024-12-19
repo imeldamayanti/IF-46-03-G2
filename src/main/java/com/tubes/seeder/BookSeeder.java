@@ -25,18 +25,18 @@ public class BookSeeder {
     @PostConstruct
     @Transactional
     public void seedBooks() throws CsvException {
-        bookRepository.deleteAll();
-        // bookRepository.truncateBookTable();
-        // bookRepository.disableForeignKeyChecks();
-        // bookRepository.enableForeignKeyChecks();
-		try {
+        try {
+            if(bookRepository.checkIfColumnExists()>0){
+                bookRepository.truncateBookTable();
+            }
+
 			List<String[]> rows = csvUtils.readCsv("seeds/books.csv");
             List<Book> books = new ArrayList<>();
 
             for (String[] row : rows) {
 				Book book = new Book();
 
-                book.setId(Long.parseLong(row[0]));
+                // book.setId(Long.parseLong(row[0]));
                 book.setName(row[1]);
                 book.setCover(row[2]);
                 book.setAuthor(row[3]);

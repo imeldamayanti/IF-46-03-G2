@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BookNest - Book and Community</title>
+    <title>BookNest - Book</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,15 +17,9 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" type="text/css" href="css/forum.css" />
-    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0">
-    <!-- <link rel="stylesheet" th:href="@{/css/style.css}" /> -->
-    <link rel="icon" type="image/png" href="assets/IconTitle.png" />
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=1.0" />
+    <!-- <link rel="stylesheet" th:href="@{/css/style.css}"/> -->
+    <link rel="icon" type="image/png" th:href="@{assets/IconTitle.png}" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
@@ -34,6 +28,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
       rel="stylesheet"
     />
   </head>
@@ -253,36 +251,6 @@
       </symbol>
     </svg>
 
-    <!-- <div id="preloader" class="preloader-container">
-      <div class="book">
-        <div class="inner">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
-        </div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div> -->
-
     <div class="search-popup">
       <div class="search-popup-container">
         <form role="search" method="get" class="search-form" action="">
@@ -333,7 +301,7 @@
       <nav id="header-nav" class="navbar navbar-expand-lg py-3">
         <div class="container">
           <a class="navbar-brand" th:href="@{/}">
-            <img src="assets/BookNestFix.png" class="logo" alt="Logo" />
+            <img th:src="@{/assets/BookNestFix.png}" class="logo" alt="Logo" />
           </a>
           <button
             class="navbar-toggler d-flex d-lg-none order-3 p-2"
@@ -378,15 +346,60 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/}">Home Page</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/books}">All Books</a>
+
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link me-4 dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    href="#"
+                    role="button"
+                    aria-expanded="false"
+                    >Pages</a
+                  >
+                  <ul class="dropdown-menu animate slide border">
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >Biography</a
+                      >
+                    </li>
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >Fiction</a
+                      >
+                    </li>
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >Romance</a
+                      >
+                    </li>
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >Comic</a
+                      >
+                    </li>
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >History</a
+                      >
+                    </li>
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >Poetry</a
+                      >
+                    </li>
+                    <li>
+                      <a href="index.html" class="dropdown-item fw-light"
+                        >Thriller</a
+                      >
+                    </li>
+                  </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
+                  <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/mybooks}" >MyBooks</a>
-                </li>                
+                  <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
+                </li>
               </ul>
               <div class="user-items d-flex">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
@@ -398,7 +411,7 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
+                    <a th:href="@{signin}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
@@ -577,68 +590,377 @@
       </nav>
     </header>
 
-    <section id="forum-main" class="position-relative padding-large">
-      <div class="container">
-        <div class="top-discuss">
-          <div class="section-title d-flex flex-column mb-2">
-            <h3 class="mb-1 mt-3">Let's Talk</h3>
-            <p>Sharing, find support, and connect with community</p>
-          </div>
+    <div class="main-container">
+      <!-- Background Container -->
+      <div class="background-container">
+        <img
+          src="assets/HorizontalBackground.png"
+          class="book-detail-background"
+          alt="Book background"
+        />
+      </div>
 
-          <div class="mb-4">
-            <a
-              id="discuss-btn"
-              class="btn btn-sm rounded-3"
-              th:href="@{/newForum}"
+      <!-- Left and Right Containers -->
+      <div class="content-container">
+        <!-- Left Container: Image -->
+        <div class="left-container">
+          <div class="image-container">
+            <img
+              class="img-fluid rounded-3"
+              src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1722456144i/43641.jpg"
+              alt="book cover"
+            />
+          </div>
+          <!-- Admin Button-->
+          <div class="button-container">
+            <button
+              type="button"
+              class="admin-book-btn edit-book-btn"
+              aria-label="Edit"
             >
-              New Discussion
-          </a>
-          </div>
-
-          <div class="mb-3">
-            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
-              Popular
+              <i class="bi bi-pencil-square me-2"></i>Edit
             </button>
-            <button id="latest-btn" class="btn btn-sm rounded-3">Latest</button>
+            <button
+              type="button"
+              class="admin-book-btn delete-book-btn"
+              aria-label="Delete"
+            >
+              <i class="bi bi-trash3 me-2"></i>Delete
+            </button>
           </div>
         </div>
 
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm" th:each="forum : ${forums}">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar-reply me-3">
-                  <img
-                    th:src="@{/assets/avt.jpg}"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-1">
-                    <!-- Correctly display user name without links -->
-                    <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span>
-                  </h6>
-                  <small class="date-forum" th:text="${forum.dateUploaded}"></small>
-                </div>
-              </div>
-              <!-- Only title gets clickable link -->
-              <a th:href="@{/discuss(forumId=${forum.id})}" class="card-title fw-bold" th:text="${forum.title}"></a>
-              <p class="post-content" th:text="${forum.forumContent}"></p>
-              <div class="post-footer d-flex justify-content-start align-items-center">
-                <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
-                  <span class="reply-count">
-                    <i class="bi bi-chat-left-text me-2"></i>
-                    <strong th:text="${forum.replyCount}"></strong> Reply(s)
-                  </span>
-                </a>
+        <!-- Right Container: Details -->
+        <div class="right-container">
+          <div class="details-container">
+            <h2 class="book-header-text">Water for Elephants</h2>
+            <p class="book-header-text writer-name">SARA GRUEN</p>
+            <div class="rating">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star"><use xlink:href="#star-outline"></use></svg>
+              <span class="rating-score book-header-text">4.0</span>
+            </div>
+            <div>
+              <p class="rating-description">1,231,123 ratings 12,312 reviews</p>
+              <div class="description">
+                <p class="description-text">
+                  When Jacob Jankowski, recently orphaned and suddenly adrift,
+                  jumps onto a passing train, he enters a world of freaks,
+                  drifters, and misfits, a second-rate circus struggling to
+                  survive during the Great Depression, making one-night stands
+                  in town after endless town. A veterinary student who almost
+                  earned his degree, Jacob is put in charge of caring for the
+                  circus menagerie. It is there that he meets Marlena, the
+                  beautiful young star of the equestrian act, who is married to
+                  August, the charismatic but twisted animal trainer. He also
+                  meets Rosie, an elephant who seems untrainable until he
+                  discovers a way to reach her.
+                  <br /><br />
+                  Beautifully written, *Water for Elephants* is illuminated by a
+                  wonderful sense of time and place. It tells a story of a love
+                  between two people that overcomes incredible odds in a world
+                  in which even love is a luxury that few can afford.
+                </p>
+                <a href="#" class="see-more-link">See More</a>
               </div>
 
+              <!-- Genre -->
+              <div class="genres-container">
+                <p class="genres-title">Genres:</p>
+                <div class="genres-list">
+                  <span class="genre-item">Fiction</span>
+                  <span class="genre-item">Romance</span>
+                  <span class="genre-item">Historical</span>
+                  <span class="genre-item">Adult</span>
+                </div>
+              </div>
+
+              <!-- Page & Date Info -->
+              <div class="page-and-date">
+                <span>368 pages, Paperback</span>
+                <span>First published May 22, 2006</span>
+              </div>
             </div>
           </div>
-        </div>        
+        </div>
+      </div>
+    </div>
+
+    <section id="latest-posts" class="padding-large">
+      <div class="container">
+        <div
+          class="section-title d-md-flex justify-content-between align-items-center mb-4"
+        >
+          <h3 class="d-flex align-items-center">Similar to:</h3>
+        </div>
+        <div class="row">
+          <div class="col-md-2 posts mb-4">
+            <img
+              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
+              alt="post image"
+              class="img-fluid rounded-3"
+            />
+            <div class="rating d-flex align-items-center">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+            </div>
+            <h4 class="card-title mb-2 text-capitalize text-dark">
+              <a th:href="@{/}"
+                >10 Must-Read Books of the Year: Our Top Picks!</a
+              >
+            </h4>
+            <p class="mb-2">
+              Dive into the world of cutting-edge technology with our latest
+              blog post, where we highlight five essential gadge.
+              <span
+                ><a
+                  class="text-decoration-underline text-black-50"
+                  th:href="@{/}"
+                  >Read More</a
+                ></span
+              >
+            </p>
+          </div>
+          <div class="col-md-2 posts mb-4">
+            <img
+              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
+              alt="post image"
+              class="img-fluid rounded-3"
+            />
+            <div class="rating d-flex align-items-center">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+            </div>
+            <h4 class="card-title mb-2 text-capitalize text-dark">
+              <a th:href="@{/}">The Fascinating Realm of Science Fiction</a>
+            </h4>
+            <p class="mb-2">
+              Explore the intersection of technology and sustainability in our
+              latest blog post. Learn about the innovative
+              <span
+                ><a
+                  class="text-decoration-underline text-black-50"
+                  th:href="@{/}"
+                  >Read More</a
+                ></span
+              >
+            </p>
+          </div>
+          <div class="col-md-2 posts mb-4">
+            <img
+              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
+              alt="post image"
+              class="img-fluid rounded-3"
+            />
+            <div class="rating d-flex align-items-center">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+            </div>
+            <h4 class="card-title mb-2 text-capitalize text-dark">
+              <a th:href="@{/}">Finding Love in the Pages of a Book</a>
+            </h4>
+            <p class="mb-2">
+              Stay ahead of the curve with our insightful look into the rapidly
+              evolving landscape of wearable technology.
+              <span
+                ><a
+                  class="text-decoration-underline text-black-50"
+                  th:href="@{/}"
+                  >Read More</a
+                ></span
+              >
+            </p>
+          </div>
+          <div class="col-md-2 posts mb-4">
+            <img
+              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
+              alt="post image"
+              class="img-fluid rounded-3"
+            />
+            <div class="rating d-flex align-items-center">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+            </div>
+            <h4 class="card-title mb-2 text-capitalize text-dark">
+              <a th:href="@{/}"
+                >Reading for Mental Health: How Books Can Heal and Inspire</a
+              >
+            </h4>
+            <p class="mb-2">
+              In today's remote work environment, productivity is key. Discover
+              the top apps and tools that can help you stay
+              <span
+                ><a
+                  class="text-decoration-underline text-black-50"
+                  th:href="@{/}"
+                  >Read More</a
+                ></span
+              >
+            </p>
+          </div>
+          <div class="col-md-2 posts mb-4">
+            <img
+              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
+              alt="post image"
+              class="img-fluid rounded-3"
+            />
+            <div class="rating d-flex align-items-center">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+            </div>
+            <h4 class="card-title mb-2 text-capitalize text-dark">
+              <a th:href="@{/}"
+                >Reading for Mental Health: How Books Can Heal and Inspire</a
+              >
+            </h4>
+            <p class="mb-2">
+              In today's remote work environment, productivity is key. Discover
+              the top apps and tools that can help you stay
+              <span
+                ><a
+                  class="text-decoration-underline text-black-50"
+                  th:href="@{/}"
+                  >Read More</a
+                ></span
+              >
+            </p>
+          </div>
+          <div class="col-md-2 posts mb-4">
+            <img
+              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
+              alt="post image"
+              class="img-fluid rounded-3"
+            />
+            <div class="rating d-flex align-items-center">
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+              <svg class="star star-fill">
+                <use xlink:href="#star-fill"></use>
+              </svg>
+            </div>
+            <h4 class="card-title mb-2 text-capitalize text-dark">
+              <a th:href="@{/}"
+                >Reading for Mental Health: How Books Can Heal and Inspire</a
+              >
+            </h4>
+            <p class="mb-2">
+              In today's remote work environment, productivity is key. Discover
+              the top apps and tools that can help you stay
+              <span
+                ><a
+                  class="text-decoration-underline text-black-50"
+                  th:href="@{/}"
+                  >Read More</a
+                ></span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <svg style="display: none">
+      <symbol id="star-fill" viewBox="0 0 16 16">
+        <path
+          d="M8 0l2.12 5.47L16 6.18l-4 4.07L13 16l-5-3-5 3 1.88-5.75-4-4.07 5.88-.71L8 0z"
+          fill="currentColor"
+        />
+      </symbol>
+      <symbol id="star-outline" viewBox="0 -1 16 20">
+        <path
+          d="M8 0l2.12 5.47L16 6.18l-4 4.07L13 16l-5-3-5 3 1.88-5.75-4-4.07 5.88-.71L8 0z"
+          stroke="currentColor"
+          fill="none"
+          stroke-width="1.5"
+        />
+      </symbol>
+    </svg>
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script
@@ -648,5 +970,24 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const descriptionText = document.querySelector(".description-text");
+        const seeMoreLink = document.querySelector(".see-more-link");
+
+        seeMoreLink.addEventListener("click", (event) => {
+          event.preventDefault(); // Prevent the default anchor behavior
+          descriptionText.classList.toggle("expanded");
+
+          // Toggle link text
+          if (seeMoreLink.textContent === "See More") {
+            seeMoreLink.textContent = "See Less";
+          } else {
+            seeMoreLink.textContent = "See More";
+          }
+        });
+      });
+    </script>
   </body>
 </html>

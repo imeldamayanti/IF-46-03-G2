@@ -1,6 +1,10 @@
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\config\SecurityConfig.java
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\AdminController.java
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\AuthController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\BookController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\ForumController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\HomeController.java
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\ReplyController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\UserController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\entity\Admin.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\entity\Book.java
@@ -14,6 +18,7 @@ C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\repository\BookRepos
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\repository\ForumRepository.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\repository\ReplyRepository.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\repository\UserRepository.java
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\security\JwtAuthenticationFilter.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\seeder\BookSeeder.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\seeder\ForumAndReplySeeder.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\seeder\UserSeeder.java
@@ -23,3 +28,4 @@ C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\service\ReplyService
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\service\UserService.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\TubesMvcApplication.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\utils\csvUtils.java
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\utils\jwtUtils.java

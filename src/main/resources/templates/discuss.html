@@ -252,37 +252,6 @@
         />
       </symbol>
     </svg>
-
-    <!-- <div id="preloader" class="preloader-container">
-      <div class="book">
-        <div class="inner">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
-        </div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div> -->
-
     <div class="search-popup">
       <div class="search-popup-container">
         <form role="search" method="get" class="search-form" action="">
@@ -300,32 +269,6 @@
             </svg>
           </button>
         </form>
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="#" title="Romance">Romance</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Thriller">Thriller</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Sci-fi">Sci-fi</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Cooking">Cooking</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Health">Health</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Lifestyle">Lifestyle</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Fiction">Fiction</a>
-          </li>
-        </ul>
       </div>
     </div>
 
@@ -380,13 +323,12 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
-                </li>
-                <li class="nav-item">
+                </li><li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/mybooks}" >MyBooks</a>
-                </li>                
+                  <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
+                </li>
               </ul>
               <div class="user-items d-flex">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
@@ -578,67 +520,153 @@
     </header>
 
     <section id="forum-main" class="position-relative padding-large">
-      <div class="container">
-        <div class="top-discuss">
-          <div class="section-title d-flex flex-column mb-2">
-            <h3 class="mb-1 mt-3">Let's Talk</h3>
-            <p>Sharing, find support, and connect with community</p>
-          </div>
-
-          <div class="mb-4">
-            <a
-              id="discuss-btn"
-              class="btn btn-sm rounded-3"
-              th:href="@{/newForum}"
-            >
-              New Discussion
-          </a>
-          </div>
-
-          <div class="mb-3">
-            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
-              Popular
-            </button>
-            <button id="latest-btn" class="btn btn-sm rounded-3">Latest</button>
-          </div>
-        </div>
-
-        <div class="bottom-discuss">
-          <div class="card mb-3 border shadow-sm" th:each="forum : ${forums}">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <div class="avatar-reply me-3">
-                  <img
-                    th:src="@{/assets/avt.jpg}"
-                    alt="Avatar"
-                    class="rounded-circle"
-                    style="width: 45px; height: 45px"
-                  />
-                </div>
-                <div class="forum-profile">
-                  <h6 class="text-bold mt-1">
-                    <!-- Correctly display user name without links -->
-                    <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span>
-                  </h6>
-                  <small class="date-forum" th:text="${forum.dateUploaded}"></small>
-                </div>
+      <div class="container forum-main">
+        <!-- Main Forum Details -->
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="avatar-reply me-3">
+                <img
+                  src="/assets/avt.jpg"
+                  alt="Avatar"
+                  class="rounded-circle"
+                  style="width: 45px; height: 45px"
+                />
               </div>
-              <!-- Only title gets clickable link -->
-              <a th:href="@{/discuss(forumId=${forum.id})}" class="card-title fw-bold" th:text="${forum.title}"></a>
-              <p class="post-content" th:text="${forum.forumContent}"></p>
-              <div class="post-footer d-flex justify-content-start align-items-center">
-                <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
-                  <span class="reply-count">
-                    <i class="bi bi-chat-left-text me-2"></i>
-                    <strong th:text="${forum.replyCount}"></strong> Reply(s)
-                  </span>
-                </a>
+              <div class="forum-profile">
+                <h6 class="text-bold mt-1" th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></h6>
+                <!-- Bind the formatted date here -->
+                <small class="date-forum" th:text="${formattedForumDate}"></small>
               </div>
+            </div>
+            <!-- Render forum title and content dynamically -->
+            <h5 class="discuss-title fw-bold" th:text="${forum.title}"></h5>
+            <p class="post-content" th:text="${forum.forumContent}"></p>
+            
+            <!-- Reply Section -->
+            <div th:if="${isAuthenticated}">
+              <form action="/submit-reply" method="POST">
+                <!-- Input tersembunyi untuk mengirimkan forumId ke server -->
+                <input type="hidden" name="forumId" th:value="${forum.id}" />
+                
+                <div class="content card p-3 shadow bg-white rounded mb-3">
+                  <div class="content-form mb-2">
+                    <textarea
+                      class="form-control forum-content border-0 shadow-none input-small"
+                      name="replyContent"
+                      placeholder="Write your reply here..."
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="text-end">
+                    <div class="char-count">0/2500</div>
+                    <button type="submit" class="btn btn-sm rounded-3">Post</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        
 
+            <hr>
+            
+            <!-- Render the replies section -->
+            <div class="replies-container">
+              <span class="reply-count">
+                <i class="bi bi-chat-left-text me-2"></i>
+                <strong th:text="${replies != null ? replies.size() : 0}"></strong> Reply(s)
+              </span>              
+              <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="avatar-reply me-3">
+                    <img src="/assets/avt.jpg" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px" />
+                  </div>
+                  <div class="forum-profile">
+                    <h6 class="text-bold mt-1"
+                        th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}">
+                    </h6>
+                    <small class="date-forum" th:text="${reply.dateUploaded}"></small>
+                  </div>
+                </div>
+                <p class="post-content" th:text="${reply.replyContent}"></p>
+              </div>
             </div>
           </div>
-        </div>        
+        </div>
+      </div>
     </section>
+    
+    
+
+    <script>
+      const replyButton = document.getElementById("reply-btn");
+      const replyContainer = document.getElementById("reply-container");
+      const replyTextarea = document.getElementById("reply-textarea");
+
+      // Toggle visibility of the reply container
+      replyButton.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent click from propagating to the document
+        replyContainer.classList.toggle("hidden");
+      });
+
+      // Close the reply container when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !replyContainer.contains(e.target) &&
+          !replyButton.contains(e.target)
+        ) {
+          replyContainer.classList.add("hidden");
+        }
+      });
+
+      // Preserve the text in the textarea even when hidden
+      replyTextarea.addEventListener("input", () => {
+        // Text remains in the `textarea` due to its default behavior
+      });
+    </script>
+
+    <script>
+      const textarea = document.querySelector(".input-small");
+      const charCountDisplay = document.querySelector(".char-count");
+      const maxChars = 5000;
+
+      // Fungsi untuk menyesuaikan tinggi textarea
+      function adjustHeight() {
+        const textLength = textarea.value.length;
+        let newHeight;
+
+        if (textLength === 0) {
+          newHeight = 30; // Jika tidak ada teks, set tinggi menjadi 30px
+        } else {
+          newHeight = 30 + Math.min(50, textLength / 10); // Menghitung tinggi baru
+        }
+
+        // Memastikan tinggi tidak kurang dari 30px
+        newHeight = Math.max(newHeight, 30);
+
+        // Menyesuaikan tinggi textarea
+        textarea.style.height = `${newHeight}px`;
+      }
+
+      // Event listener untuk setiap input pada textarea
+      textarea.addEventListener("input", function () {
+        const textLength = textarea.value.length;
+
+        // Menampilkan jumlah karakter
+        charCountDisplay.textContent = `${textLength}/${maxChars}`;
+
+        // Membatasi jumlah karakter maksimal 5000
+        if (textLength > maxChars) {
+          textarea.value = textarea.value.substring(0, maxChars);
+          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
+        }
+
+        // Menyesuaikan tinggi textarea sesuai jumlah karakter
+        adjustHeight();
+      });
+
+      // Menyesuaikan tinggi textarea saat halaman dimuat pertama kali
+      adjustHeight();
+    </script>
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script
