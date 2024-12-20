@@ -230,7 +230,7 @@
                   <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
                 </li>
               </ul>
-              <div class="user-items d-flex">
+              <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
                   <li th:if="${user != null and user.getUsername() != null and user.getRole() == 'ROLE_Admin'}" class="pe-3">
                     <a th:href="@{/admin/}" class="icon-config">
@@ -239,20 +239,53 @@
                       </svg>
                     </a>
                   </li>
-                  <li class="search-item pe-3">
+                  <li class="search-item pe-3 d-flex align-items-center">
                     <a href="#" class="search-button">
                       <svg class="search">
                         <use xlink:href="#search"></use>
                       </svg>
                     </a>
                   </li>
-                  <li class="pe-3">
-                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
+                  <!-- Account -->
+                  <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
+                      <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg class="user">
+                            <use xlink:href="#user"></use>
+                        </svg>
+                      </a>
+                      <ul class="dropdown-menu animate slide border" aria-labelledby="dropdownUser">
+                          <li>
+                              <a class="btn signout-btn dropdown-item" th:href="@{/logout}">
+                                  Sign Out
+                              </a>
+                          </li>
+                      </ul>
+                  </li>-->
+                  <li>
+                    <a
+                      th:if="${user != null}"
+                      th:href="${user != null} ? @{/logout} : @{/signin}"
+                    >
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
                     </a>
-                  </li>               
+                  </li>
+                  <li class="pe-3" th:if="${user == null}">
+                    <a
+                      th:href="@{/signin}"
+                      class="btn auth-btn signin-btn pt-3 pb-3 pe-4 ps-4"
+                      >Sign In</a
+                    >
+                  </li>
+                  <li class="pe-3">
+                    <a
+                      th:if="${user == null}"
+                      th:href="@{/signup}"
+                      class="btn auth-btn signup-btn pt-3 pb-3 pe-4 ps-4"
+                      >Sign up</a
+                    >
+                  </li>              
                 </ul>
               </div>
             </div>

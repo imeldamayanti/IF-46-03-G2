@@ -1,42 +1,9 @@
-<<<<<<< HEAD
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\config\SecurityConfig.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\controllers\AdminController.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\controllers\AuthController.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\controllers\BookController.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\controllers\ForumAndReplyController.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\controllers\HomeController.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\controllers\UserController.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\Admin.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\Book.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\BookList.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\ContentAccess.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\Forum.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\Reader.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\Reply.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\entity\User.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\repository\BookRepository.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\repository\ForumRepository.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\repository\ReplyRepository.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\repository\UserRepository.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\security\JwtAuthenticationFilter.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\seeder\BookSeeder.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\seeder\ForumAndReplySeeder.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\seeder\UserSeeder.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\service\BookService.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\service\ForumService.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\service\ReplyService.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\service\UserService.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\TubesMvcApplication.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\utils\csvUtils.java
-C:\Users\imeld\OneDrive\Documents\code_kuliah\PBO\tubes_pbo\IF-46-03-G2\src\main\java\com\tubes\utils\jwtUtils.java
-=======
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\config\SecurityConfig.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\AdminController.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\AuthController.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\BookController.java
-d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\ForumController.java
+d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\ForumAndReplyController.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\HomeController.java
-d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\ReplyController.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\controllers\UserController.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\entity\Admin.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\entity\Book.java
@@ -61,4 +28,3 @@ d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\service\U
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\TubesMvcApplication.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\utils\csvUtils.java
 d:\BitaBay\Semester 5\Tubes_BookNest\tubes_PBO\src\main\java\com\tubes\utils\jwtUtils.java
->>>>>>> 3e7c7bd89caf8528229d82efd5fdd0fc392bbc17

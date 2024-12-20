@@ -1802,4 +1802,31 @@ color: #F1EFE3 !important;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #fff;
+  }
+
+  .signin-btn {
+    background-color: #000;
+  }
+
+  .signin-btn:hover {
+    background-color: #1236e9;
+  }
+
+  .signup-btn {
+    background-color: #C76E6F;
+  }
+
+  .signup-btn:hover {
+    background-color: #000;
+  }
+
+  .signout-btn {
+    background-color: #C76E6F;
+    color: #fff;
+  }
+
+  .signout-btn:hover {
+    background-color: #000;
+    color: #fff;
   }
