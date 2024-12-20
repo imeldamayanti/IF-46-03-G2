@@ -1792,3 +1792,14 @@ color: #F1EFE3 !important;
   .star-empty {
       fill: lightgray; /* Warna bintang kosong */
   }
+
+
+  /* Auth
+  /*----------------------------------------------*/
+  .auth-btn {
+    max-width: 10vw;
+    max-height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

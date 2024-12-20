@@ -23,7 +23,7 @@
     />
 
     <link rel="stylesheet" type="text/css" href="css/forum.css" />
-    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0">
+    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0" />
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}" /> -->
     <link rel="icon" type="image/png" href="assets/IconTitle.png" />
     <link
@@ -323,7 +323,8 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/books}">All Books</a>
-                </li><li class="nav-item">
+                </li>
+                <li class="nav-item">
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
@@ -524,6 +525,19 @@
         <!-- Main Forum Details -->
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
+            <div
+              class="post-footer d-flex justify-content-end align-items-center"
+            >
+              <a
+                th:href="@{/delete/{id}(id=${postId})}"
+                class="btn-link delete-btn p-0 d-flex align-items-center"
+              >
+                <span class="reply-count">
+                  <i class="bi bi-trash3"></i>
+                  Delete
+                </span>
+              </a>
+            </div>
             <div class="d-flex align-items-center mb-3">
               <div class="avatar-reply me-3">
                 <img
@@ -534,15 +548,21 @@
                 />
               </div>
               <div class="forum-profile">
-                <h6 class="text-bold mt-1" th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></h6>
+                <h6
+                  class="text-bold mt-1"
+                  th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"
+                ></h6>
                 <!-- Bind the formatted date here -->
-                <small class="date-forum" th:text="${formattedForumDate}"></small>
+                <small
+                  class="date-forum"
+                  th:text="${formattedForumDate}"
+                ></small>
               </div>
             </div>
             <!-- Render forum title and content dynamically -->
             <h5 class="discuss-title fw-bold" th:text="${forum.title}"></h5>
             <p class="post-content" th:text="${forum.forumContent}"></p>
-            
+
             <!-- Reply Section -->
             <div th:if="${isAuthenticated}">
               <form action="/submit-reply" method="POST">
@@ -567,24 +587,39 @@
             </div>
         
 
-            <hr>
-            
+            <hr />
+
             <!-- Render the replies section -->
             <div class="replies-container">
               <span class="reply-count">
                 <i class="bi bi-chat-left-text me-2"></i>
-                <strong th:text="${totalReplies}"></strong> Reply(s)
-              </span>                           
-              <div class="card p-3 shadow-sm border bg-white rounded replies" th:each="reply : ${replies}">
+                <strong
+                  th:text="${replies != null ? replies.size() : 0}"
+                ></strong>
+                Reply(s)
+              </span>
+              <div
+                class="card p-3 shadow-sm border bg-white rounded replies"
+                th:each="reply : ${replies}"
+              >
                 <div class="d-flex align-items-center mb-3">
                   <div class="avatar-reply me-3">
-                    <img src="/assets/avt.jpg" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px" />
+                    <img
+                      src="/assets/avt.jpg"
+                      alt="Avatar"
+                      class="rounded-circle"
+                      style="width: 40px; height: 40px"
+                    />
                   </div>
                   <div class="forum-profile">
-                    <h6 class="text-bold mt-1"
-                        th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}">
-                    </h6>
-                    <small class="date-forum" th:text="${reply.dateUploaded}"></small>
+                    <h6
+                      class="text-bold mt-1"
+                      th:text="${userMap[reply.createdBy] != null ? userMap[reply.createdBy] : 'Unknown User'}"
+                    ></h6>
+                    <small
+                      class="date-forum"
+                      th:text="${reply.dateUploaded}"
+                    ></small>
                   </div>
                 </div>
                 <p class="post-content" th:text="${reply.replyContent}"></p>
@@ -624,8 +659,6 @@
         </div>
       </div>
     </section>
-    
-    
 
     <script>
       const replyButton = document.getElementById("reply-btn");
@@ -687,7 +720,7 @@
         // Membatasi jumlah karakter maksimal 5000
         if (textLength > maxChars) {
           textarea.value = textarea.value.substring(0, maxChars);
-          charCountDisplay.textContent = `${textLength-1}/${maxChars}`;
+          charCountDisplay.textContent = `${textLength - 1}/${maxChars}`;
         }
 
         // Menyesuaikan tinggi textarea sesuai jumlah karakter
