@@ -85,6 +85,19 @@ public class ForumAndReplyController {
             return map;
         }).collect(Collectors.toList());
     
+        // Mendapatkan pengguna yang sedang login
+        User currentUser = null;
+        boolean isAdmin = false;
+        if (principal != null) {
+            currentUser = userRepository.findByUsername(principal.getName());
+            if (currentUser != null && "ROLE_Admin".equals(currentUser.getRole())) {
+                isAdmin = true;
+            }
+        }
+    
+        // Menambahkan atribut ke model
+        model.addAttribute("user", currentUser); // Tambahkan variabel user
+        model.addAttribute("isAdmin", isAdmin); // Admin check
         model.addAttribute("replies", formattedReplies);
         model.addAttribute("userMap", userMap);
         model.addAttribute("forum", forum);
@@ -97,6 +110,8 @@ public class ForumAndReplyController {
     
         return "discuss";
     }
+    
+    
     
 
     @GetMapping("/forum")
@@ -143,8 +158,13 @@ public class ForumAndReplyController {
         if (userDetails != null) {
             User user = userRepository.findByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
+
+            // Check if the logged-in user has ROLE_ADMIN and add that to the model
+            boolean isAdmin = user.getRole().equals("ROLE_Admin");
+            model.addAttribute("isAdmin", isAdmin);
         } else {
             model.addAttribute("user", null);
+            model.addAttribute("isAdmin", false);
         }
 
         return "forum";
