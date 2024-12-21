@@ -8,12 +8,16 @@ import com.tubes.service.BookService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.tubes.entity.Book;
+import com.tubes.entity.User;
 import com.tubes.repository.BookRepository;
+import com.tubes.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +34,15 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/books")
     public String getBooks(
         @RequestParam(value = "genre", required = false) String genre, 
         @RequestParam(value = "page", defaultValue = "1") int page,
         @RequestParam(value = "size", defaultValue = "12") int size,
+        @AuthenticationPrincipal UserDetails userDetails,
         Model model
     ) {
         Page<Book> books;
@@ -50,6 +57,14 @@ public class BookController {
         model.addAttribute("currentPage", books.getNumber() + 1);
         model.addAttribute("totalPages", books.getTotalPages()); 
         model.addAttribute("totalItems", books.getTotalElements());
+        // model.addAttribute("user", userDetails);
+        if (userDetails != null) {
+            User user = userRepository.findByUsername(userDetails.getUsername());
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("user", null);
+        }
+
 
         return "booksExample";
     }
@@ -69,12 +84,22 @@ public class BookController {
     }
 
     @GetMapping("/bookdetail/{id}")
-    public String getDetail(@PathVariable("id") Long id, Model model) {
+    public String getDetail(
+        @PathVariable("id") Long id, 
+        @AuthenticationPrincipal UserDetails userDetails,
+        Model model
+    ) {
         Book bookdet = bookService.getBookById(id);
         List<String> genres = Arrays.asList(bookdet.getGenre().split(",\\s*"));
         
         model.addAttribute("book", bookdet);
         model.addAttribute("genres", genres);
+        if (userDetails != null) {
+            User user = userRepository.findByUsername(userDetails.getUsername());
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("user", null);
+        }
 
         return "bookdetail";
     }
