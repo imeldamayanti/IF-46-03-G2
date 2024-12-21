@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -166,24 +167,24 @@ public class BookController {
         return "bookdetailAdmin";
     }
 
-
-    @GetMapping("/add")
-    public String formbook() {
+    @GetMapping({"/admin/add", "/admin/edit/{id}"})
+    public String formbook(@PathVariable(required = false) Long id, Model model) {
+        Book book = id != null ? bookService.getBookById(id) : new Book();
+        model.addAttribute("book", book);
         return "formbook";
     }
 
-
-    // @GetMapping("/edit/{id}")
-    // public String editBookForm(@PathVariable Long id, Model model) {
-    //     Book book = bookService.getBookById(id);
-    //     model.addAttribute("book", book);
-    //     return "editBook";
-    // }
-
-    @PostMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, @ModelAttribute Book book) {
-        bookService.updateBook(id, book);
-        return "redirect:/admin/";
+    @PostMapping("/save")
+    public String saveBook(@ModelAttribute("book") Book book, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        try {
+            bookService.saveBook(book);
+            redirectAttributes.addFlashAttribute("message", "Book saved successfully!");
+            return "redirect:/admin/";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to save book. Please try again.");
+            String referer = request.getHeader("Referer");
+            return "redirect:" + (referer != null ? referer : "/admin/");
+        }
     }
 
     @GetMapping("/delete/{id}")
