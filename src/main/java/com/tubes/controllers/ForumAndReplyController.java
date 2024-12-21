@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -96,8 +97,8 @@ public class ForumAndReplyController {
         }
     
         // Menambahkan atribut ke model
-        model.addAttribute("user", currentUser); // Tambahkan variabel user
-        model.addAttribute("isAdmin", isAdmin); // Admin check
+        model.addAttribute("user", currentUser);
+        model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("replies", formattedReplies);
         model.addAttribute("userMap", userMap);
         model.addAttribute("forum", forum);
@@ -111,9 +112,6 @@ public class ForumAndReplyController {
         return "discuss";
     }
     
-    
-    
-
     @GetMapping("/forum")
     public String showForumPage(
         @AuthenticationPrincipal UserDetails userDetails,
@@ -261,5 +259,72 @@ public class ForumAndReplyController {
         return "redirect:/discuss?forumId=" + forumId;
     }
 
+    @GetMapping("/delete/{forumId}/{replyId}")
+    public String deleteReply(
+        @PathVariable("forumId") Long forumId,
+        @PathVariable("replyId") Long replyId,
+        Model model,
+        Principal principal
+    ) {
+        // Find the forum and reply by their IDs
+        Forum forum = forumRepository.findById(forumId).orElse(null);
+        Reply reply = replyRepository.findById(replyId).orElse(null);
+
+        if (forum == null || reply == null) {
+            model.addAttribute("error", "Forum or reply not found");
+            return "error";
+        }
+
+        // Ensure that the user has admin role before deleting
+        User currentUser = userRepository.findByUsername(principal.getName());
+        if (currentUser == null || !currentUser.getRole().equals("ROLE_Admin")) {
+            model.addAttribute("error", "You do not have permission to delete this reply.");
+            return "error";
+        }
+
+        // Delete the reply and update the forum
+        forum.removeReply(reply);
+        replyRepository.delete(reply);
+
+        // Redirect back to the discussion page
+        return "redirect:/discuss?forumId=" + forumId;
+    }
+
+    @GetMapping("/delete/forum/{forumId}")
+    public String deleteForumAndReplies(
+        @PathVariable("forumId") Long forumId,
+        Model model,
+        Principal principal
+    ) {
+        // Find the forum by its ID
+        Forum forum = forumRepository.findById(forumId).orElse(null);
+    
+        if (forum == null) {
+            model.addAttribute("error", "Forum not found");
+            return "error"; 
+        }
+    
+        // Ensure that the user has admin role before deleting
+        User currentUser = userRepository.findByUsername(principal.getName());
+        if (currentUser == null || !currentUser.getRole().equals("ROLE_Admin")) {
+            model.addAttribute("error", "You do not have permission to delete this forum.");
+            return "error";
+        }
+    
+        // First, delete all replies associated with the forum
+        List<Reply> replies = forum.getReplies();
+        if (replies != null) {
+            for (Reply reply : replies) {
+                replyRepository.delete(reply);
+            }
+        }
+    
+        // Delete the forum
+        forumRepository.delete(forum);
+    
+        // Redirect to the forum
+        return "redirect:/forum";
+    }
+    
 }
 

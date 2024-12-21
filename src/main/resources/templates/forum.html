@@ -522,9 +522,9 @@
               <div
               class="post-footer d-flex justify-content-end align-items-center"
               th:if="${isAdmin}"
-              >
+            >
               <a
-                th:href="@{/delete/{id}(id=${forum.id})}"
+                th:href="@{/delete/forum/{forumId}(forumId=${forum.id})}"
                 class="btn-link delete-btn p-0 d-flex align-items-center"
               >
                 <span class="reply-count">
@@ -532,8 +532,8 @@
                   Delete
                 </span>
               </a>
-              </div>
-              
+            </div>
+            
             </div>
           </div>
         </div>
