@@ -1909,7 +1909,8 @@ CSS STRUCTURE:
     }
   }
 
-    /* Auth
+
+  /* Auth
   /*----------------------------------------------*/
   .auth-btn {
     max-width: 10vw;
@@ -1925,15 +1926,17 @@ CSS STRUCTURE:
   }
 
   .signin-btn:hover {
-    background-color: #1236e9;
+    background-color: var(--primary-color);
+    color: var(--black-color);
   }
 
   .signup-btn {
-    background-color: #C76E6F;
+    background-color: var(--primary-color);
   }
 
   .signup-btn:hover {
-    background-color: #000;
+    background-color: var(--primary-color);
+    color: var(--black-color);
   }
 
   .signout-btn {
