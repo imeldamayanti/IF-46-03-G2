@@ -83,12 +83,54 @@ public class BookController {
         return limitedBooks;
     }
 
+
+    // public String getSimilar(@RequestParam(value = "genre", required = false) String genre, Model model) {
+    //     Pageable pageable = PageRequest.of(0, 6); 
+    //     Page<Book> limitedBooks = bookRepository.findBooksByGenre(genre, pageable);
+
+    //     limitedBooks.forEach(book -> {
+    //         String[] words = book.getName().split("\\s+");
+    //         if (words.length > 2) {
+    //             book.setName(words[0] + " " + words[1]);
+    //         }
+    //     });
+
+        
+    //     model.addAttribute("books", genre);
+        
+    //     return "bookdetail";
+    // }
+
+
+    // @GetMapping("/bookdetail/{id}")
+    // public String getDetail(
+    //     @PathVariable("id") Long id, 
+    //     @AuthenticationPrincipal UserDetails userDetails,
+    //     Model model
+    // ) {
+    //     Book bookdet = bookService.getBookById(id);
+    //     List<String> genres = Arrays.asList(bookdet.getGenre().split(",\\s*"));
+        
+    //     model.addAttribute("book", bookdet);
+    //     model.addAttribute("genres", genres);
+    //     if (userDetails != null) {
+    //         User user = userRepository.findByUsername(userDetails.getUsername());
+    //         model.addAttribute("user", user);
+    //     } else {
+    //         model.addAttribute("user", null);
+    //     }
+
+        
+    //     return "bookdetail";
+    // }
+
     @GetMapping("/bookdetail/{id}")
     public String getDetail(
         @PathVariable("id") Long id, 
         @AuthenticationPrincipal UserDetails userDetails,
         Model model
     ) {
+        //  Ngambil buku 
         Book bookdet = bookService.getBookById(id);
         List<String> genres = Arrays.asList(bookdet.getGenre().split(",\\s*"));
         
@@ -101,6 +143,20 @@ public class BookController {
             model.addAttribute("user", null);
         }
 
+        // Ngambil yang mirip2
+        String genre = genres.get(0);
+        Pageable pageable = PageRequest.of(0, 6); 
+        Page<Book> limitedBooks = bookRepository.findBooksByGenre(genre, pageable);
+        limitedBooks.forEach(book -> {
+            String[] words = book.getName().split("\\s+");
+            if (words.length > 2) {
+                book.setName(words[0] + " " + words[1]);
+            }
+        });
+
+        
+        model.addAttribute("similar", limitedBooks);
+        
         return "bookdetail";
     }
 
