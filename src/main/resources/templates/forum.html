@@ -467,11 +467,22 @@
           </div>
 
           <div class="mb-3">
-            <button id="popular-btn" class="btn btn-sm me-3 rounded-3">
-              Popular
-            </button>
-            <button id="latest-btn" class="btn btn-sm rounded-3">Latest</button>
-          </div>
+            <a
+            id="popular-btn"
+            class="btn btn-sm me-3 rounded-3"
+            th:href="@{/forum(sort='popular')}"
+          >
+            Popular
+          </a>
+          <a
+            id="latest-btn"
+            class="btn btn-sm rounded-3"
+            th:href="@{/forum(sort='latest')}"
+          >
+            Latest
+          </a>
+        </div>
+        
         </div>
 
         <div class="bottom-discuss">
@@ -546,15 +557,13 @@
               <a
                 class="page-link"
                 th:if="${currentPage > 1}"
-                th:href="@{/forum(page=${currentPage - 1}, size=${pageSize})}"
+                th:href="@{/forum(page=${currentPage - 1}, size=${pageSize}, sort=${currentSort})}"
               >
                 Previous
               </a>
-              <span class="page-link" th:if="${currentPage == 1}"
-                >Previous</span
-              >
+              <span class="page-link" th:if="${currentPage == 1}">Previous</span>
             </li>
-
+        
             <!-- Page Numbers -->
             <li
               class="page-item ${i == currentPage ? 'active' : ''}"
@@ -562,28 +571,25 @@
             >
               <a
                 class="page-link"
-                th:href="@{/forum(page=${i}, size=${pageSize})}"
+                th:href="@{/forum(page=${i}, size=${pageSize}, sort=${currentSort})}"
                 th:text="${i}"
               ></a>
             </li>
-
+        
             <!-- Next Button -->
-            <li
-              class="page-item ${currentPage == totalPages ? 'disabled' : ''}"
-            >
+            <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
               <a
                 class="page-link"
                 th:if="${currentPage < totalPages}"
-                th:href="@{/forum(page=${currentPage + 1}, size=${pageSize})}"
+                th:href="@{/forum(page=${currentPage + 1}, size=${pageSize}, sort=${currentSort})}"
               >
                 Next
               </a>
-              <span class="page-link" th:if="${currentPage == totalPages}"
-                >Next</span
-              >
+              <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
             </li>
           </ul>
         </nav>
+        
       </div>
     </section>
 

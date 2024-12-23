@@ -19,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 
 import java.security.Principal;
@@ -117,12 +118,19 @@ public class ForumAndReplyController {
         @AuthenticationPrincipal UserDetails userDetails,
         @RequestParam(defaultValue = "1") int page,
         @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue =  "latest") String sort,
         Model model
     ) {
-        // Get paginated forums
-        Pageable pageable = PageRequest.of(page - 1, size); // PageRequest is 0-based
-        Page<Forum> forumPage = forumRepository.findAll(pageable);
 
+        // Get paginated forums
+        Page<Forum> forumPage;
+        if ("popular".equalsIgnoreCase(sort)) {
+            Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "replyCount"));
+            forumPage = forumRepository.findAll(pageable);
+        } else { // Default to "latest"
+            Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "dateUploaded"));
+            forumPage = forumRepository.findAll(pageable);
+        }
         // Map user IDs to usernames
         Map<Integer, String> userMap = userRepository.findAll()
                                                     .stream()
@@ -150,7 +158,8 @@ public class ForumAndReplyController {
         model.addAttribute("userMap", userMap);
         model.addAttribute("currentPage", Math.max(1, forumPage.getNumber() + 1));
         model.addAttribute("totalPages", forumPage.getTotalPages());
-        model.addAttribute("pageSize", size);           
+        model.addAttribute("pageSize", size); 
+        model.addAttribute("currentSort", sort);           
 
         // Handle user login securely using userDetails
         if (userDetails != null) {
