@@ -1,5 +1,19 @@
 package com.tubes.seeder;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.opencsv.exceptions.CsvException;
 import com.tubes.entity.Forum;
 import com.tubes.entity.Reply;
@@ -8,18 +22,6 @@ import com.tubes.repository.ReplyRepository;
 import com.tubes.utils.csvUtils;
 
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.time.LocalDate; // Change this to LocalDate
-import java.time.format.DateTimeFormatter;  
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 public class ForumAndReplySeeder {
