@@ -23,7 +23,7 @@
     />
 
     <link rel="stylesheet" type="text/css" href="css/forum.css" />
-    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0">
+    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0" />
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}" /> -->
     <link rel="icon" type="image/png" href="assets/IconTitle.png" />
     <link
@@ -388,7 +388,7 @@
                   <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
                 </li>
               </ul>
-              <div class="user-items d-flex">
+              <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
                   <li class="search-item pe-3">
                     <a href="#" class="search-button">
@@ -403,171 +403,6 @@
                         <use xlink:href="#user"></use>
                       </svg>
                     </a>
-                    <!-- Modal -->
-                    <div
-                      class="modal fade"
-                      id="exampleModal"
-                      tabindex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header border-bottom-0">
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="tabs-listing">
-                              <nav>
-                                <div
-                                  class="nav nav-tabs d-flex justify-content-center"
-                                  id="nav-tab"
-                                  role="tablist"
-                                >
-                                  <button
-                                    class="nav-link text-capitalize active"
-                                    id="nav-sign-in-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-sign-in"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-sign-in"
-                                    aria-selected="true"
-                                  >
-                                    Sign In
-                                  </button>
-                                  <button
-                                    class="nav-link text-capitalize"
-                                    id="nav-register-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-register"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-register"
-                                    aria-selected="false"
-                                  >
-                                    Register
-                                  </button>
-                                </div>
-                              </nav>
-                              <div class="tab-content" id="nav-tabContent">
-                                <div
-                                  class="tab-pane fade active show"
-                                  id="nav-sign-in"
-                                  role="tabpanel"
-                                  aria-labelledby="nav-sign-in-tab"
-                                >
-                                  <div class="form-group py-3">
-                                    <label class="mb-2" for="sign-in"
-                                      >Username or email address *</label
-                                    >
-                                    <input
-                                      type="text"
-                                      minlength="2"
-                                      name="username"
-                                      placeholder="Your Username"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <div class="form-group pb-3">
-                                    <label class="mb-2" for="sign-in"
-                                      >Password *</label
-                                    >
-                                    <input
-                                      type="password"
-                                      minlength="2"
-                                      name="password"
-                                      placeholder="Your Password"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <label class="py-3">
-                                    <input
-                                      type="checkbox"
-                                      required=""
-                                      class="d-inline"
-                                    />
-                                    <span class="label-body">Remember me</span>
-                                    <span class="label-body"
-                                      ><a href="#" class="fw-bold"
-                                        >Forgot Password</a
-                                      ></span
-                                    >
-                                  </label>
-                                  <button
-                                    type="submit"
-                                    name="submit"
-                                    class="btn btn-dark w-100 my-3"
-                                  >
-                                    Login
-                                  </button>
-                                </div>
-                                <div
-                                  class="tab-pane fade"
-                                  id="nav-register"
-                                  role="tabpanel"
-                                  aria-labelledby="nav-register-tab"
-                                >
-                                  <div class="form-group py-3">
-                                    <label class="mb-2" for="register"
-                                      >Your email address *</label
-                                    >
-                                    <input
-                                      type="text"
-                                      minlength="2"
-                                      name="username"
-                                      placeholder="Your Email Address"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <div class="form-group pb-3">
-                                    <label class="mb-2" for="sign-in"
-                                      >Password *</label
-                                    >
-                                    <input
-                                      type="password"
-                                      minlength="2"
-                                      name="password"
-                                      placeholder="Your Password"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <label class="py-3">
-                                    <input
-                                      type="checkbox"
-                                      required=""
-                                      class="d-inline"
-                                    />
-                                    <span class="label-body"
-                                      >I agree to the
-                                      <a href="#" class="fw-bold"
-                                        >Privacy Policy</a
-                                      ></span
-                                    >
-                                  </label>
-                                  <button
-                                    type="submit"
-                                    name="submit"
-                                    class="btn btn-dark w-100 my-3"
-                                  >
-                                    Register
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </li>
                 </ul>
               </div>
@@ -585,14 +420,14 @@
         </div>
         <form th:action="@{/submit-forum}" method="POST">
           <div class="title card p-3 shadow bg-white rounded mb-3">
-            <input 
-              type="text" 
-              class="form-control forum-title input-default" 
+            <input
+              type="text"
+              class="form-control forum-title input-default"
               name="forumTitle"
-              placeholder="Write your forum title here..." 
-              style="border: none; outline: none; background-color: transparent;" 
+              placeholder="Write your forum title here..."
+              style="border: none; outline: none; background-color: transparent"
               required
-            >
+            />
             <div class="char-count-title"></div>
           </div>
           <div class="content card p-3 shadow bg-white rounded">
@@ -604,15 +439,22 @@
                 required
               ></textarea>
             </div>
-            <div class="text-end" style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 10px;">
+            <div
+              class="text-end"
+              style="
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                gap: 10px;
+              "
+            >
               <div class="char-count">0/2500</div>
               <button type="submit" class="btn btn-sm rounded-3">Send</button>
             </div>
           </div>
-        </form>     
+        </form>
       </div>
     </section>
-    
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script
@@ -622,70 +464,82 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
-    
+
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Select the input and textarea elements
-      const inputTitle = document.querySelector("[name='forumTitle']"); // Select forum title input
-      const charCountTitle = document.querySelector(".char-count-title"); // Counter for title
-      const textareaContent = document.querySelector("[name='forumContent']"); // Select forum content textarea
-      const charCountContent = document.querySelector(".char-count"); // Counter for content textarea
+      document.addEventListener("DOMContentLoaded", function () {
+        // Select the input and textarea elements
+        const inputTitle = document.querySelector("[name='forumTitle']"); // Select forum title input
+        const charCountTitle = document.querySelector(".char-count-title"); // Counter for title
+        const textareaContent = document.querySelector("[name='forumContent']"); // Select forum content textarea
+        const charCountContent = document.querySelector(".char-count"); // Counter for content textarea
 
-      // Set maximum character limits
-      const maxTitleChars = 100;
-      const maxContentChars = 2500;
+        // Set maximum character limits
+        const maxTitleChars = 100;
+        const maxContentChars = 2500;
 
-      /**
-       * Handle the title input change with character restriction and update the counter.
-       */
-      inputTitle.addEventListener("input", function () {
-        const textLength = inputTitle.value.length;
+        /**
+         * Handle the title input change with character restriction and update the counter.
+         */
+        inputTitle.addEventListener("input", function () {
+          const textLength = inputTitle.value.length;
 
-        // Update the title's character count display
-        charCountTitle.textContent = `${Math.min(textLength, maxTitleChars)}/${maxTitleChars}`;
+          // Update the title's character count display
+          charCountTitle.textContent = `${Math.min(
+            textLength,
+            maxTitleChars
+          )}/${maxTitleChars}`;
 
-        // Restrict input length if it exceeds the maximum allowed characters
-        if (textLength > maxTitleChars) {
-          inputTitle.value = inputTitle.value.substring(0, maxTitleChars);
+          // Restrict input length if it exceeds the maximum allowed characters
+          if (textLength > maxTitleChars) {
+            inputTitle.value = inputTitle.value.substring(0, maxTitleChars);
+          }
+        });
+
+        // Initialize the title's character counter on page load
+        charCountTitle.textContent = `0/${maxTitleChars}`;
+
+        /**
+         * Handle the forum content textarea changes with character restriction and dynamic resizing.
+         */
+        textareaContent.addEventListener("input", function () {
+          const textLength = textareaContent.value.length;
+
+          // Update the content's character count display
+          charCountContent.textContent = `${Math.min(
+            textLength,
+            maxContentChars
+          )}/${maxContentChars}`;
+
+          // Restrict input length if it exceeds the maximum allowed characters
+          if (textLength > maxContentChars) {
+            textareaContent.value = textareaContent.value.substring(
+              0,
+              maxContentChars
+            );
+          }
+
+          // Dynamically resize the textarea height based on content
+          adjustTextareaHeight(textareaContent);
+        });
+
+        /**
+         * Function to adjust the height of a textarea dynamically based on content.
+         */
+        function adjustTextareaHeight(textarea) {
+          const minHeight = 100; // Set a minimum height
+          const additionalHeight = Math.min(100, textarea.value.length / 10);
+
+          // Adjust the height to fit the content
+          textarea.style.height = `${Math.max(
+            minHeight,
+            minHeight + additionalHeight
+          )}px`;
         }
-      });
 
-      // Initialize the title's character counter on page load
-      charCountTitle.textContent = `0/${maxTitleChars}`;
-
-      /**
-       * Handle the forum content textarea changes with character restriction and dynamic resizing.
-       */
-      textareaContent.addEventListener("input", function () {
-        const textLength = textareaContent.value.length;
-
-        // Update the content's character count display
-        charCountContent.textContent = `${Math.min(textLength, maxContentChars)}/${maxContentChars}`;
-
-        // Restrict input length if it exceeds the maximum allowed characters
-        if (textLength > maxContentChars) {
-          textareaContent.value = textareaContent.value.substring(0, maxContentChars);
-        }
-
-        // Dynamically resize the textarea height based on content
+        // Initialize the content counter and textarea height on page load
+        charCountContent.textContent = `0/${maxContentChars}`;
         adjustTextareaHeight(textareaContent);
       });
-
-      /**
-       * Function to adjust the height of a textarea dynamically based on content.
-       */
-      function adjustTextareaHeight(textarea) {
-        const minHeight = 100; // Set a minimum height
-        const additionalHeight = Math.min(100, textarea.value.length / 10);
-
-        // Adjust the height to fit the content
-        textarea.style.height = `${Math.max(minHeight, minHeight + additionalHeight)}px`;
-      }
-
-      // Initialize the content counter and textarea height on page load
-      charCountContent.textContent = `0/${maxContentChars}`;
-      adjustTextareaHeight(textareaContent);
-    });
-    </script>    
+    </script>
   </body>
 </html>

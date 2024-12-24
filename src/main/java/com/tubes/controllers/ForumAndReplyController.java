@@ -8,6 +8,7 @@ import com.tubes.entity.Reply;
 import com.tubes.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -26,7 +30,7 @@ import java.util.stream.Collectors;
 import java.util.Optional;
 
 @Controller
-public class ForumController {
+public class ForumAndReplyController {
 
     @Autowired
     private ReplyRepository replyRepository;
@@ -40,11 +44,86 @@ public class ForumController {
     @GetMapping("/discuss")
     public String showDiscussionPage(
         @RequestParam("forumId") Integer forumId,
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "10") int size,
         Model model,
-        Principal principal // Mendapatkan informasi pengguna yang login
+        Principal principal
     ) {
-        // Fetch replies for the specific forum
-        List<Reply> replies = replyRepository.findByForumId(forumId);
+        Forum forum = forumRepository.findById(forumId.longValue()).orElse(null);
+        if (forum == null) {
+            model.addAttribute("error", "Forum not found");
+            return "error";
+        }
+    
+        List<Reply> allReplies = replyRepository.findByForumId(forumId);
+        int totalReplies = allReplies.size();
+        int totalPages = (int) Math.ceil((double) totalReplies / size);
+        if (totalPages == 0) totalPages = 1;
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+    
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, totalReplies);
+        if (startIndex < 0) startIndex = 0;
+    
+        List<Reply> paginatedReplies = allReplies.subList(startIndex, endIndex);
+    
+        Map<Integer, String> userMap = userRepository.findAll()
+                                                    .stream()
+                                                    .collect(Collectors.toMap(
+                                                        user -> user.getId().intValue(),
+                                                        User::getUsername
+                                                    ));
+    
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+        List<Map<String, Object>> formattedReplies = paginatedReplies.stream().map(reply -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", reply.getId());
+            map.put("createdBy", reply.getCreatedBy());
+            map.put("replyContent", reply.getReplyContent());
+            map.put("dateUploaded", reply.getDateUploaded().format(formatter));
+            return map;
+        }).collect(Collectors.toList());
+    
+        // Mendapatkan pengguna yang sedang login
+        User currentUser = null;
+        boolean isAdmin = false;
+        if (principal != null) {
+            currentUser = userRepository.findByUsername(principal.getName());
+            if (currentUser != null && "ROLE_Admin".equals(currentUser.getRole())) {
+                isAdmin = true;
+            }
+        }
+    
+        // Menambahkan atribut ke model
+        model.addAttribute("user", currentUser); // Tambahkan variabel user
+        model.addAttribute("isAdmin", isAdmin); // Admin check
+        model.addAttribute("replies", formattedReplies);
+        model.addAttribute("userMap", userMap);
+        model.addAttribute("forum", forum);
+        model.addAttribute("formattedForumDate", forum.getDateUploaded().format(formatter));
+        model.addAttribute("isAuthenticated", principal != null);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("totalReplies", totalReplies);
+    
+        return "discuss";
+    }
+    
+    
+    
+
+    @GetMapping("/forum")
+    public String showForumPage(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestParam(defaultValue = "1") int page,
+        @RequestParam(defaultValue = "10") int size,
+        Model model
+    ) {
+        // Get paginated forums
+        Pageable pageable = PageRequest.of(page - 1, size); // PageRequest is 0-based
+        Page<Forum> forumPage = forumRepository.findAll(pageable);
 
         // Map user IDs to usernames
         Map<Integer, String> userMap = userRepository.findAll()
@@ -56,57 +135,8 @@ public class ForumController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
 
-        // Map replies to a format suitable for Thymeleaf
-        List<Map<String, Object>> formattedReplies = replies.stream().map(reply -> {
-            Map<String, Object> map = new HashMap<>();
-            map.put("id", reply.getId());
-            map.put("createdBy", reply.getCreatedBy());
-            map.put("replyContent", reply.getReplyContent());
-            map.put("dateUploaded", reply.getDateUploaded().format(formatter));
-            return map;
-        }).collect(Collectors.toList());
-
-        Long forumIdAsLong = forumId.longValue();
-
-        // Fetch the specific Forum details
-        Forum forum = forumRepository.findById(forumIdAsLong).orElse(null);
-
-        if (forum == null) {
-            model.addAttribute("error", "Forum not found");
-            return "error";
-        }
-
-        // Map the forum's date to the same formatter
-        String formattedForumDate = forum.getDateUploaded().format(formatter);
-
-        // Pass the forum details and the formatted date to the Thymeleaf view
-        model.addAttribute("replies", formattedReplies);
-        model.addAttribute("userMap", userMap);
-        model.addAttribute("forum", forum);
-        model.addAttribute("formattedForumDate", formattedForumDate);
-
-        // Pass authentication status to Thymeleaf
-        model.addAttribute("isAuthenticated", principal != null);
-
-        return "discuss";
-    }
-
-    
-
-    @GetMapping("/forum")
-    public String showForumPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        List<Forum> forums = forumRepository.findAll();
-        
-        Map<Integer, String> userMap = userRepository.findAll()
-                                                    .stream()
-                                                    .collect(Collectors.toMap(
-                                                        user -> user.getId().intValue(),
-                                                        User::getUsername
-                                                    ));
-    
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-    
-        List<Map<String, Object>> formattedForums = forums.stream().map(forum -> {
+        // Format paginated forums
+        List<Map<String, Object>> formattedForums = forumPage.getContent().stream().map(forum -> {
             Map<String, Object> map = new HashMap<>();
             map.put("id", forum.getId());
             map.put("createdBy", forum.getCreatedBy());
@@ -116,20 +146,30 @@ public class ForumController {
             map.put("replyCount", forum.getRepliesCount());
             return map;
         }).collect(Collectors.toList());
-    
+
+        // Add pagination and forum data to the model
         model.addAttribute("forums", formattedForums);
         model.addAttribute("userMap", userMap);
-    
-        // Tangani user login dengan aman menggunakan userDetails
+        model.addAttribute("currentPage", Math.max(1, forumPage.getNumber() + 1));
+        model.addAttribute("totalPages", forumPage.getTotalPages());
+        model.addAttribute("pageSize", size);           
+
+        // Handle user login securely using userDetails
         if (userDetails != null) {
             User user = userRepository.findByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
+
+            // Check if the logged-in user has ROLE_ADMIN and add that to the model
+            boolean isAdmin = user.getRole().equals("ROLE_Admin");
+            model.addAttribute("isAdmin", isAdmin);
         } else {
             model.addAttribute("user", null);
+            model.addAttribute("isAdmin", false);
         }
-    
+
         return "forum";
     }
+
 
     @GetMapping("/newForum")
     public String showNewForm(Model model, @AuthenticationPrincipal UserDetails userDetails) {

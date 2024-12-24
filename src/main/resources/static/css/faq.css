@@ -1492,3 +1492,56 @@ select#input-sort {
 .contact-button:hover {
   background-color: #e05500;
 }
+
+.btn:hover,
+  .btn:focus-visible,
+  .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: var(--white-color);
+    background-color: var(--black-color);
+  }
+  .btn-dark {
+    background-color: var(--black-color);
+  }
+  .btn-dark:hover {
+    background-color: var(--primary-color);
+  }
+
+
+  /* Auth
+  /*----------------------------------------------*/
+  .auth-btn {
+    max-width: 10vw;
+    max-height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  .signin-btn {
+    background-color: #000;
+  }
+
+  .signin-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black-color);
+  }
+
+  .signup-btn {
+    background-color: var(--primary-color);
+  }
+
+  .signup-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black-color);
+  }
+
+  .signout-btn {
+    background-color: #C76E6F;
+    color: #fff;
+  }
+
+  .signout-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }
