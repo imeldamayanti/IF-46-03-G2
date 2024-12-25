@@ -433,10 +433,13 @@
           </div>
           <!-- Add to List Button-->
           <div class="button-container">
-            <button class="add-to-list" onclick="showPopup()">
-              Add to list
-            </button>
+            <form th:action="@{/booklist/add}" method="post">
+              <input type="hidden" name="bookId" th:value="${book.id}" />
+              <button type="submit">Add to Booklist</button>
+          </form> 
+
           </div>
+          
 
           <div
             id="popup"

@@ -408,193 +408,111 @@
         </div>
       </nav>
     </header>
-
-    <section id="items-listing" class="padding-large">
-      <div class="container w-full flex justify-start">
-        <!-- Header -->
-        <h1 class="mb-5 text-left font-bold text-xl ml-4">My Books</h1>
-
-        <!-- Tabel Buku -->
-        <table
-          class="table-auto w-full border-collapse bg-white shadow-md rounded-lg"
-        >
-          <!-- Header Tabel -->
-          <thead class="bg-gray-100">
-            <tr>
-              <th class="px-6 py-4 text-center border-b font-bold">Cover</th>
-              <th class="px-6 py-4 text-center border-b font-bold">Title</th>
-              <th class="px-6 py-4 text-center border-b font-bold">Author</th>
-              <th class="px-6 py-4 text-center border-b font-bold">Rating</th>
-              <th class="px-6 py-4 text-center border-b font-bold">Likes</th>
-              <th alt="actions" class="header field actions" style=""></th>
-            </tr>
-          </thead>
-
-          <tbody id="book-list" class="divide-y divide-gray-100">
-            <!-- Buku akan dimuat di sini secara dinamis -->
-          </tbody>
-        </table>
-        <!-- <p class="mt-4 text-sm text-blue-500">
-          <a href="removedBook.html">View Removed Books</a>
-        </p> -->
-      </div>
-    </section>
+    
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Books</title>
+        <!-- Include any necessary stylesheets, like TailwindCSS -->
+    </head>
+    <body>
+    
+      <section id="items-listing" class="padding-large">
+        <div class="container w-full flex flex-col">
+          <!-- Header -->
+          <h1 class="mb-5 text-left font-bold text-xl ml-4">My Books</h1>
+      
+          <!-- Table Buku -->
+          <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="px-6 py-4 text-center border-b font-bold">Cover</th>
+                <th class="px-6 py-4 text-center border-b font-bold">Title</th>
+                <th class="px-6 py-4 text-center border-b font-bold">Author</th>
+                <th class="px-6 py-4 text-center border-b font-bold">Rating</th>
+                <th class="px-6 py-4 text-center border-b font-bold">Actions</th>
+              </tr>
+            </thead>
+      
+            <tbody id="book-list">
+              <!-- Books will be dynamically injected here -->
+              <tr>
+                <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                  Loading books, please wait...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    
+    </body>
+    </html>
+    
 
     <script>
-      // Fungsi untuk memuat data buku dari API
-      async function loadBooks() {
+      // Function to load user's booklist
+      async function loadUserBooks() {
         try {
-          const response = await fetch("http://localhost:8080/api/books"); // Ganti dengan endpoint backend Maven Anda
-          const books = await response.json();
-
+          const response = await fetch("/mybooks"); // Ensure this endpoint matches your controller
+          if (!response.ok) throw new Error("Failed to fetch books");
+    
+          const parser = new DOMParser();
+          const html = await response.text();
+          const doc = parser.parseFromString(html, "text/html");
+    
+          const bookTable = doc.querySelector("#book-list");
           const bookList = document.getElementById("book-list");
-          bookList.innerHTML = ""; // Bersihkan daftar sebelum memuat data baru
-
-          books.forEach((book) => {
-            const row = document.createElement("tr");
-            row.classList.add("hover:bg-gray-50");
-            row.innerHTML = `
-              <td class="px-6 py-4 text-center">
-                <img src="${
-                  book.cover
-                }" alt="Book Cover" class="w-16 h-24 mx-auto rounded-lg shadow">
+          bookList.innerHTML = bookTable.innerHTML || `
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                No books available.
               </td>
-              <td class="px-6 py-4 text-center">${book.title}</td>
-              <td class="px-6 py-4 text-center">${book.author}</td>
-              <td class="px-6 py-4 text-center">${
-                "★".repeat(book.rating) + "☆".repeat(5 - book.rating)
-              }</td>
-              <td class="px-6 py-4 text-center">
-                <button class="like-btn">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z"/>
-                  </svg>
-                </button>
-              </td>
-              <td class="px-6 py-4 text-center">
-                <button class="delete-btn text-red-600 font-bold">✖</button>
-              </td>
-            `;
-
-            /*Tambahkan baris ke tabel*/
-            bookList.appendChild(row);
-
-            // Event listener untuk tombol like menggunakan event delegation
-            bookList.addEventListener("click", (e) => {
-              const likeButton = e.target.closest(".like-btn");
-              if (likeButton) {
-                likeButton.classList.toggle("liked");
-              }
-            });
-
-            // Event listener untuk tombol hapus
-            bookList.addEventListener("click", (e) => {
-              const deleteButton = e.target.closest(".delete-btn");
-              console.log(deleteButton); // Memeriksa apakah tombol delete ditemukan
-              if (deleteButton) {
-                const row = deleteButton.closest("tr");
-                console.log(row); // Memeriksa apakah baris ditemukan
-                if (confirm(`Apakah kamu yakin ingin menghapus buku ini?`)) {
-                  row.remove();
-                }
-              }
-            });
-          });
+            </tr>
+          `;
         } catch (error) {
-          console.error("Failed to load books:", error);
+          console.error("Error loading books:", error);
+          document.getElementById("book-list").innerHTML = `
+            <tr>
+              <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                Failed to load books. Please try again later.
+              </td>
+            </tr>
+          `;
         }
       }
-      // Fungsi untuk memuat data dummy buku jika API belum tersedia
-      async function loadDummyBooks() {
-        const dummyBooks = [
-          {
-            cover: "https://via.placeholder.com/100x150",
-            title: "The Great Gatsby",
-            author: "F. Scott Fitzgerald",
-            rating: 5,
-          },
-          {
-            cover: "https://via.placeholder.com/100x150",
-            title: "To Kill a Mockingbird",
-            author: "Harper Lee",
-            rating: 4,
-          },
-          {
-            cover: "https://via.placeholder.com/100x150",
-            title: "1984",
-            author: "George Orwell",
-            rating: 5,
-          },
-          {
-            cover: "https://via.placeholder.com/100x150",
-            title: "Pride and Prejudice",
-            author: "Jane Austen",
-            rating: 4,
-          },
-        ];
-
-        const bookList = document.getElementById("book-list");
-        bookList.innerHTML = ""; // Bersihkan daftar sebelum memuat data baru
-
-        dummyBooks.forEach((book) => {
-          const row = document.createElement("tr");
-          row.classList.add("hover:bg-gray-50");
-          row.innerHTML = `
-      <td class="px-6 py-4 text-center">
-        <img src="${
-          book.cover
-        }" alt="Book Cover" class="w-16 h-24 mx-auto rounded-lg shadow">
-      </td>
-      <td class="px-6 py-4 text-center">${book.title}</td>
-      <td class="px-6 py-4 text-center">${book.author}</td>
-      <td class="px-6 py-4 text-center">${
-        "★".repeat(book.rating) + "☆".repeat(5 - book.rating)
-      }</td>
-      <td class="px-6 py-4 text-center">
-        <button class="like-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path d="M12 21s-7-4.435-7-10.28c0-2.8 2.183-5.08 5-5.08 1.86 0 3.608 1.192 4 2.92.392-1.728 2.14-2.92 4-2.92 2.817 0 5 2.28 5 5.08C19 16.565 12 21 12 21z"/>
-          </svg>
-        </button>
-      </td>
-      <td class="px-6 py-4 text-center">
-        <button class="delete-btn text-red-600 font-bold">✖</button>
-      </td>
-    `;
-
-          // Tambahkan baris ke tabel
-          bookList.appendChild(row);
-        });
-
-        // Event listener untuk tombol like menggunakan event delegation
-        bookList.addEventListener("click", (e) => {
-          const likeButton = e.target.closest(".like-btn");
-          if (likeButton) {
-            likeButton.classList.toggle("liked");
-          }
-        });
-
-        // Event listener untuk tombol hapus
-        bookList.addEventListener("click", (e) => {
-          const deleteButton = e.target.closest(".delete-btn");
-          console.log(deleteButton); // Memeriksa apakah tombol delete ditemukan
-
-          if (deleteButton) {
-            const row = deleteButton.closest("tr");
-            console.log(row); // Memeriksa apakah baris ditemukan
-
-            if (confirm(`Apakah kamu yakin ingin menghapus buku ini?`)) {
-              row.remove();
-            }
-          }
-        });
+    
+      // Delete a book by ID
+      async function deleteBook(bookId) {
+        try {
+          const response = await fetch(`/book/delete/${bookId}`, { method: "GET" });
+          if (!response.ok) throw new Error("Failed to delete book");
+          await loadUserBooks(); // Reload the book list after deletion
+        } catch (error) {
+          console.error("Error deleting book:", error);
+          alert("Failed to delete the book. Please try again.");
+        }
       }
-
-      // Panggil fungsi untuk memuat data buku dummy setelah halaman selesai dimuat
+    
+      // Attach delete handlers dynamically
+      document.addEventListener("click", (event) => {
+        if (event.target.classList.contains("delete-btn")) {
+          const bookId = event.target.dataset.bookId;
+          if (bookId && confirm("Are you sure you want to delete this book?")) {
+            deleteBook(bookId);
+          }
+        }
+      });
+    
+      // Load books on DOMContentLoaded
       document.addEventListener("DOMContentLoaded", function () {
-        loadDummyBooks();
+        loadUserBooks();
       });
     </script>
+    
+    
+    
 
     <script src="js/jquery-1.11.0.min.js"></script>
     <script
