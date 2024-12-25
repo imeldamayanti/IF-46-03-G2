@@ -3,7 +3,6 @@ package com.tubes.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.tubes.entity.Forum;
 import com.tubes.entity.Reply;
 import com.tubes.repository.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;

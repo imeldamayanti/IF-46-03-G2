@@ -1363,78 +1363,116 @@ select#input-sort {
 }
 
 /*-------------------------------------------------------------------------------------------------------------------*/
-  
-  /* FAQ Section */
-  .faq-section {
-    text-align: left;
-    padding: 2em 1em;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  
-  .faq-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 0.5em;
-  }
-  
-  .faq-header p {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 2em;
-  }
-  
-  .faq-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5em;
-  }
-  
-  .faq-item {
-    display: flex;
-    align-items: flex-start;
-    background-color: #f9f9f9;
-    padding: 1em;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .faq-item .icon {
-    width: 70px;
-    height: 70px;
-    margin-right: 1em;
-    margin-top: -1%;
-  }
-  
-  .faq-item .icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  
-  .faq-item .faq-text h2 {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
-  }
 
-  .faq-item .faq-text h7 {
-    font-size: 0.95em;
-    font-weight: bold;
-    color: #2A2C35;
+/* FAQ Section */
+.faq-section {
+  text-align: left;
+  padding: 2em 1em;
+  max-width: 900px; 
+  margin: 0 auto;
+}
 
-  }
-  
-  .faq-item .faq-text p {
-    font-size: 0.95em;
-    color: #2A2C35;
-    margin-top: 1%;
-    margin-bottom: 0.5%;
-  }
-  
-  /* Contact Us Button */
+/* Hero Image Section */
+.faq-header {
+  margin-bottom: 0em;
+}
+
+.image-container {
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+  margin-bottom: 30%;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+  top: -2cm;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  object-fit: cover; 
+  z-index: -1;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  text-align: left;
+  color: #fff;
+  /*padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%; 
+  height: 45%;*/
+}
+
+.overlay-text h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.overlay-text p {
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.faq-item {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  padding: 1em;
+  border-radius: 8px;
+  margin-bottom: 3%;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.faq-item .icon {
+  width: 70px;
+  height: 70px;
+  margin-right: 1em;
+  flex-shrink: 0;
+}
+
+.faq-item .icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.faq-item .faq-text h7 {
+  font-size: 1em; 
+  font-weight: bold;
+  color: #2A2C35;
+  margin-bottom: 0.5em; 
+}
+
+.faq-item .faq-text p {
+  font-size: 1em;
+  color: #2A2C35;
+}
+
+/* Contact Us Button */
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2em; 
 }
 
 .contact-button {
@@ -1454,43 +1492,55 @@ select#input-sort {
   background-color: #e05500;
 }
 
-.image-container {
-  position: relative;
-  width: 500%;
-  height: 300px;
-  margin-bottom: 5%;
-  margin-left: -30%;
-  overflow: hidden;
-}
+.btn:hover,
+  .btn:focus-visible,
+  .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+    color: var(--white-color);
+    background-color: var(--black-color);
+  }
+  .btn-dark {
+    background-color: var(--black-color);
+  }
+  .btn-dark:hover {
+    background-color: var(--primary-color);
+  }
 
-.hero-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: auto;
-  height: 100%;
-  object-fit: cover;
-}
 
-.overlay-text {
-  position: absolute;
-  top: 60%;
-  left: 5%;
-  transform: translateY(-50%);
-  text-align: left;
-  color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-}
+  /* Auth
+  /*----------------------------------------------*/
+  .auth-btn {
+    max-width: 10vw;
+    max-height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
 
-.overlay-text h3 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+  .signin-btn {
+    background-color: #000;
+  }
 
-.overlay-text p {
-  font-size: 1rem;
-  line-height: 1.4;
-  color: white;
-}
+  .signin-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black-color);
+  }
+
+  .signup-btn {
+    background-color: var(--primary-color);
+  }
+
+  .signup-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black-color);
+  }
+
+  .signout-btn {
+    background-color: #C76E6F;
+    color: #fff;
+  }
+
+  .signout-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }

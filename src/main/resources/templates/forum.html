@@ -23,7 +23,7 @@
     />
 
     <link rel="stylesheet" type="text/css" href="css/forum.css" />
-    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0">
+    <link rel="stylesheet" type="text/css" href="css/forum.css?v=1.0" />
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}" /> -->
     <link rel="icon" type="image/png" href="assets/IconTitle.png" />
     <link
@@ -385,10 +385,13 @@
                   <a class="nav-link me-4 active" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/mybooks}" >MyBooks</a>
-                </li>                
+                  <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link me-4" th:if="${user.getRole() !='ROLE_Admin'}" th:href="@{/mybooks}" >MyBooks</a>
+                </li>                 -->
               </ul>
-              <div class="user-items d-flex">
+              <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
                   <li class="search-item pe-3">
                     <a href="#" class="search-button">
@@ -397,177 +400,45 @@
                       </svg>
                     </a>
                   </li>
-                  <li class="pe-3">
-                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
+                  <!-- Account -->
+                  <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
+                      <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg class="user">
+                            <use xlink:href="#user"></use>
+                        </svg>
+                      </a>
+                      <ul class="dropdown-menu animate slide border" aria-labelledby="dropdownUser">
+                          <li>
+                              <a class="btn signout-btn dropdown-item" th:href="@{/logout}">
+                                  Sign Out
+                              </a>
+                          </li>
+                      </ul>
+                  </li>-->
+                  <li>
+                    <a
+                      th:if="${user != null}"
+                      th:href="${user != null} ? @{/logout} : @{/signin}"
+                    >
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
                     </a>
-                    <!-- Modal -->
-                    <div
-                      class="modal fade"
-                      id="exampleModal"
-                      tabindex="-1"
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
+                  </li>
+                  <li class="pe-3" th:if="${user == null}">
+                    <a
+                      th:href="@{/signin}"
+                      class="btn auth-btn signin-btn pt-3 pb-3 pe-4 ps-4"
+                      >Sign In</a
                     >
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header border-bottom-0">
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="tabs-listing">
-                              <nav>
-                                <div
-                                  class="nav nav-tabs d-flex justify-content-center"
-                                  id="nav-tab"
-                                  role="tablist"
-                                >
-                                  <button
-                                    class="nav-link text-capitalize active"
-                                    id="nav-sign-in-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-sign-in"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-sign-in"
-                                    aria-selected="true"
-                                  >
-                                    Sign In
-                                  </button>
-                                  <button
-                                    class="nav-link text-capitalize"
-                                    id="nav-register-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-register"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-register"
-                                    aria-selected="false"
-                                  >
-                                    Register
-                                  </button>
-                                </div>
-                              </nav>
-                              <div class="tab-content" id="nav-tabContent">
-                                <div
-                                  class="tab-pane fade active show"
-                                  id="nav-sign-in"
-                                  role="tabpanel"
-                                  aria-labelledby="nav-sign-in-tab"
-                                >
-                                  <div class="form-group py-3">
-                                    <label class="mb-2" for="sign-in"
-                                      >Username or email address *</label
-                                    >
-                                    <input
-                                      type="text"
-                                      minlength="2"
-                                      name="username"
-                                      placeholder="Your Username"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <div class="form-group pb-3">
-                                    <label class="mb-2" for="sign-in"
-                                      >Password *</label
-                                    >
-                                    <input
-                                      type="password"
-                                      minlength="2"
-                                      name="password"
-                                      placeholder="Your Password"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <label class="py-3">
-                                    <input
-                                      type="checkbox"
-                                      required=""
-                                      class="d-inline"
-                                    />
-                                    <span class="label-body">Remember me</span>
-                                    <span class="label-body"
-                                      ><a href="#" class="fw-bold"
-                                        >Forgot Password</a
-                                      ></span
-                                    >
-                                  </label>
-                                  <button
-                                    type="submit"
-                                    name="submit"
-                                    class="btn btn-dark w-100 my-3"
-                                  >
-                                    Login
-                                  </button>
-                                </div>
-                                <div
-                                  class="tab-pane fade"
-                                  id="nav-register"
-                                  role="tabpanel"
-                                  aria-labelledby="nav-register-tab"
-                                >
-                                  <div class="form-group py-3">
-                                    <label class="mb-2" for="register"
-                                      >Your email address *</label
-                                    >
-                                    <input
-                                      type="text"
-                                      minlength="2"
-                                      name="username"
-                                      placeholder="Your Email Address"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <div class="form-group pb-3">
-                                    <label class="mb-2" for="sign-in"
-                                      >Password *</label
-                                    >
-                                    <input
-                                      type="password"
-                                      minlength="2"
-                                      name="password"
-                                      placeholder="Your Password"
-                                      class="form-control w-100 rounded-3 p-3"
-                                      required
-                                    />
-                                  </div>
-                                  <label class="py-3">
-                                    <input
-                                      type="checkbox"
-                                      required=""
-                                      class="d-inline"
-                                    />
-                                    <span class="label-body"
-                                      >I agree to the
-                                      <a href="#" class="fw-bold"
-                                        >Privacy Policy</a
-                                      ></span
-                                    >
-                                  </label>
-                                  <button
-                                    type="submit"
-                                    name="submit"
-                                    class="btn btn-dark w-100 my-3"
-                                  >
-                                    Register
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  </li>
+                  <li class="pe-3">
+                    <a
+                      th:if="${user == null}"
+                      th:href="@{/signup}"
+                      class="btn auth-btn signup-btn pt-3 pb-3 pe-4 ps-4"
+                      >Sign up</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -582,7 +453,7 @@
         <div class="top-discuss">
           <div class="section-title d-flex flex-column mb-2">
             <h3 class="mb-1 mt-3">Let's Talk</h3>
-            <p>Sharing, find support, and connect with community</p>
+            <p>Sharing, find support, and connect with the community</p>
           </div>
 
           <div class="mb-4">
@@ -592,7 +463,7 @@
               th:href="@{/newForum}"
             >
               New Discussion
-          </a>
+            </a>
           </div>
 
           <div class="mb-3">
@@ -617,17 +488,29 @@
                 </div>
                 <div class="forum-profile">
                   <h6 class="text-bold mt-1">
-                    <!-- Correctly display user name without links -->
-                    <span th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"></span>
+                    <span
+                      th:text="${userMap[forum.createdBy] != null ? userMap[forum.createdBy] : 'Unknown User'}"
+                    ></span>
                   </h6>
-                  <small class="date-forum" th:text="${forum.dateUploaded}"></small>
+                  <small
+                    class="date-forum"
+                    th:text="${forum.dateUploaded}"
+                  ></small>
                 </div>
               </div>
-              <!-- Only title gets clickable link -->
-              <a th:href="@{/discuss(forumId=${forum.id})}" class="card-title fw-bold" th:text="${forum.title}"></a>
+              <a
+                th:href="@{/discuss(forumId=${forum.id})}"
+                class="card-title fw-bold"
+                th:text="${forum.title}"
+              ></a>
               <p class="post-content" th:text="${forum.forumContent}"></p>
-              <div class="post-footer d-flex justify-content-start align-items-center">
-                <a th:href="@{/discuss(forumId=${forum.id})}" class="btn-link discuss-link p-0 d-flex align-items-center">
+              <div
+                class="post-footer d-flex justify-content-start align-items-center"
+              >
+                <a
+                  th:href="@{/discuss(forumId=${forum.id})}"
+                  class="btn-link discuss-link p-0 d-flex align-items-center"
+                >
                   <span class="reply-count">
                     <i class="bi bi-chat-left-text me-2"></i>
                     <strong th:text="${forum.replyCount}"></strong> Reply(s)
@@ -635,9 +518,73 @@
                 </a>
               </div>
 
+              <!-- Delete Button Visible Only to Admins -->
+              <div
+              class="post-footer d-flex justify-content-end align-items-center"
+              th:if="${isAdmin}"
+              >
+              <a
+                th:href="@{/delete/{id}(id=${forum.id})}"
+                class="btn-link delete-btn p-0 d-flex align-items-center"
+              >
+                <span class="reply-count">
+                  <i class="bi bi-trash3"></i>
+                  Delete
+                </span>
+              </a>
+              </div>
+              
             </div>
           </div>
-        </div>        
+        </div>
+
+        <!-- Forum Pagination -->
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <!-- Previous Button -->
+            <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+              <a
+                class="page-link"
+                th:if="${currentPage > 1}"
+                th:href="@{/forum(page=${currentPage - 1}, size=${pageSize})}"
+              >
+                Previous
+              </a>
+              <span class="page-link" th:if="${currentPage == 1}"
+                >Previous</span
+              >
+            </li>
+
+            <!-- Page Numbers -->
+            <li
+              class="page-item ${i == currentPage ? 'active' : ''}"
+              th:each="i : ${#numbers.sequence(1, totalPages)}"
+            >
+              <a
+                class="page-link"
+                th:href="@{/forum(page=${i}, size=${pageSize})}"
+                th:text="${i}"
+              ></a>
+            </li>
+
+            <!-- Next Button -->
+            <li
+              class="page-item ${currentPage == totalPages ? 'disabled' : ''}"
+            >
+              <a
+                class="page-link"
+                th:if="${currentPage < totalPages}"
+                th:href="@{/forum(page=${currentPage + 1}, size=${pageSize})}"
+              >
+                Next
+              </a>
+              <span class="page-link" th:if="${currentPage == totalPages}"
+                >Next</span
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
     </section>
 
     <script src="js/jquery-1.11.0.min.js"></script>

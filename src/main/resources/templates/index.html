@@ -180,10 +180,13 @@
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/mybooks}" >MyBooks</a>
-                </li>                
+                  <a class="nav-link me-4"  th:href="@{/mybooks}" >MyBooks</a>
+                </li>   
+                <!-- <li class="nav-item">
+                  <a class="nav-link me-4" th:if="${user.getRole() !='ROLE_Admin'}" th:href="@{/mybooks}" >MyBooks</a>
+                </li>                 -->
               </ul>
-              <div class="user-items d-flex">
+              <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
                   <li th:if="${user != null and user.getUsername() != null and user.getRole() == 'ROLE_Admin'}" class="pe-3">
                     <a th:href="@{/admin/}" class="icon-config">
@@ -199,12 +202,33 @@
                       </svg>
                     </a>
                   </li>
+                  <!-- Account -->
+                  <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
+                      <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg class="user">
+                            <use xlink:href="#user"></use>
+                        </svg>
+                      </a>
+                      <ul class="dropdown-menu animate slide border" aria-labelledby="dropdownUser">
+                          <li>
+                              <a class="btn signout-btn dropdown-item" th:href="@{/logout}">
+                                  Sign Out
+                              </a>
+                          </li>
+                      </ul>
+                  </li>-->
+                  <li>
+                      <a th:if="${user != null}" th:href="${user != null} ? @{/logout} : @{/signin}">
+                        <svg class="user">
+                          <use xlink:href="#user"></use>
+                        </svg>
+                      </a>
+                  </li>
+                  <li class="pe-3" th:if="${user == null}">
+                    <a th:href="@{/signin}" class="btn auth-btn signin-btn pt-3 pb-3 pe-4 ps-4">Sign In</a>
+                  </li>  
                   <li class="pe-3">
-                    <a th:href="${user != null} ? @{/logout} : @{/signin}">
-                      <svg class="user">
-                        <use xlink:href="#user"></use>
-                      </svg>
-                    </a>
+                    <a th:if="${user == null}" th:href="@{/signup}" class="btn auth-btn signup-btn pt-3 pb-3 pe-4 ps-4">Sign up</a>
                   </li>               
                 </ul>
               </div>
@@ -280,7 +304,7 @@
                 <div class="card position-relative p-4 border rounded-3">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="images/product-item1.png" class="img-fluid shadow-sm" alt="product item">
+                      <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1630547330i/5.jpg" class="img-fluid shadow-sm" alt="product item">
                     </div>
                     <div class="col-md-6">
                       <div class="rating d-flex align-items-center mb-2">
@@ -299,10 +323,10 @@
                         <svg class="star star-fill">
                           <use xlink:href="#star-fill"></use>
                         </svg>
-                        <span class="ms-2 fs-6 text-black-50">5.0</span>
+                        <span class="ms-2 fs-6 text-black-50">4.58</span>
                       </div>
-                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">House of Sky Breath</a></h6>
-                      <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
+                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">Harry Potter and the Prisoner of Azkaban</a></h6>
+                      <p class="my-2 me-2 fs-6 text-black-50">J.K. Rowling</p>
                       <a href="#" class="btn btn-dark" style="padding: 6px 12px; font-size: 0.85rem; margin-top: 20px;">Add To List</a>
                     </div>
                   </div>
@@ -312,7 +336,7 @@
                 <div class="card position-relative p-4 border rounded-3">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="images/product-item2.png" class="img-fluid shadow-sm" alt="product item">
+                      <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1620325671i/50659468.jpg" class="img-fluid shadow-sm" alt="product item">
                     </div>
                     <div class="col-md-6">
                       <div class="rating d-flex align-items-center mb-2">
@@ -331,10 +355,10 @@
                         <svg class="star star-fill">
                           <use xlink:href="#star-fill"></use>
                         </svg>
-                        <span class="ms-2 fs-6 text-black-50">5.0</span>
+                        <span class="ms-2 fs-6 text-black-50">4.65</span>
                       </div>
-                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">Heartland Stars</a></h6>
-                      <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
+                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">A Court of Mist and Fury</a></h6>
+                      <p class="my-2 me-2 fs-6 text-black-50">Sarah J. Maas</p>
                       <a href="#" class="btn btn-dark" style="padding: 6px 12px; font-size: 0.85rem; margin-top: 20px;">Add To List</a>
                     </div>
                   </div>
@@ -344,7 +368,7 @@
                 <div class="card position-relative p-4 border rounded-3">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="images/product-item3.png" class="img-fluid shadow-sm" alt="product item">
+                      <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1681839850i/21853621.jpg" class="img-fluid shadow-sm" alt="product item">
                     </div>
                     <div class="col-md-6">
                       <div class="rating d-flex align-items-center mb-2">
@@ -363,10 +387,10 @@
                         <svg class="star star-fill">
                           <use xlink:href="#star-fill"></use>
                         </svg>
-                        <span class="ms-2 fs-6 text-black-50">5.0</span>
+                        <span class="ms-2 fs-6 text-black-50">4.63</span>
                       </div>
-                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">Heavenly Bodies</a></h6>
-                      <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
+                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">The Nightingale</a></h6>
+                      <p class="my-2 me-2 fs-6 text-black-50">Kristin Hannah</p>
                       <a href="#" class="btn btn-dark" style="padding: 6px 12px; font-size: 0.85rem; margin-top: 20px;">Add To List</a>
                     </div>
                   </div>
@@ -376,7 +400,7 @@
                 <div class="card position-relative p-4 border rounded-3">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="images/product-item4.png" class="img-fluid shadow-sm" alt="product item">
+                      <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1701980900i/61431922.jpg" class="img-fluid shadow-sm" alt="product item">
                     </div>
                     <div class="col-md-6">
                       <div class="rating d-flex align-items-center mb-2">
@@ -395,10 +419,10 @@
                         <svg class="star star-fill">
                           <use xlink:href="#star-fill"></use>
                         </svg>
-                        <span class="ms-2 fs-6 text-black-50">5.0</span>
+                        <span class="ms-2 fs-6 text-black-50">4.57</span>
                       </div>
-                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">His Saving Grace</a></h6>
-                      <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
+                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">Fourth Wing</a></h6>
+                      <p class="my-2 me-2 fs-6 text-black-50">Rebecca Yarros</p>
                       <a href="#" class="btn btn-dark" style="padding: 6px 12px; font-size: 0.85rem; margin-top: 20px;">Add To List</a>
                     </div>
                   </div>
@@ -408,7 +432,7 @@
                 <div class="card position-relative p-4 border rounded-3">
                   <div class="row">
                     <div class="col-md-6">
-                      <img src="images/product-item4.png" class="img-fluid shadow-sm" alt="product item">
+                      <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1456172607i/22299763.jpg" class="img-fluid shadow-sm" alt="product item">
                     </div>
                     <div class="col-md-6">
                       <div class="rating d-flex align-items-center mb-2">
@@ -427,10 +451,10 @@
                         <svg class="star star-fill">
                           <use xlink:href="#star-fill"></use>
                         </svg>
-                        <span class="ms-2 fs-6 text-black-50">5.0</span>
+                        <span class="ms-2 fs-6 text-black-50">4.58</span>
                       </div>
-                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">Book 5</a></h6>
-                      <p class="my-2 me-2 fs-6 text-black-50">Author 5</p>
+                      <h6 class="mt-0 mb-0 fw-bold"><a href="/bookdetail">Crooked Kingdom</a></h6>
+                      <p class="my-2 me-2 fs-6 text-black-50">Leigh Bardugo</p>
                       <a href="#" class="btn btn-dark" style="padding: 6px 12px; font-size: 0.85rem; margin-top: 20px;">Add To List</a>
                     </div>
                   </div>

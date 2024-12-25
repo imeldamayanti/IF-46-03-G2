@@ -2,9 +2,8 @@ C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\config\SecurityConfi
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\AdminController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\AuthController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\BookController.java
-C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\ForumController.java
+C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\ForumAndReplyController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\HomeController.java
-C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\ReplyController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\controllers\UserController.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\entity\Admin.java
 C:\Users\octliva\tubesPBO\tubes_PBO\src\main\java\com\tubes\entity\Book.java

@@ -1792,3 +1792,43 @@ color: #F1EFE3 !important;
   .star-empty {
       fill: lightgray; /* Warna bintang kosong */
   }
+
+
+  /* Auth
+  /*----------------------------------------------*/
+  .auth-btn {
+    max-width: 10vw;
+    max-height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  .signin-btn {
+    background-color: #000;
+  }
+
+  .signin-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black-color);
+  }
+
+  .signup-btn {
+    background-color: var(--primary-color);
+  }
+
+  .signup-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--black-color);
+  }
+
+  .signout-btn {
+    background-color: #C76E6F;
+    color: #fff;
+  }
+
+  .signout-btn:hover {
+    background-color: #000;
+    color: #fff;
+  }
