@@ -387,13 +387,25 @@
               </ul>
               <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
-                  <li class="search-item pe-3">
-                    <a href="#" class="search-button">
-                      <svg class="search">
-                        <use xlink:href="#search"></use>
-                      </svg>
-                    </a>
-                  </li>
+                </li>
+                <li class="search-item position-relative d-flex align-items-center pe-3">
+                  <a href="#" class="search-button">
+                    <svg class="search">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                  <input
+                    type="text"
+                    class="form-control search-box position-absolute d-none"
+                    placeholder="Search..."
+                    style="
+                      top: 50%;
+                      rught: 5px;
+                      transform: translateY(-50%);
+                      width: 10wv;
+                    "
+                  />
+                </li>
                   <li class="account pe-3">
                     <a th:href="${user != null} ? @{/logout} : @{/signin}">
                       <svg class="user">
@@ -604,5 +616,27 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+        }
+      });
+    </script>
   </body>
 </html>

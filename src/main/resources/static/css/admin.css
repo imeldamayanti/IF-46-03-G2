@@ -63,3 +63,18 @@ body, html {
     margin-top: 15vh;
     /* height: 100%; */
 }
+
+.search-box {
+    z-index: 10;
+    top: 50%;
+    right: 5px; /* Posisi di kiri tombol */
+    transform: translate(-100%, -50%);
+    width: 150px; /* Lebar lebih kecil */
+    padding: 4px 8px; /* Padding minimalis */
+    font-size: 14px; /* Ukuran font kecil */
+    border: 1px solid #ccc; /* Warna border ringan */
+    border-radius: 20px; /* Membulat untuk tampilan modern */
+    outline: none;
+    transition: all 0.3s ease; /* Transisi halus */
+    box-shadow: none; /* Hilangkan bayangan */
+  }
