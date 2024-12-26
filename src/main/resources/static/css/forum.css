@@ -1832,7 +1832,7 @@ CSS STRUCTURE:
   }
 
   
-  /*----------------------------------------------*/
+ /*----------------------------------------------*/
   /* 7. PAGINATION STRUCTURE */
   /*----------------------------------------------*/
 
@@ -1858,27 +1858,30 @@ CSS STRUCTURE:
 
   /* Tombol aktif dan dalam keadaan aktif */
   .page-item.active .page-link {
-    background-color: var(--primary-color); /* Biru aktif */
-    color: #fff;
+    background-color: var(--primary-color) !important; 
+    color: #fff !important; /* Putih untuk teks */
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     padding: 6px 8px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   /* Tombol yang bisa diklik normal */
   .page-item:not(.disabled) .page-link {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Warna teks default */
+    background-color: #fff; /* Latar belakang putih */
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     padding: 6px 8px;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
+  
 
   .page-item:not(.disabled) .page-link:hover {
     background-color: var(--primary-color);
     color: #fff;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   /* Tombol Disabled untuk kondisi lainnya */
