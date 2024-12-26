@@ -1,5 +1,7 @@
 package com.tubes.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -177,6 +179,10 @@ public class BookController {
     @PostMapping("/save")
     public String saveBook(@ModelAttribute("book") Book book, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = LocalDate.parse(book.getDateReleased(), DateTimeFormatter.ISO_DATE).format(formatter);
+            book.setDateReleased(formattedDate);
+            // hm
             bookService.saveBook(book);
             redirectAttributes.addFlashAttribute("message", "Book saved successfully!");
             Long id = book.getId();
