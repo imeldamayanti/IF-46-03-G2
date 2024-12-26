@@ -179,7 +179,8 @@ public class BookController {
         try {
             bookService.saveBook(book);
             redirectAttributes.addFlashAttribute("message", "Book saved successfully!");
-            return "redirect:/admin/";
+            Long id = book.getId();
+            return "redirect:/bookdetail/" + id;
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Failed to save book. Please try again.");
             String referer = request.getHeader("Referer");

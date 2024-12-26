@@ -269,7 +269,7 @@
                     </h3>
                     <h2 style="color: #f1f1f1;">Find and Rate Book Collection</h2>
                     <p style="color: #f1f1f1;">Discover your next favorite read and share your thoughts!</p>      
-                    <a href="index.html" class="btn mt-3">Discover</a>
+                    <a th:href="@{/mybooks}" class="btn mt-3">Discover</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -584,7 +584,7 @@
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Romance</h3>
           <!-- <p th:text="${genre}">a</p> -->
-          <a th:href="@{/books(genre='Biography')}" class="btn">View All</a>
+          <a th:href="@{/books(genre='Romance')}" class="btn">View All</a>
         </div>
         <div class="row">
             <div class="col-md-2 posts mb-4" th:each="book : ${rbooks}">
@@ -622,7 +622,7 @@
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">History</h3>
           <!-- <p th:text="${genre}">a</p> -->
-          <a th:href="@{/books(genre='Biography')}" class="btn">View All</a>
+          <a th:href="@{/books(genre='History')}" class="btn">View All</a>
         </div>
         <div class="row">
             <div class="col-md-2 posts mb-4" th:each="book : ${hbooks}">
