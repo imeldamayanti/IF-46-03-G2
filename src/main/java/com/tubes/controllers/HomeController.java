@@ -1,21 +1,17 @@
 package com.tubes.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
 import com.tubes.repository.UserRepository;
-
-
-import org.springframework.data.domain.Page;
-import org.springframework.security.core.Authentication;
 
 
 
@@ -50,21 +46,21 @@ public class HomeController {
     }
 
 
-    @Controller
-    public class MyBooksController {
+    // @Controller
+    // public class MyBooksController {
 
-        @GetMapping("/mybooks")
-        public String showMyBooksPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-            if (userDetails == null) {
-                // Jika user tidak login, arahkan ke halaman login
-                return "redirect:/signin";
-            }
+    //     @GetMapping("/mybooks")
+    //     public String showMyBooksPage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    //         if (userDetails == null) {
+    //             // Jika user tidak login, arahkan ke halaman login
+    //             return "redirect:/signin";
+    //         }
 
-            // Jika login, tampilkan halaman MyBooks
-            model.addAttribute("user", userDetails);
-            return "mybooks";
-        }
-    }
+    //         // Jika login, tampilkan halaman MyBooks
+    //         model.addAttribute("user", userDetails);
+    //         return "mybooks";
+    //     }
+    // }
 
 
     @GetMapping("/bookdetail")
