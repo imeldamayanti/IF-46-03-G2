@@ -1,4 +1,4 @@
-    package com.tubes.entity;
+        package com.tubes.entity;
 
     import jakarta.persistence.GeneratedValue;
     import jakarta.persistence.GenerationType;
