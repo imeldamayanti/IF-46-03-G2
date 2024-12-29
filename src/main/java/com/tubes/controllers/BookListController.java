@@ -1,6 +1,11 @@
 package com.tubes.controllers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
@@ -107,12 +113,85 @@ public class BookListController {
 
         // Return the view for mybooks.html
         return "mybooks";
-    }                                                 
+    }      
+    
+    @GetMapping("/mybooks/json")
+    @ResponseBody
+    public List<Book> getUserBooklist(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return Collections.emptyList(); // Return an empty list if not logged in
+        }
+
+        // Fetch the logged-in user using the username
+        User user = userRepository.findByUsername(userDetails.getUsername());
+        if (user == null) {
+            return Collections.emptyList(); // Return empty list if user not found
+        }
+
+        // Fetch all books added by the user
+        return bookRepository.findBooksByUserId(user.getId());
+    }
 
     @GetMapping("/book/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
         return "redirect:/mybooks";  // Redirect back to the My Books page after deletion
     }
+
+    @GetMapping("/recommendations")
+    public String getRecommendations(
+            @AuthenticationPrincipal UserDetails userDetails,
+            Model model) {
+        if (userDetails == null) {
+            return "redirect:/signin";
+        }
+
+        // Fetch the logged-in user
+        User user = userRepository.findByUsername(userDetails.getUsername());
+        if (user == null) {
+            model.addAttribute("error", "User not found.");
+            return "error";
+        }
+
+        // Fetch user's booklist
+        List<Book> userBooks = user.getBookList();
+
+        // Analyze genre frequency
+        Map<String, Integer> genreCount = new HashMap<>();
+        for (Book book : userBooks) {
+            String[] genres = book.getGenre().split(","); // Assuming genres are comma-separated
+            for (String genre : genres) {
+                genre = genre.trim();
+                genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
+            }
+        }
+
+        // Sort genres by frequency
+        List<String> sortedGenres = genreCount.entrySet().stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        // Fetch recommended books based on genres
+        List<Book> recommendations = new ArrayList<>();
+        for (String genre : sortedGenres) {
+            List<Book> booksByGenre = bookRepository.findByGenreContaining(genre);
+
+            // Filter out books already in the user's list
+            booksByGenre.removeIf(userBooks::contains);
+
+            // Add to recommendations
+            recommendations.addAll(booksByGenre);
+
+            // Limit recommendations to a reasonable number
+            if (recommendations.size() >= 10) {
+                break;
+            }
+        }
+
+        model.addAttribute("recommendations", recommendations);
+        return "recommendations"; // Render the recommendations page
+    }
+
 
 }
