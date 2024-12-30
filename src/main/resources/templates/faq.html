@@ -362,7 +362,7 @@
           </div>
         </div>
         <div class="button-container">
-            <button class="contact-button">Contact Us</button>
+          <a href="#" class="contact-button" id="contactButton">Contact Us</a>
         </div>
     </section>
   </main>
@@ -387,5 +387,20 @@
       }
     });
   </script>
+
+  <script>
+    document.getElementById('contactButton').addEventListener('click', (event) => {
+        event.preventDefault(); // Mencegah aksi default (membuka aplikasi email)
+        const email = 'adminbooknest@gmail.com';
+        const subject = '';
+        const body = 'I would like to inquire about...';
+
+        // URL yang mengarahkan ke Gmail
+        const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        // Membuka Gmail di tab baru
+        window.open(gmailURL, '_blank');
+    });
+</script>
 </body>
 </html>
