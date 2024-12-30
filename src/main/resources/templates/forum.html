@@ -393,13 +393,25 @@
               </ul>
               <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
-                  <li class="search-item pe-3">
-                    <a href="#" class="search-button">
-                      <svg class="search">
-                        <use xlink:href="#search"></use>
-                      </svg>
-                    </a>
-                  </li>
+                </li>
+                <li class="search-item position-relative d-flex align-items-center pe-3">
+                  <a href="#" class="search-button">
+                    <svg class="search">
+                      <use xlink:href="#search"></use>
+                    </svg>
+                  </a>
+                  <input
+                    type="text"
+                    class="form-control search-box position-absolute d-none"
+                    placeholder="Search..."
+                    style="
+                      top: 50%;
+                      rught: 5px;
+                      transform: translateY(-50%);
+                      width: 10wv;
+                    "
+                  />
+                </li>
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
                       <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -420,7 +432,7 @@
                       th:if="${user != null}"
                       th:href="${user != null} ? @{/logout} : @{/signin}"
                     >
-                      <svg class="user">
+                    <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
                     </a>
@@ -549,46 +561,39 @@
           </div>
         </div>
 
-        <!-- Forum Pagination -->
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <!-- Previous Button -->
-            <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-              <a
-                class="page-link"
-                th:if="${currentPage > 1}"
-                th:href="@{/forum(page=${currentPage - 1}, size=${pageSize}, sort=${currentSort})}"
-              >
-                Previous
-              </a>
-              <span class="page-link" th:if="${currentPage == 1}">Previous</span>
-            </li>
-        
-            <!-- Page Numbers -->
-            <li
-              class="page-item ${i == currentPage ? 'active' : ''}"
-              th:each="i : ${#numbers.sequence(1, totalPages)}"
-            >
-              <a
-                class="page-link"
-                th:href="@{/forum(page=${i}, size=${pageSize}, sort=${currentSort})}"
-                th:text="${i}"
-              ></a>
-            </li>
-        
-            <!-- Next Button -->
-            <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
-              <a
-                class="page-link"
-                th:if="${currentPage < totalPages}"
-                th:href="@{/forum(page=${currentPage + 1}, size=${pageSize}, sort=${currentSort})}"
-              >
-                Next
-              </a>
-              <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
-            </li>
-          </ul>
-        </nav>
+<!-- Forum Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <!-- Previous Button -->
+    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+      <a class="page-link" 
+         th:if="${currentPage > 1}" 
+         th:href="@{/forum(page=${currentPage - 1}, size=${pageSize}, sort=${currentSort})}">
+        Previous
+      </a>
+      <span class="page-link" th:if="${currentPage == 1}">Previous</span>
+    </li>
+
+    <!-- Page Numbers -->
+    <li class="page-item" 
+        th:each="i : ${#numbers.sequence(1, totalPages)}" 
+        th:classappend="${i == currentPage} ? 'active'">
+      <a class="page-link" 
+         th:href="@{/forum(page=${i}, size=${pageSize}, sort=${currentSort})}" 
+         th:text="${i}"></a>
+    </li>
+
+    <!-- Next Button -->
+    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+      <a class="page-link" 
+         th:if="${currentPage < totalPages}" 
+         th:href="@{/forum(page=${currentPage + 1}, size=${pageSize}, sort=${currentSort})}">
+        Next
+      </a>
+      <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
+    </li>
+  </ul>
+</nav>
         
       </div>
     </section>
@@ -601,5 +606,27 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+        }
+      });
+    </script>
   </body>
 </html>

@@ -1,6 +1,13 @@
 package com.tubes.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -32,6 +39,9 @@ public class Book {
     @Column(nullable = true)
     private String cover;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /**
      * Constructor
@@ -86,8 +96,6 @@ public class Book {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-
-   
 
     public String getDateReleased() {
         return this.dateReleased;

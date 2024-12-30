@@ -204,7 +204,6 @@
 					<div class="offcanvas-body">
 					
 						<div class="font-header text-center w-100">
-							ADMIN PAGE
 						</div>
 						<div class="user-items d-flex">
 							<ul class="d-flex justify-content-end list-unstyled mb-0">
@@ -245,7 +244,7 @@
 					th:text="${selectedgenre != null ? 'Books in ' + selectedgenre : 'All Books'}"></h1>
 			</div>
 			<div class="d-flex justify-content-end mb-3">
-				<a class="btn btn-warning btn-sm" Th:href="@{/add}">Add Books</a>
+				<a class="btn btn-warning btn-sm" th:href="@{/admin/add}">Add Books</a>
 				<!-- th:href="@{/delete/{id}(id=${book.id})}" -->
 			</div>
 			<div class="row">
@@ -260,8 +259,8 @@
 							</h5>
 						</div>
 						<div class="card-footer text-center">
-							<!-- <a th:href="@{/editBook/{id}(id=${book.id})}" class="btn btn-primary btn-sm w-42">Edit</a> -->
-							<button class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+							<a th:href="@{/admin/edit/{id}(id=${book.id})}" class="btn btn-primary btn-sm w-42">Edit</a>
+							<!-- <button class="btn btn-primary" data-toggle="modal" data-target="#editModal"
 								th:data-id="${book.id}"
 								th:data-name="${book.name}"
 								th:data-author="${book.author}"
@@ -273,7 +272,7 @@
 								th:data-cover="${book.cover}"
 							>
 								Edit
-							</button>
+							</button> -->
 							<a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger btn-sm w-42">Delete</a>
 						</div>
 					</div>

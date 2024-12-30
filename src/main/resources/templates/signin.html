@@ -43,6 +43,8 @@
 </head>
 <body>
     <div class="container">
+        <div id="success-alert" style="display: none;">Registration successful! Please sign in to start.</div>
+
         <div class="row g-0 content-wrapper">
             <!-- Left Section -->
             <div class="col-md-5 image-section">
@@ -61,8 +63,7 @@
             <!-- Right Section -->
             <div class="col-md-7 p-5 form-section position-relative">
                 <button type="button" class="btn-close" aria-label="Close" th:onclick="'window.location.href=\'' + @{/} + '\''"></button>
-                <div th:if="${param.error}" class="alert alert-danger">Invalid username or password</div>
-                <div th:if="${param.successSignup}" class="alert alert-success">Signup successful!</div>
+                <!--<div th:if="${param.successSignup}" class="alert alert-success">Sign Up successful!</div>-->
                 <h2 class="text-center fw-bold mb-4 mt-1">Sign In</h2>
                 <!-- <form method="post" th:action="@{/login}" onsubmit="validateForm(event)"> -->
                 <form method="post" th:action="@{/api/auth/login}">
@@ -74,10 +75,13 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                         <label for="password">Password</label>
                     </div>
-                    <div class="text-end mb-5">
+                    <!-- <div class="text-end">
                         <a th:href="@{/forgotpw}" class="small forgot-password-link">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="btn w-100 main-btn">Sign In</button>
+                    </div> -->
+
+                    <div th:if="${param.error}" class="alert alert-danger mt-3">Invalid username or password</div>
+
+                    <button type="submit" class="btn w-100 main-btn mt-5">Sign In</button>
                     <!-- <div class="text-center my-3">or</div>
                     <button type="button" class="btn btn-outline-dark w-100 py-2 rounded-3">
                         <i class="fab fa-google me-2"></i> Sign In with Google
@@ -86,5 +90,24 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript register successful -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            console.log("Query Params: ", params.toString());
+            if (params.has("successSignup")) {
+                console.log("successSignup found");
+                const alertBox = document.getElementById("success-alert");
+                alertBox.style.setProperty("display", "block", "important");
+
+                setTimeout(() => {
+                    alertBox.style.display = "none";
+                }, 5000); // Alert hilang setelah 5 detik
+            } else {
+                console.log("successSignup not found");
+            }
+        });        
+    </script>
 </body>
 </html>

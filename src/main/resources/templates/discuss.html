@@ -335,12 +335,25 @@
                 <ul
                   class="d-flex justify-content-end align-items-center list-unstyled mb-0"
                 >
-                  <li class="search-item pe-3">
+                  <li
+                    class="search-item position-relative d-flex align-items-center pe-3"
+                  >
                     <a href="#" class="search-button">
                       <svg class="search">
                         <use xlink:href="#search"></use>
                       </svg>
                     </a>
+                    <input
+                      type="text"
+                      class="form-control search-box position-absolute d-none"
+                      placeholder="Search..."
+                      style="
+                        top: 50%;
+                        rught: 5px;
+                        transform: translateY(-50%);
+                        width: 10wv;
+                      "
+                    />
                   </li>
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
@@ -395,8 +408,14 @@
         <!-- Main Forum Details -->
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
-            <div class="post-footer d-flex justify-content-end align-items-center" th:if="${isAdmin}">
-              <a th:href="@{/delete/forum/{forumId}(forumId=${forum.id})}" class="btn-link delete-btn p-0 d-flex align-items-center">
+            <div
+              class="post-footer d-flex justify-content-end align-items-center"
+              th:if="${isAdmin}"
+            >
+              <a
+                th:href="@{/delete/forum/{forumId}(forumId=${forum.id})}"
+                class="btn-link delete-btn p-0 d-flex align-items-center"
+              >
                 <span class="reply-count">
                   <i class="bi bi-trash3"></i>
                   Delete
@@ -468,14 +487,20 @@
                 class="card p-3 shadow-sm border bg-white rounded replies"
                 th:each="reply : ${replies}"
               >
-              <div class="post-footer d-flex justify-content-end align-items-center" th:if="${isAdmin}">
-                <a th:href="@{/delete/{forumId}/{replyId}(forumId=${forum.id}, replyId=${reply.id})}" class="btn-link delete-btn p-0 d-flex align-items-center">
-                  <span class="reply-count">
-                    <i class="bi bi-trash3"></i>
-                    Delete
-                  </span>
-                </a>
-              </div>
+                <div
+                  class="post-footer d-flex justify-content-end align-items-center"
+                  th:if="${isAdmin}"
+                >
+                  <a
+                    th:href="@{/delete/{forumId}/{replyId}(forumId=${forum.id}, replyId=${reply.id})}"
+                    class="btn-link delete-btn p-0 d-flex align-items-center"
+                  >
+                    <span class="reply-count">
+                      <i class="bi bi-trash3"></i>
+                      Delete
+                    </span>
+                  </a>
+                </div>
                 <div class="d-flex align-items-center mb-3">
                   <div class="avatar-reply me-3">
                     <img
@@ -503,49 +528,37 @@
             <!-- Pagination Section -->
             <nav aria-label="Reply pagination" class="mt-3">
               <ul class="pagination justify-content-center">
-                <!-- Tombol Previous -->
-                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                  <a
-                    class="page-link"
-                    th:if="${currentPage > 1}"
-                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage - 1}, size=${pageSize})}"
-                  >
+                <!-- Previous Button -->
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                  <a class="page-link" 
+                    th:if="${currentPage > 1}" 
+                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage - 1}, size=${pageSize})}">
                     Previous
                   </a>
-                  <span class="page-link" th:if="${currentPage == 1}"
-                    >Previous</span
-                  >
+                  <span class="page-link" th:if="${currentPage == 1}">Previous</span>
                 </li>
 
-                <!-- Halaman Dinamis -->
-                <li
-                  class="page-item ${i == currentPage ? 'active' : ''}"
-                  th:each="i : ${#numbers.sequence(1, totalPages)}"
-                >
-                  <a
-                    class="page-link"
-                    th:href="@{/discuss(forumId=${forum.id}, page=${i}, size=${pageSize})}"
-                    th:text="${i}"
-                  ></a>
+                <!-- Dynamic Page Numbers -->
+                <li class="page-item" 
+                    th:each="i : ${#numbers.sequence(1, totalPages)}" 
+                    th:classappend="${i == currentPage} ? 'active'">
+                  <a class="page-link" 
+                    th:href="@{/discuss(forumId=${forum.id}, page=${i}, size=${pageSize})}" 
+                    th:text="${i}"></a>
                 </li>
 
-                <!-- Tombol Next -->
-                <li
-                  class="page-item ${currentPage == totalPages ? 'disabled' : ''}"
-                >
-                  <a
-                    class="page-link"
-                    th:if="${currentPage < totalPages}"
-                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage + 1}, size=${pageSize})}"
-                  >
+                <!-- Next Button -->
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                  <a class="page-link" 
+                    th:if="${currentPage < totalPages}" 
+                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage + 1}, size=${pageSize})}">
                     Next
                   </a>
-                  <span class="page-link" th:if="${currentPage == totalPages}"
-                    >Next</span
-                  >
+                  <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
                 </li>
               </ul>
             </nav>
+
           </div>
         </div>
       </div>
@@ -630,5 +643,27 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+        }
+      });
+    </script>
   </body>
 </html>

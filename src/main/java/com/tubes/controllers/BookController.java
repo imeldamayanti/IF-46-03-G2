@@ -1,5 +1,7 @@
 package com.tubes.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -166,24 +169,29 @@ public class BookController {
         return "bookdetailAdmin";
     }
 
-
-    @GetMapping("/add")
-    public String formbook() {
+    @GetMapping({"/admin/add", "/admin/edit/{id}"})
+    public String formbook(@PathVariable(required = false) Long id, Model model) {
+        Book book = id != null ? bookService.getBookById(id) : new Book();
+        model.addAttribute("book", book);
         return "formbook";
     }
 
-
-    // @GetMapping("/edit/{id}")
-    // public String editBookForm(@PathVariable Long id, Model model) {
-    //     Book book = bookService.getBookById(id);
-    //     model.addAttribute("book", book);
-    //     return "editBook";
-    // }
-
-    @PostMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, @ModelAttribute Book book) {
-        bookService.updateBook(id, book);
-        return "redirect:/admin/";
+    @PostMapping("/save")
+    public String saveBook(@ModelAttribute("book") Book book, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDate = LocalDate.parse(book.getDateReleased(), DateTimeFormatter.ISO_DATE).format(formatter);
+            book.setDateReleased(formattedDate);
+            // hm
+            bookService.saveBook(book);
+            redirectAttributes.addFlashAttribute("message", "Book saved successfully!");
+            Long id = book.getId();
+            return "redirect:/bookdetail/" + id;
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to save book. Please try again.");
+            String referer = request.getHeader("Referer");
+            return "redirect:" + (referer != null ? referer : "/admin/");
+        }
     }
 
     @GetMapping("/delete/{id}")

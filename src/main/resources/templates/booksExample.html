@@ -222,12 +222,23 @@
                       </svg>
                     </a>
                   </li>
-                  <li class="search-item pe-3">
+                  <li class="search-item position-relative d-flex align-items-center pe-3">
                     <a href="#" class="search-button">
                       <svg class="search">
                         <use xlink:href="#search"></use>
                       </svg>
                     </a>
+                    <input
+                      type="text"
+                      class="form-control search-box position-absolute d-none"
+                      placeholder="Search..."
+                      style="
+                        top: 50%;
+                        rught: 5px;
+                        transform: translateY(-50%);
+                        width: 10wv;
+                      "
+                    />
                   </li>
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
@@ -285,38 +296,54 @@
           </div>
           <div class="row">
             <div class="col-md-2 posts mb-4" th:each="book : ${books}">
-              <img 
+                <a th:href="@{/bookdetail/{id}(id=${book.id})}"> <img 
                   th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
                   th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
                   class="img-fluid fixed-size-img"
-              >
+                ></a>
+              <!-- <img 
+                  th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
+                  th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
+                  class="img-fluid fixed-size-img"
+              > -->
             </div>
           </div>
         </div>
 
+                
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
             <!-- Previous Button -->
-            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-              <a class="page-link" th:href="@{/books(page=${currentPage - 1}, size=${pageSize})}">
+            <li class="page-item" 
+                th:classappend="${currentPage == 1} ? 'disabled'">
+              <a class="page-link" 
+                 th:href="@{/books(genre=${selectedgenre}, page=${currentPage - 1}, size=${pageSize})}">
                 Previous
               </a>
             </li>
-
+        
             <!-- Page Numbers -->
-            <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}"
-              th:classappend="${i == currentPage} ? 'active'">
-              <a class="page-link" th:href="@{/books(page=${i}, size=${pageSize})}" th:text="${i}">1</a>
+            <li class="page-item" 
+                th:each="i : ${#numbers.sequence(1, totalPages)}"
+                th:classappend="${i == currentPage} ? 'active'">
+              <a class="page-link" 
+                 th:href="@{/books(genre=${selectedgenre}, page=${i}, size=${pageSize})}" 
+                 th:text="${i}">
+                1
+              </a>
             </li>
-
+        
             <!-- Next Button -->
-            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-              <a class="page-link" th:href="@{/books(page=${currentPage + 1}, size=${pageSize})}">
+            <li class="page-item" 
+                th:classappend="${currentPage == totalPages} ? 'disabled'">
+              <a class="page-link" 
+                 th:href="@{/books(genre=${selectedgenre}, page=${currentPage + 1}, size=${pageSize})}">
                 Next
               </a>
             </li>
           </ul>
         </nav>
+        
 
       </div>
     </section>
@@ -327,6 +354,28 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/main.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+        }
+      });
+    </script>
   </body>
 
 </html>
