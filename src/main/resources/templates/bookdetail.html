@@ -420,7 +420,7 @@
       </nav>
     </header>
 
-    <div class="main-container">
+    <div class="main-container-bd">
       <!-- Background Container -->
       <div class="background-container">
         <!-- <img th:src="@{assets/bgDarker.png}" class="book-detail-background" alt="Book background"> -->
@@ -447,7 +447,14 @@
               <form th:action="@{/booklist/add}" method="post">
                 <input type="hidden" name="bookId" th:value="${book.id}" />
                 <button type="submit" class="add-to-list">Add to Booklist</button>
-            </form> 
+              </form> 
+
+            </div>
+
+            <div class="button-container">
+              <form th:action="@{/book/delete/${book.id}}" method="get">
+                <button type="submit" class="remove-from-list">Remove from Booklist</button>
+              </form> 
 
             </div>
           
@@ -561,7 +568,7 @@
       </div>
       </div>
     </section>
-
+    <a th:href="@{/faq}" class="floating-button"></a>
     <script>
       function showPopup() {
         const popup = document.getElementById("popup");

@@ -1404,6 +1404,15 @@ CSS STRUCTURE:
   flex-direction: column; /* Default: stack containers vertically */
 }
 
+.main-container-bd {
+  position: relative;
+  width: 100%;
+  min-height: 90vh;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column; /* Default: stack containers vertically */
+}
+
 /* Background Image Fix */
 .background-container {
   position: absolute;
@@ -1457,24 +1466,29 @@ CSS STRUCTURE:
 .button-container {
   text-align: center;
   margin-top: 40px;
-  max-width: 100%;
-  color: var(--white-color);
-  background-color: var(--primary-color);
-  border: none;
-  padding: 1.125rem 2.625rem;
   font-size: 1rem;
-  border-radius: 200px;
 }
 
 .add-to-list {
   /* padding: 10px 20px; */
-  background-color: var(--primary-color);
-  color: #fff;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 160px;
+  border-radius: 10px;
+  padding: 15px 80px;
+  color: var(--white-color);
+  background-color: var(--primary-color);
+}
+
+.remove-from-list:hover {
+  filter:brightness(90%)
+}
+
+.remove-from-list {
+  /* padding: 10px 20px; */
+  border: none;
+  border-radius: 10px;
+  padding: 15px 55px;
+  color: var(--white-color);
+  background-color: var(--primary-color);
 }
 
 .add-to-list:hover {
@@ -1756,22 +1770,45 @@ color: #F1EFE3 !important;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 50px;
-    height: 50px;
+    width: 50px; /* Lebar default */
+    height: 50px; /* Tinggi default */
     background-color: #c76e6f;
     color: #fff;
     border: none;
-    border-radius: 50%;
+    border-radius: 25px; /* Membuat tombol bulat */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Konten selalu di tengah */
     text-decoration: none;
     font-size: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: background-color 0.3s;
-    z-index: 1000; 
-  }
+    transition: all 0.3s; /* Animasi transisi */
+    z-index: 1000;
+    overflow: hidden; /* Sembunyikan teks tambahan sebelum hover */
+    white-space: nowrap; /* Hindari teks terpotong */
+    padding: 0 10px; /* Spasi dalam tombol */
+}
+
+.floating-button:hover {
+    width: 100px; /* Lebar tombol saat di-hover */
+    border-radius: 25px; /* Tetap berbentuk persegi panjang dengan ujung membulat */
+    background-color: #b15d5e; /* Opsional: Ubah warna tombol saat hover */
+}
+
+.floating-button::before {
+  content: "?"; /* Tanda tanya default */
+}
+
+.floating-button:hover::before {
+  content: ""; /* Hapus tanda tanya */
+}
+
+.floating-button:hover::before {
+    color: #FFF;
+    content: "FAQ"; /* Teks saat tombol di-hover */
+    font-size: 18px; /* Ukuran font teks FAQ */
+}
 
   .fixed-size-img {
     width: 196px; /* Atur lebar gambar sesuai kebutuhan */

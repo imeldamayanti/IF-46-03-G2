@@ -17,6 +17,11 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+   href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+   rel="stylesheet"
+/>
+
     <link rel="stylesheet" type="text/css" href="css/mybook.css?v=1.0" />
     <link rel="stylesheet" href="../static/css/mybook.css" />
     <!-- <link rel="stylesheet" th:href="@{/css/style.css}"/> -->
@@ -323,7 +328,7 @@
         </ul>
       </div>
     </div>
-
+    
     <header id="header" class="site-header">
       <nav id="header-nav" class="navbar navbar-expand-lg py-3">
         <div class="container">
@@ -429,33 +434,33 @@
         <!-- Include any necessary stylesheets, like TailwindCSS -->
     </head>
     <body>
-    
-      <section id="items-listing" class="p-6 bg-gray-50 min-h-screen">
-        <div class="container mx-auto flex flex-col">
+      <section id="items-listing" class=" mybooks-con bg-gray-50 min-h-screen">
+        <div class="container mx-auto flex flex-col mt-6">
           <!-- Header -->
-          <!-- <h1 class="mb-5 text-left font-bold text-2xl text-gray-800 ml-4">My Books</h1> -->
+          <h3 class="text-left font-bold text-2xl text-gray-800">My Books</h3>
       
           <!-- Book Table -->
-          <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
-            <thead class="bg-gray-200">
-              <tr>
-                <th class="px-6 py-4 text-center border-b font-semibold text-gray-700">Cover</th>
-                <th class="px-6 py-4 text-center border-b font-semibold text-gray-700">Title</th>
-                <th class="px-6 py-4 text-center border-b font-semibold text-gray-700">Author</th>
-                <th class="px-6 py-4 text-center border-b font-semibold text-gray-700">Rating</th>
-                <th class="px-6 py-4 text-center border-b font-semibold text-gray-700">Actions</th>
-              </tr>
-            </thead>
-      
-            <tbody id="book-list" class="divide-y divide-gray-100">
-              <!-- Placeholder -->
-              <tr>
-                <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                  Loading books, please wait...
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+              <thead class="bg-blue-500">
+                <tr>
+                  <th class="px-6 py-4 text-center border-b font-semibold ">Cover</th>
+                  <th class="px-6 py-4 text-center border-b font-semibold ">Title</th>
+                  <th class="px-6 py-4 text-center border-b font-semibold ">Author</th>
+                  <th class="px-6 py-4 text-center border-b font-semibold ">Rating</th>
+                  <th class="px-6 py-4 text-center border-b font-semibold ">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="book-list" class="divide-y divide-gray-100">
+                <!-- Placeholder -->
+                <tr>
+                  <td colspan="5" class="px-6 py-4 text-center text-gray-500 italic bg-gray-100">
+                    Loading books, please wait...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
       
@@ -463,6 +468,7 @@
     </body>
     </html>
     
+    <a th:href="@{/faq}" class="floating-button"></a>
 
     <script>
       async function loadBooks() {
@@ -495,19 +501,19 @@
             row.innerHTML = `
               <td class="px-6 py-4 text-center">
                 <img src="${book.cover || 'https://via.placeholder.com/100x150'}" 
-                     alt="Book Cover" 
-                     class="w-16 h-24 mx-auto rounded-lg shadow">
+                    alt="Book Cover" 
+                    class="w-16 h-24 mx-auto rounded-lg shadow">
               </td>
               <td class="px-6 py-4 text-center text-gray-700 font-medium">${book.name}</td>
               <td class="px-6 py-4 text-center text-gray-600">${book.author}</td>
               <td class="px-6 py-4 text-center text-gray-600">${book.rate || 'N/A'}</td>
               <td class="px-6 py-4 text-center">
                 <button class="delete-btn px-3 py-1 bg-red-500 text-white font-bold text-sm rounded hover:bg-red-600 focus:outline-none">
-                  Delete
+                  <i class="bi bi-trash"></i>
                 </button>
               </td>
             `;
-    
+
             // Make the row clickable (excluding the Delete button)
             row.addEventListener("click", (e) => {
               if (!e.target.classList.contains("delete-btn")) {
