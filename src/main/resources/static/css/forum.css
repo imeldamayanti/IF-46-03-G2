@@ -1986,6 +1986,7 @@ padding: 8px 12px;
 font-size: 10pt;
 cursor: pointer;
 border-bottom: 1px solid #F86D72;
+}
 .search-box {
   z-index: 10;
   top: 50%;

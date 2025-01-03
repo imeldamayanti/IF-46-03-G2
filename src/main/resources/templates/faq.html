@@ -123,76 +123,9 @@
       </symbol>
     </svg>
 
-    <!-- <div id="preloader" class="preloader-container">
-      <div class="book">
-        <div class="inner">
-          <div class="left"></div>
-          <div class="middle"></div>
-          <div class="right"></div>
-        </div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div> -->
 
-    <div class="search-popup">
-      <div class="search-popup-container">
 
-        <form role="search" method="get" class="search-form" action="">
-          <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value=""
-            name="s" />
-          <button type="submit" class="search-submit"><svg class="search">
-              <use xlink:href="#search"></use>
-            </svg></button>
-        </form>
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-
-        <ul class="cat-list">
-          <li class="cat-list-item">
-            <a href="#" title="Romance">Romance</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Thriller">Thriller</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Sci-fi">Sci-fi</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Cooking">Cooking</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Health">Health</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Lifestyle">Lifestyle</a>
-          </li>
-          <li class="cat-list-item">
-            <a href="#" title="Fiction">Fiction</a>
-          </li>
-        </ul>
-
-      </div>
-    </div>
-
+   
     <header id="header" class="site-header">
 
       <nav id="header-nav" class="navbar navbar-expand-lg py-3">
@@ -226,87 +159,34 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" th:href="@{/forum}">Forum</a>
                 </li>
-                <li th:if="${user == null or user != null and user.getRole() == 'ROLE_Reader'}" class="nav-item">
-                  <a class="nav-link me-4" th:href="@{/mybooks}">MyBooks</a>
-                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-4"  th:href="@{/mybooks}" >MyBooks</a>
+                </li>   
+               
               </ul>
+              
               <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
-                  <li th:if="${user != null and user.getUsername() != null and user.getRole() == 'ROLE_Admin'}" class="pe-3">
-                    <a th:href="@{/admin/}" class="icon-config">
+                  <li th:if="${user != null}" class="pe-3">
                       <svg class="icon-config">
                         <use xlink:href="#config"></use>
                       </svg>
                     </a>
                   </li>
-                </li>
-                <li class="search-item position-relative d-flex align-items-center pe-3">
-                  <a href="#" class="search-button">
-                    <svg class="search">
-                      <use xlink:href="#search"></use>
-                    </svg>
-                  </a>
-                    <input
-                      type="text"
-                      autocomplete="off"
-                      name="searchQuery"
-                      class="form-control search-box position-absolute d-none"
-                      placeholder="Search by name..."
-                      style="
-                        top: 50%;
-                        right: 5px;
-                        transform: translateY(-50%);
-                        width: 180px;;
-                      "
-                    />
                 
-                  <!-- Popup results -->
-                  <div class="search-results position-absolute bg-white border rounded-3 shadow d-none">
-                    <ul id="search-results-list" class="search-list m-0 p-2">
-                      <!-- Results will be inserted here dynamically -->
-                    </ul>
-                  </div>
-                </li>
-                  <!-- Account -->
-                  <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
-                      <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <li>
+                      <a th:if="${user != null}" th:href="${user != null} ? @{/logout} : @{/signin}">
                         <svg class="user">
-                            <use xlink:href="#user"></use>
+                          <use xlink:href="#user"></use>
                         </svg>
                       </a>
-                      <ul class="dropdown-menu animate slide border" aria-labelledby="dropdownUser">
-                          <li>
-                              <a class="btn signout-btn dropdown-item" th:href="@{/logout}">
-                                  Sign Out
-                              </a>
-                          </li>
-                      </ul>
-                  </li>-->
-                  <li>
-                    <a
-                      th:if="${user != null}"
-                      th:href="${user != null} ? @{/logout} : @{/signin}"
-                    >
-                      <svg class="user">
-                        <use xlink:href="#user"></use>
-                      </svg>
-                    </a>
                   </li>
                   <li class="pe-3" th:if="${user == null}">
-                    <a
-                      th:href="@{/signin}"
-                      class="btn auth-btn signin-btn pt-3 pb-3 pe-4 ps-4"
-                      >Sign In</a
-                    >
-                  </li>
+                    <a th:href="@{/signin}" class="btn auth-btn signin-btn pt-3 pb-3 pe-4 ps-4">Sign In</a>
+                  </li>  
                   <li class="pe-3">
-                    <a
-                      th:if="${user == null}"
-                      th:href="@{/signup}"
-                      class="btn auth-btn signup-btn pt-3 pb-3 pe-4 ps-4"
-                      >Sign up</a
-                    >
-                  </li>              
+                    <a th:if="${user == null}" th:href="@{/signup}" class="btn auth-btn signup-btn pt-3 pb-3 pe-4 ps-4">Sign up</a>
+                  </li>               
                 </ul>
               </div>
             </div>

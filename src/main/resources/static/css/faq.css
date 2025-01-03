@@ -1595,7 +1595,6 @@ select#input-sort {
   color: #fff;
 }
 
-<<<<<<< HEAD
 /* Search
   /*----------------------------------------------*/
 /* Search box style */
@@ -1631,9 +1630,9 @@ select#input-sort {
   font-size: 10pt;
   cursor: pointer;
   border-bottom: 1px solid #f86d72;
-=======
 /* Auth
   /*----------------------------------------------*/
+}
 .search-box {
   z-index: 10;
   top: 50%;
@@ -1647,5 +1646,4 @@ select#input-sort {
   outline: none;
   transition: all 0.3s ease; /* Transisi halus */
   box-shadow: none; /* Hilangkan bayangan */
->>>>>>> 6c17668c2404209cd46d5334101b778b2e7b66cc
 }
