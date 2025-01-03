@@ -1446,9 +1446,43 @@ CSS STRUCTURE:
   }
 
   
-
   /* Search
   /*----------------------------------------------*/
+<<<<<<< HEAD
+/* Search box style */
+.search-box {
+  z-index: 10;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%); 
+  width: 150px; 
+  padding: 4px 8px; 
+  font-size: 14px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+/* Search results container */
+.search-results {
+  top: 102%;
+  right: 10%;
+  width: 182px;
+  max-height: 200px;
+  overflow-y: hidden; /* Menghilangkan scrollbar vertikal */
+  overflow-x: hidden; /* Menghilangkan scrollbar horizontal */
+  z-index: 999;
+}
+
+/* Individual search item */
+.search-list .search-item {
+  padding: 8px 12px;
+  font-size: 10pt;
+  cursor: pointer;
+  border-bottom: 1px solid #F86D72;
+=======
   .search-box {
     z-index: 10;
     top: 50%;
@@ -1511,4 +1545,5 @@ CSS STRUCTURE:
     color: #FFF;
     content: "FAQ"; /* Teks saat tombol di-hover */
     font-size: 18px; /* Ukuran font teks FAQ */
+>>>>>>> 6c17668c2404209cd46d5334101b778b2e7b66cc
 }

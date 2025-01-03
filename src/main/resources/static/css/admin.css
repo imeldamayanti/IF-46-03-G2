@@ -1,80 +1,66 @@
 body {
-    font-family: 'Nunito', sans-serif;
-    background-color: #D7D4CB;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: #d7d4cb;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .form-control {
-    background-color: #E8E8E8;
+  background-color: #e8e8e8;
 }
 
 .add-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #C8C6BA;
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
-    min-width: 30vw;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c8c6ba;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  min-width: 30vw;
 }
 
 .add-btn:hover {
-    background-color: #aeaca0;
-    color: #fff;
+  background-color: #aeaca0;
+  color: #fff;
 }
 
 .btn-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 99999;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 99999;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
+body,
+html {
+  height: 100%;
+  margin: 0;
 }
 
 .content-wrapper {
-    max-width: 900px;
-    width: 100%; 
-    background-color: #f8f9fa; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-    overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .logo {
-    width: 5em;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 10;
+  width: 5em;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
 }
 
 .container {
-    display: flex;
-    min-height: 80vh;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15vh;
-    /* height: 100%; */
+  display: flex;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15vh;
+  /* height: 100%; */
 }
-
-.search-box {
-    z-index: 10;
-    top: 50%;
-    right: 5px; /* Posisi di kiri tombol */
-    transform: translate(-100%, -50%);
-    width: 150px; /* Lebar lebih kecil */
-    padding: 4px 8px; /* Padding minimalis */
-    font-size: 14px; /* Ukuran font kecil */
-    border: 1px solid #ccc; /* Warna border ringan */
-    border-radius: 20px; /* Membulat untuk tampilan modern */
-    outline: none;
-    transition: all 0.3s ease; /* Transisi halus */
-    box-shadow: none; /* Hilangkan bayangan */
-  }
