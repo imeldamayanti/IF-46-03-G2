@@ -460,8 +460,8 @@
               </form>
           
               <!-- Jika buku sudah ada di daftar -->
-              <form th:if="${isInBooklist}" th:action="@{/book/delete/{id}(id=${book.id})}" method="get">
-                  <button type="submit" class="remove-from-list">Remove from Booklist</button>
+              <form th:if="${isInBooklist}" th:action="@{/book/remove/{id}(id=${book.id})}" method="post">
+                <button type="submit" class="remove-from-list">Remove from Booklist</button>
               </form>
             </div>
           

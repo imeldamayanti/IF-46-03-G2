@@ -88,7 +88,7 @@ public class BookListController {
             userRepository.save(user);
         }
 
-        return "redirect:/mybooks";                                           
+        return "redirect:/bookdetail/" + bookId;                                         
     }
 
     @GetMapping("/mybooks")
@@ -141,13 +141,37 @@ public class BookListController {
     
         return userBooksPage.getContent(); // Return the list of books
     }
-    
 
     @GetMapping("/book/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
         return "redirect:/mybooks";  // Redirect back to the My Books page after deletion
     }
+
+    @PostMapping("/book/remove/{id}")
+    public String removeInBookDetail(
+        @PathVariable("id") Long id,
+        @AuthenticationPrincipal UserDetails userDetails) {
+        // Fetch logged-in user
+        User user = userRepository.findByUsername(userDetails.getUsername());
+        if (user == null) {
+            return "redirect:/signin";  // Redirect to sign-in if user is not found
+        }
+
+        // Fetch the book by its ID
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            return "redirect:/mybooks";  // Redirect back to My Books page if book is not found
+        }
+
+        // Remove the book from the user's booklist
+        user.getBookList().remove(book);
+        userRepository.save(user);
+
+        // Redirect back to the book detail page
+        return "redirect:/bookdetail/" + id;
+    }
+
 
     @GetMapping("/recommendations/{userId}")
     public List<Book> getRecommendations(@PathVariable Long userId) {

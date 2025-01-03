@@ -435,7 +435,7 @@
       </nav>
     </header>
 
-    <section id="items-listing" class="mybooks-con bg-gray-50 min-h-screen">
+    <section id="items-listing" class="mybooks-con bg-gray-50 min-h-screen" style="padding-top: 140px;">
       <div class="container mx-auto flex flex-col mt-6">
           <!-- Header -->
           <h3 class="text-left font-bold text-2xl text-gray-800">My Books</h3>
@@ -484,12 +484,12 @@
   <a th:href="@{/faq}" class="floating-button"></a>
 
   <script>
-  async function loadBooks() {
+async function loadBooks() {
   const tableBody = document.getElementById("book-list");
-  
+
   // Get current page from URL query parameters
   const urlParams = new URLSearchParams(window.location.search);
-  const currentPage = parseInt(urlParams.get('page') || '1');
+  let currentPage = parseInt(urlParams.get('page') || '1'); // Default to page 1 if not found
 
   try {
     // Fetch books for the current page, with a maximum of 5 books per page
@@ -507,6 +507,11 @@
         </td>
       `;
       tableBody.appendChild(emptyRow);
+
+      // If the current page is greater than 1 and there are no books on this page, go back to page 1
+      if (currentPage > 1) {
+        window.location.href = '/mybooks?page=1';
+      }
       return;
     }
 
@@ -532,7 +537,15 @@
         e.stopPropagation();
         if (confirm(`Are you sure you want to delete "${book.name}"?`)) {
           await fetch(`/book/delete/${book.id}`, { method: "GET" });
-          row.remove();
+          row.remove(); // Remove the row from the table
+
+          // Check if there are no books left after deletion
+          if (tableBody.children.length === 0) {
+            // If it's the last book on the page, go back to page 1
+            if (currentPage > 1) {
+              window.location.href = '/mybooks?page=1';
+            }
+          }
         }
       });
 
@@ -550,8 +563,7 @@
     }
   }
 
-    document.addEventListener("DOMContentLoaded", loadBooks);
-    tener("DOMContentLoaded", loadBooks);
+  document.addEventListener("DOMContentLoaded", loadBooks);
 
     </script>
     
