@@ -1,11 +1,7 @@
 package com.tubes.controllers;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +18,7 @@ import com.tubes.entity.Book;
 import com.tubes.entity.User;
 import com.tubes.repository.BookRepository;
 import com.tubes.repository.UserRepository;
+import com.tubes.service.RecommendationService;
 
 
 @Controller
@@ -32,6 +29,9 @@ public class BookListController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private RecommendationService recommendationService;
 
     @GetMapping("/booklist")
     public String showBooklist(
@@ -138,60 +138,23 @@ public class BookListController {
         return "redirect:/mybooks";  // Redirect back to the My Books page after deletion
     }
 
-    @GetMapping("/recommendations")
-    public String getRecommendations(
-            @AuthenticationPrincipal UserDetails userDetails,
-            Model model) {
-        if (userDetails == null) {
-            return "redirect:/signin";
-        }
-
-        // Fetch the logged-in user
-        User user = userRepository.findByUsername(userDetails.getUsername());
-        if (user == null) {
-            model.addAttribute("error", "User not found.");
-            return "error";
-        }
-
-        // Fetch user's booklist
-        List<Book> userBooks = user.getBookList();
-
-        // Analyze genre frequency
-        Map<String, Integer> genreCount = new HashMap<>();
-        for (Book book : userBooks) {
-            String[] genres = book.getGenre().split(","); // Assuming genres are comma-separated
-            for (String genre : genres) {
-                genre = genre.trim();
-                genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
-            }
-        }
-
-        // Sort genres by frequency
-        List<String> sortedGenres = genreCount.entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
-
-        // Fetch recommended books based on genres
-        List<Book> recommendations = new ArrayList<>();
-        for (String genre : sortedGenres) {
-            List<Book> booksByGenre = bookRepository.findByGenreContaining(genre);
-
-            // Filter out books already in the user's list
-            booksByGenre.removeIf(userBooks::contains);
-
-            // Add to recommendations
-            recommendations.addAll(booksByGenre);
-
-            // Limit recommendations to a reasonable number
-            if (recommendations.size() >= 10) {
-                break;
-            }
-        }
-
-        model.addAttribute("recommendations", recommendations);
-        return "recommendations"; // Render the recommendations page
+    @GetMapping("/recommendations/{userId}")
+    public List<Book> getRecommendations(@PathVariable Long userId) {
+        // Call the service to get book recommendations based on user ID
+        return recommendationService.getRecommendations(userId);
     }
+
+    // @GetMapping("/")
+    // public String getIndexPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    //     if (userDetails != null) {
+    //         User user = userRepository.findByUsername(userDetails.getUsername());
+    //         if (user != null) {
+    //             List<Book> recommendedBooks = recommendationService.getRecommendations(user.getId());
+    //             model.addAttribute("recommendedBooks", recommendedBooks); // Add recommendations to the model
+    //         }
+    //     }
+    //     return "index";  // This will return index.html, which should include your carousel logic
+    // }   
 
 
 }

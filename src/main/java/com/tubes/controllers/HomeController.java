@@ -1,5 +1,7 @@
 package com.tubes.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
 import com.tubes.repository.UserRepository;
+import com.tubes.service.RecommendationService;
 
 
 
@@ -23,9 +26,12 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/")
-    public String Books(@RequestParam(value = "genre", required = false) String genre , Model model){   
+    @Autowired
+    private RecommendationService recommendationService;
 
+    @GetMapping("/")
+    public String Books(@RequestParam(value = "genre", required = false) String genre, Model model) {
+        // Fetch books by genre
         Page<Book> Biography = bookController.getByGenre("iography");
         model.addAttribute("bbooks", Biography);
 
@@ -38,13 +44,19 @@ public class HomeController {
         Page<Book> History = bookController.getByGenre("istory");
         model.addAttribute("hbooks", History);
 
+        // Get logged-in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userRepository.findByUsername(auth.getName());
         model.addAttribute("user", user);
 
-        return "index"; 
-    }
+        // Fetch recommended books based on the logged-in user
+        if (user != null) {
+            List<Book> recommendedBooks = recommendationService.getRecommendations(user.getId());
+            model.addAttribute("recommendedBooks", recommendedBooks); // Add recommendations to the model
+        }
 
+        return "index"; // Return the index view
+    }
 
     // @Controller
     // public class MyBooksController {
