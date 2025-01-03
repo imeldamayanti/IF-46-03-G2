@@ -60,7 +60,7 @@ CSS STRUCTURE:
   --gray-color-500: #d0d0d0;
   --gray-color-800: #3a3a3a;
   --light-gray-color: #d2d2d2;
-  --primary-color: #f86d72;
+  --primary-color: #C76E6F;
   --bs-body-color: #272727;
   --bs-secondary-color: #ffe8f0;
   --bs-secondary-rgb: 255, 232, 240;
@@ -1164,6 +1164,7 @@ th {
 .navbar-nav .nav-item a.nav-link.active,
 .navbar-nav .nav-item a.nav-link:focus,
 .navbar-nav .nav-item a.nav-link:hover {
+  font-weight: bold;
   color: var(--primary-color);
 }
 .modal {
@@ -1526,7 +1527,7 @@ select#input-sort {
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #f86d72;
+  background-color: var(--primary-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 50px;
@@ -1586,7 +1587,7 @@ select#input-sort {
 }
 
 .signout-btn {
-  background-color: #c76e6f;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
@@ -1595,18 +1596,17 @@ select#input-sort {
   color: #fff;
 }
 
-<<<<<<< HEAD
-/* Search
+/* Auth
   /*----------------------------------------------*/
 /* Search box style */
 .search-box {
   z-index: 10;
   top: 50%;
   right: 5px;
-  transform: translateY(-50%);
-  width: 150px;
-  padding: 4px 8px;
-  font-size: 14px;
+  transform: translateY(-50%); 
+  width: 150px; 
+  padding: 4px 8px; 
+  font-size: 14px; 
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
@@ -1617,12 +1617,12 @@ select#input-sort {
 /* Search results container */
 .search-results {
   top: 102%;
-  right: 10%;
+  right: 10%; 
   width: 182px;
   max-height: 200px;
   overflow-y: hidden; /* Menghilangkan scrollbar vertikal */
   overflow-x: hidden; /* Menghilangkan scrollbar horizontal */
-  z-index: 999;
+  z-index: 999; 
 }
 
 /* Individual search item */
@@ -1630,22 +1630,10 @@ select#input-sort {
   padding: 8px 12px;
   font-size: 10pt;
   cursor: pointer;
-  border-bottom: 1px solid #f86d72;
-=======
-/* Auth
-  /*----------------------------------------------*/
-.search-box {
-  z-index: 10;
-  top: 50%;
-  right: 5px; /* Posisi di kiri tombol */
-  transform: translate(-100%, -50%);
-  width: 150px; /* Lebar lebih kecil */
-  padding: 4px 8px; /* Padding minimalis */
-  font-size: 14px; /* Ukuran font kecil */
-  border: 1px solid #ccc; /* Warna border ringan */
-  border-radius: 20px; /* Membulat untuk tampilan modern */
-  outline: none;
-  transition: all 0.3s ease; /* Transisi halus */
-  box-shadow: none; /* Hilangkan bayangan */
->>>>>>> 6c17668c2404209cd46d5334101b778b2e7b66cc
+  border-bottom: 1px solid #F86D72;
 }
+
+.search-button {
+  color:#232323;
+}
+

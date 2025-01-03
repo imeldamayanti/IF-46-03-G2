@@ -14,6 +14,7 @@ com\tubes\seeder\UserSeeder.class
 com\tubes\utils\jwtUtils.class
 com\tubes\repository\BookListRepository.class
 com\tubes\entity\User.class
+com\tubes\service\RecommendationService.class
 com\tubes\config\SecurityConfig.class
 com\tubes\service\ForumService.class
 com\tubes\controllers\HomeController.class
