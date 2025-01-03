@@ -574,13 +574,15 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
             <!-- Previous Button -->
-            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+            <li class="page-item" th:classappend="${totalPages == 0 or currentPage == 1} ? 'disabled'">
               <a class="page-link" 
-                th:if="${currentPage > 1}" 
+                th:if="${currentPage > 1 and totalPages > 0}" 
                 th:href="@{/forum(page=${currentPage - 1}, size=${pageSize}, sort=${currentSort})}">
                 Previous
               </a>
-              <span class="page-link" th:if="${currentPage == 1}">Previous</span>
+              <span class="page-link" th:if="${currentPage == 1 or totalPages == 0}">
+                Previous
+              </span>
             </li>
 
             <!-- Page Numbers -->
@@ -593,16 +595,19 @@
             </li>
 
             <!-- Next Button -->
-            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+            <li class="page-item" th:classappend="${totalPages == 0 or currentPage == totalPages} ? 'disabled'">
               <a class="page-link" 
-                th:if="${currentPage < totalPages}" 
+                th:if="${currentPage < totalPages and totalPages > 0}" 
                 th:href="@{/forum(page=${currentPage + 1}, size=${pageSize}, sort=${currentSort})}">
                 Next
               </a>
-              <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
+              <span class="page-link" th:if="${currentPage == totalPages or totalPages == 0}">
+                Next
+              </span>
             </li>
           </ul>
         </nav>
+
                 
       </div>
     </section>
