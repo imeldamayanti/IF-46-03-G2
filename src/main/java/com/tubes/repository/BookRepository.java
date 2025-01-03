@@ -33,6 +33,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
  
     @Query("SELECT b FROM Book b WHERE b.user.id = :userId")
     List<Book> findBooksByUserId(@Param("userId") Long userId);
+    Page<Book> findBooksByUserId(Long userId, Pageable pageable);
 
     List<Book> findByGenreContaining(String genre);
 
