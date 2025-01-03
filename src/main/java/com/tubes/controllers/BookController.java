@@ -128,27 +128,35 @@ public class BookController {
         
     //     return "bookdetail";
     // }
-
     @GetMapping("/bookdetail/{id}")
     public String getDetail(
-        @PathVariable("id") Long id, 
+        @PathVariable("id") Long id,
         @AuthenticationPrincipal UserDetails userDetails,
         Model model
     ) {
-        //  Ngambil buku 
+        // Ambil detail buku
         Book bookdet = bookService.getBookById(id);
         List<String> genres = Arrays.asList(bookdet.getGenre().split(",\\s*"));
-        
+    
         model.addAttribute("book", bookdet);
         model.addAttribute("genres", genres);
+    
+        boolean isInBooklist = false;
+    
+        // Cek apakah user sudah login
         if (userDetails != null) {
             User user = userRepository.findByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
+    
+            // Cek apakah buku sudah ada di daftar user
+            isInBooklist = user.getBookList().contains(bookdet);
         } else {
             model.addAttribute("user", null);
         }
-
-        // Ngambil yang mirip2
+    
+        model.addAttribute("isInBooklist", isInBooklist);
+    
+        // Ambil buku-buku lain dengan genre yang sama
         String genre = genres.get(0);
         Long bookIdToExclude = bookdet.getId();
         Pageable pageable = PageRequest.of(0, 6); 
@@ -173,7 +181,7 @@ public class BookController {
 
     return "bookdetail";
     }
-
+    
 
     @GetMapping("/bookdetailAdmin")
     public String bookDetailAdmin() {

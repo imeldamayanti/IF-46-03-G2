@@ -434,132 +434,138 @@
         </div>
       </nav>
     </header>
-    
-    <!DOCTYPE html>
-    <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>My Books</title>
-        <!-- Include any necessary stylesheets, like TailwindCSS -->
-    </head>
-    <body>
-      <section id="items-listing" class=" mybooks-con bg-gray-50 min-h-screen">
-        <div class="container mx-auto flex flex-col mt-6">
+
+    <section id="items-listing" class="mybooks-con bg-gray-50 min-h-screen" style="padding-top: 140px;">
+      <div class="container mx-auto flex flex-col mt-6">
           <!-- Header -->
           <h3 class="text-left font-bold text-2xl text-gray-800">My Books</h3>
-      
+  
           <!-- Book Table -->
           <div class="overflow-x-auto">
-            <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
-              <thead class="bg-blue-500">
-                <tr>
-                  <th class="px-6 py-4 text-center border-b font-semibold ">Cover</th>
-                  <th class="px-6 py-4 text-center border-b font-semibold ">Title</th>
-                  <th class="px-6 py-4 text-center border-b font-semibold ">Author</th>
-                  <th class="px-6 py-4 text-center border-b font-semibold ">Rating</th>
-                  <th class="px-6 py-4 text-center border-b font-semibold ">Actions</th>
-                </tr>
-              </thead>
-              <tbody id="book-list" class="divide-y divide-gray-100">
-                <!-- Placeholder -->
-                <tr>
-                  <td colspan="5" class="px-6 py-4 text-center text-gray-500 italic bg-gray-100">
-                    Loading books, please wait...
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <table class="table-auto w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+                  <thead class="bg-blue-500">
+                      <tr>
+                          <th class="px-6 py-4 text-center border-b font-semibold">Cover</th>
+                          <th class="px-6 py-4 text-center border-b font-semibold">Title</th>
+                          <th class="px-6 py-4 text-center border-b font-semibold">Author</th>
+                          <th class="px-6 py-4 text-center border-b font-semibold">Rating</th>
+                          <th class="px-6 py-4 text-center border-b font-semibold">Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody id="book-list" class="divide-y divide-gray-100">
+                      <!-- Book rows will be dynamically inserted here -->
+                  </tbody>
+              </table>
           </div>
-        </div>
-      </section>
-      
-    
-    </body>
-    </html>
-    
-    <a th:href="@{/faq}" class="floating-button"></a>
 
-    <script>
-      async function loadBooks() {
-        const tableBody = document.getElementById("book-list");
-    
-        try {
-          const response = await fetch("/mybooks/json");
-          const books = await response.json();
-    
-          // Clear existing rows
-          tableBody.innerHTML = "";
-    
-          if (books.length === 0) {
-            // No books found
-            const emptyRow = document.createElement("tr");
-            emptyRow.innerHTML = `
-              <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                No books found in your list.
-              </td>
-            `;
-            tableBody.appendChild(emptyRow);
-            return;
-          }
-    
-          books.forEach((book) => {
-            const row = document.createElement("tr");
-            row.classList.add("hover:bg-gray-50", "cursor-pointer");
-    
-            // Add row content
-            row.innerHTML = `
-              <td class="px-6 py-4 text-center">
-                <img src="${book.cover || 'https://via.placeholder.com/100x150'}" 
-                    alt="Book Cover" 
-                    class="w-16 h-24 mx-auto rounded-lg shadow">
-              </td>
-              <td class="px-6 py-4 text-center text-gray-700 font-medium">${book.name}</td>
-              <td class="px-6 py-4 text-center text-gray-600">${book.author}</td>
-              <td class="px-6 py-4 text-center text-gray-600">${book.rate || 'N/A'}</td>
-              <td class="px-6 py-4 text-center">
-                <button class="delete-btn px-3 py-1 bg-red-500 text-white font-bold text-sm rounded hover:bg-red-600 focus:outline-none">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            `;
+          <!-- Pagination -->
+          <nav aria-label="Page navigation example" th:if="${hasBooks}">
+            <ul class="pagination">
+                <!-- Previous Button -->
+                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled previous'">
+                    <a class="page-link" th:href="@{/mybooks(page=${currentPage - 1}, size=5)}" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
 
-            // Make the row clickable (excluding the Delete button)
-            row.addEventListener("click", (e) => {
-              if (!e.target.classList.contains("delete-btn")) {
-                window.location.href = `/bookdetail/${book.id}`;
-              }
-            });
-    
-            // Add delete button functionality
-            row.querySelector(".delete-btn").addEventListener("click", async (e) => {
-              e.stopPropagation(); // Prevent row click event from triggering
-              if (confirm(`Are you sure you want to delete "${book.name}"?`)) {
-                await fetch(`/book/delete/${book.id}`, { method: "GET" });
-                row.remove(); // Remove the row from the table
-              }
-            });
-    
-            tableBody.appendChild(row);
-          });
-        } catch (error) {
-          console.error("Failed to load books:", error);
-          tableBody.innerHTML = `
-            <tr>
-              <td colspan="5" class="px-6 py-4 text-center text-red-500">
-                Failed to load books. Please try again later.
-              </td>
-            </tr>
-          `;
-        }
+                <!-- Page Numbers -->
+                <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? 'active'">
+                    <a class="page-link" th:href="@{/mybooks(page=${i}, size=5)}" th:text="${i}"></a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled next'">
+                    <a class="page-link" th:href="@{/mybooks(page=${currentPage + 1}, size=5)}" aria-disabled="${currentPage == totalPages}">Next</a>
+                </li>
+            </ul>
+          </nav>
+
+      </div>
+  </section>
+  
+  <a th:href="@{/faq}" class="floating-button"></a>
+
+  <script>
+async function loadBooks() {
+  const tableBody = document.getElementById("book-list");
+
+  // Get current page from URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentPage = parseInt(urlParams.get('page') || '1'); // Default to page 1 if not found
+
+  try {
+    // Fetch books for the current page, with a maximum of 5 books per page
+    const response = await fetch(`/mybooks/json?page=${currentPage}&size=5`);
+    const books = await response.json();
+
+    // Clear existing rows
+    tableBody.innerHTML = "";
+
+    if (books.length === 0) {
+      const emptyRow = document.createElement("tr");
+      emptyRow.innerHTML = `        
+        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+          No books found in your list.
+        </td>
+      `;
+      tableBody.appendChild(emptyRow);
+
+      // If the current page is greater than 1 and there are no books on this page, go back to page 1
+      if (currentPage > 1) {
+        window.location.href = '/mybooks?page=1';
       }
-    
-      // Load books after the DOM is fully loaded
-      document.addEventListener("DOMContentLoaded", loadBooks);
+      return;
+    }
+
+    books.forEach((book) => {
+      const row = document.createElement("tr");
+      row.classList.add("hover:bg-gray-50", "cursor-pointer");
+
+      row.innerHTML = `
+        <td class="px-6 py-4 text-center">
+          <img src="${book.cover || 'https://via.placeholder.com/100x150'}" alt="Book Cover" class="w-16 h-24 mx-auto rounded-lg shadow">
+        </td>
+        <td class="px-6 py-4 text-center text-gray-700 font-medium">${book.name}</td>
+        <td class="px-6 py-4 text-center text-gray-600">${book.author}</td>
+        <td class="px-6 py-4 text-center text-gray-600">${book.rate || 'N/A'}</td>
+        <td class="px-6 py-4 text-center">
+          <button class="delete-btn px-3 py-1 bg-red-500 text-white font-bold text-sm rounded hover:bg-red-600 focus:outline-none">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      `;
+
+      row.querySelector(".delete-btn").addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (confirm(`Are you sure you want to delete "${book.name}"?`)) {
+          await fetch(`/book/delete/${book.id}`, { method: "GET" });
+          row.remove(); // Remove the row from the table
+
+          // Check if there are no books left after deletion
+          if (tableBody.children.length === 0) {
+            // If it's the last book on the page, go back to page 1
+            if (currentPage > 1) {
+              window.location.href = '/mybooks?page=1';
+            }
+          }
+        }
+      });
+
+      tableBody.appendChild(row);
+    });
+    } catch (error) {
+      console.error("Failed to load books:", error);
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="px-6 py-4 text-center text-red-500">
+            Failed to load books. Please try again later.
+          </td>
+        </tr>
+      `;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", loadBooks);
+
     </script>
-    
-    
-    
-    
     
     <script src="js/jquery-1.11.0.min.js"></script>
     <script

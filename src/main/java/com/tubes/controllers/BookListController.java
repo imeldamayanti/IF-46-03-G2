@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
@@ -85,51 +88,58 @@ public class BookListController {
             userRepository.save(user);
         }
 
-        return "redirect:/mybooks";                                           
+        return "redirect:/bookdetail/" + bookId;                                         
     }
 
     @GetMapping("/mybooks")
-    public String viewUserBooklist(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String viewUserBooklist(Model model, @AuthenticationPrincipal UserDetails userDetails,
+                                   @RequestParam(defaultValue = "1") int page,
+                                   @RequestParam(defaultValue = "5") int size) {
         if (userDetails == null) {
             return "redirect:/signin"; // Redirect to sign-in if not logged in
         }
-
+    
         // Fetch the logged-in user using the username
         User user = userRepository.findByUsername(userDetails.getUsername());
         if (user == null) {
             model.addAttribute("error", "User not found.");
             return "error";  // Handle error if user not found
         }
-
-        // Fetch all books added by the user
-        List<Book> userBooks = bookRepository.findBooksByUserId(user.getId());
-
-        // Add the books to the model
-        model.addAttribute("myBooks", userBooks); // Use 'myBooks' to match Thymeleaf template
-
-        System.out.println("Number of books: " + userBooks.size());
-        // Print the books to the console (for debugging)
-        System.out.println("Books for user " + user.getUsername() + ": " + userBooks);
-
-        // Return the view for mybooks.html
+    
+        // Fetch the paginated books added by the user
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Book> userBooksPage = bookRepository.findBooksByUserId(user.getId(), pageable);
+    
+        // Add the books to the model (for Thymeleaf rendering)
+        model.addAttribute("myBooks", userBooksPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", userBooksPage.getTotalPages());
+        model.addAttribute("hasBooks", !userBooksPage.getContent().isEmpty());  // Check if there are any books
+    
         return "mybooks";
-    }      
+    }
+    
     
     @GetMapping("/mybooks/json")
     @ResponseBody
-    public List<Book> getUserBooklist(@AuthenticationPrincipal UserDetails userDetails) {
+    public List<Book> getUserBooklistJson(@AuthenticationPrincipal UserDetails userDetails,
+                                          @RequestParam(defaultValue = "1") int page,
+                                          @RequestParam(defaultValue = "5") int size) {
         if (userDetails == null) {
             return Collections.emptyList(); // Return an empty list if not logged in
         }
-
+    
         // Fetch the logged-in user using the username
         User user = userRepository.findByUsername(userDetails.getUsername());
         if (user == null) {
             return Collections.emptyList(); // Return empty list if user not found
         }
-
-        // Fetch all books added by the user
-        return bookRepository.findBooksByUserId(user.getId());
+    
+        // Fetch the paginated books added by the user
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Book> userBooksPage = bookRepository.findBooksByUserId(user.getId(), pageable);
+    
+        return userBooksPage.getContent(); // Return the list of books
     }
 
     @GetMapping("/book/delete/{id}")
@@ -137,6 +147,31 @@ public class BookListController {
         bookRepository.deleteById(id);
         return "redirect:/mybooks";  // Redirect back to the My Books page after deletion
     }
+
+    @PostMapping("/book/remove/{id}")
+    public String removeInBookDetail(
+        @PathVariable("id") Long id,
+        @AuthenticationPrincipal UserDetails userDetails) {
+        // Fetch logged-in user
+        User user = userRepository.findByUsername(userDetails.getUsername());
+        if (user == null) {
+            return "redirect:/signin";  // Redirect to sign-in if user is not found
+        }
+
+        // Fetch the book by its ID
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            return "redirect:/mybooks";  // Redirect back to My Books page if book is not found
+        }
+
+        // Remove the book from the user's booklist
+        user.getBookList().remove(book);
+        userRepository.save(user);
+
+        // Redirect back to the book detail page
+        return "redirect:/bookdetail/" + id;
+    }
+
 
     @GetMapping("/recommendations/{userId}")
     public List<Book> getRecommendations(@PathVariable Long userId) {

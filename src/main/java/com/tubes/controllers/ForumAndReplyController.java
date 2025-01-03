@@ -118,10 +118,9 @@ public class ForumAndReplyController {
         @AuthenticationPrincipal UserDetails userDetails,
         @RequestParam(defaultValue = "1") int page,
         @RequestParam(defaultValue = "10") int size,
-        @RequestParam(defaultValue =  "latest") String sort,
+        @RequestParam(defaultValue = "latest") String sort,
         Model model
     ) {
-
         // Get paginated forums
         Page<Forum> forumPage;
         if ("popular".equalsIgnoreCase(sort)) {
@@ -131,16 +130,23 @@ public class ForumAndReplyController {
             Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "dateUploaded"));
             forumPage = forumRepository.findAll(pageable);
         }
+    
+        // Ensure totalPages is at least 1 if no forums are present
+        int totalPages = forumPage.getTotalPages();
+        if (totalPages == 0) {
+            totalPages = 1; // Force totalPages to 1 when there are no forums
+        }
+    
         // Map user IDs to usernames
         Map<Integer, String> userMap = userRepository.findAll()
-                                                    .stream()
-                                                    .collect(Collectors.toMap(
-                                                        user -> user.getId().intValue(),
-                                                        User::getUsername
-                                                    ));
-
+                .stream()
+                .collect(Collectors.toMap(
+                    user -> user.getId().intValue(),
+                    User::getUsername
+                ));
+    
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
-
+    
         // Format paginated forums
         List<Map<String, Object>> formattedForums = forumPage.getContent().stream().map(forum -> {
             Map<String, Object> map = new HashMap<>();
@@ -152,20 +158,20 @@ public class ForumAndReplyController {
             map.put("replyCount", forum.getRepliesCount());
             return map;
         }).collect(Collectors.toList());
-
+    
         // Add pagination and forum data to the model
         model.addAttribute("forums", formattedForums);
         model.addAttribute("userMap", userMap);
         model.addAttribute("currentPage", Math.max(1, forumPage.getNumber() + 1));
-        model.addAttribute("totalPages", forumPage.getTotalPages());
-        model.addAttribute("pageSize", size); 
-        model.addAttribute("currentSort", sort);           
-
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+        model.addAttribute("currentSort", sort);
+    
         // Handle user login securely using userDetails
         if (userDetails != null) {
             User user = userRepository.findByUsername(userDetails.getUsername());
             model.addAttribute("user", user);
-
+    
             // Check if the logged-in user has ROLE_ADMIN and add that to the model
             boolean isAdmin = user.getRole().equals("ROLE_Admin");
             model.addAttribute("isAdmin", isAdmin);
@@ -173,9 +179,10 @@ public class ForumAndReplyController {
             model.addAttribute("user", null);
             model.addAttribute("isAdmin", false);
         }
-
+    
         return "forum";
     }
+    
 
 
     @GetMapping("/newForum")
