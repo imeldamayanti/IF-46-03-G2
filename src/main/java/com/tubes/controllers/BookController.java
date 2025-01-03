@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -217,4 +218,14 @@ public class BookController {
         String referer = request.getHeader("Referer");
         return "redirect:" + (referer != null ? referer : "/admin/");
     }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Book> searchBooks(@RequestParam("searchQuery") String searchQuery) {
+        // Cari buku berdasarkan nama
+        List<Book> books = bookRepository.findBooksByNameContainingIgnoreCase(searchQuery);
+        return books; // Return results as JSON
+    }
+
+
 }

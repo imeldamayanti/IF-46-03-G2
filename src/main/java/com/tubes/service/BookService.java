@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -75,6 +77,10 @@ public class BookService {
 
         // Save and return the updated book
         return bookRepository.save(existingBook);
+    }
+
+    public List<Book> searchBooksByName(String searchQuery) {
+        return bookRepository.findBooksByNameContainingIgnoreCase(searchQuery);
     }
 
 }

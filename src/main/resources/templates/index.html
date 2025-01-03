@@ -196,23 +196,29 @@
                     </a>
                   </li>
                   <li class="search-item position-relative d-flex align-items-center pe-3">
-                    <a href="#" class="search-button">
-                      <svg class="search">
-                        <use xlink:href="#search"></use>
-                      </svg>
-                    </a>
-                    <input
-                      type="text"
-                      class="form-control search-box position-absolute d-none"
-                      placeholder="Search..."
-                      style="
-                        top: 50%;
-                        rught: 5px;
-                        transform: translateY(-50%);
-                        width: 10wv;
-                      "
-                    />
+                    <form action="#" method="get" class="d-flex">
+                      <input
+                        type="text"
+                        name="searchQuery"
+                        class="form-control search-box"
+                        placeholder="Search by name..."
+                        style="
+                          top: 50%;
+                          right: 5px;
+                          transform: translateY(-50%);
+                          width: 100%;
+                        "
+                      />
+                    </form>
+                  
+                    <!-- Popup results -->
+                    <div class="search-results position-absolute w-100 bg-white border rounded shadow d-none">
+                      <ul id="search-results-list" class="m-0 p-2">
+                        <!-- Results will be inserted here dynamically -->
+                      </ul>
+                    </div>
                   </li>
+                  
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
                       <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -639,24 +645,45 @@
 
     <!-- Search -->
     <script>
-      const searchButton = document.querySelector(".search-button");
       const searchBox = document.querySelector(".search-box");
-
-      // Tampilkan atau sembunyikan kotak pencarian
-      searchButton.addEventListener("click", function (e) {
-        e.preventDefault(); // Mencegah tindakan default link
-        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
-        if (!searchBox.classList.contains("d-none")) {
-          searchBox.focus(); // Fokus ke kotak pencarian
+      const searchResults = document.querySelector(".search-results");
+      const resultsList = document.getElementById("search-results-list");
+    
+      searchBox.addEventListener("input", function () {
+        const query = searchBox.value.trim();
+    
+        if (query.length > 0) {
+          fetch(`/search?searchQuery=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+              resultsList.innerHTML = ''; // Clear previous results
+    
+              if (data.length > 0) {
+                data.forEach(book => {
+                  const listItem = document.createElement("li");
+                  listItem.classList.add("search-item");
+                  listItem.innerHTML = `<a href="/bookdetail/${book.id}">${book.name}</a>`;
+                  resultsList.appendChild(listItem);
+                });
+                searchResults.classList.remove("d-none"); // Show the results
+              } else {
+                searchResults.classList.add("d-none"); // Hide if no results
+              }
+            })
+            .catch(err => {
+              console.error('Error fetching search results:', err);
+            });
+        } else {
+          searchResults.classList.add("d-none"); // Hide the results if query is empty
         }
       });
-
-      // Tutup kotak pencarian saat klik di luar area pencarian
+    
       document.addEventListener("click", function (e) {
-        if (!searchBox.contains(e.target) && !searchButton.contains(e.target)) {
-          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+        if (!searchResults.contains(e.target) && !searchBox.contains(e.target)) {
+          searchResults.classList.add("d-none"); // Hide popup if clicked outside
         }
       });
     </script>
+    
   </body>
 </html> 
