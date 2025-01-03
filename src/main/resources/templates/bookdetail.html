@@ -453,19 +453,18 @@
             </div>
             <!-- Add to List Button-->
             <div class="button-container">
-              <form th:action="@{/booklist/add}" method="post">
-                <input type="hidden" name="bookId" th:value="${book.id}" />
-                <button type="submit" class="add-to-list">Add to Booklist</button>
-              </form> 
-
+              <!-- Jika buku belum ada di daftar -->
+              <form th:if="${!isInBooklist}" th:action="@{/booklist/add}" method="post">
+                  <input type="hidden" name="bookId" th:value="${book.id}" />
+                  <button type="submit" class="add-to-list">Add to Booklist</button>
+              </form>
+          
+              <!-- Jika buku sudah ada di daftar -->
+              <form th:if="${isInBooklist}" th:action="@{/book/delete/{id}(id=${book.id})}" method="get">
+                  <button type="submit" class="remove-from-list">Remove from Booklist</button>
+              </form>
             </div>
-
-            <div class="button-container">
-              <form th:action="@{/book/delete/${book.id}}" method="get">
-                <button type="submit" class="remove-from-list">Remove from Booklist</button>
-              </form> 
-
-            </div>
+          
           
 
           <div

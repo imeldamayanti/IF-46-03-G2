@@ -1993,3 +1993,52 @@ select#input-sort {
   color:#232323;
 }
 
+  /*----------------------------------------------*/
+  /* 8. FLOATING BUTTON FAQ STRUCTURE */
+  /*----------------------------------------------*/
+
+
+  .floating-button {
+    pointer-events: auto;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px; /* Lebar default */
+    height: 50px; /* Tinggi default */
+    background-color: #c76e6f;
+    color: #fff;
+    border: none;
+    border-radius: 25px; /* Membuat tombol bulat */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Konten selalu di tengah */
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s; /* Animasi transisi */
+    z-index: 1000;
+    overflow: hidden; /* Sembunyikan teks tambahan sebelum hover */
+    white-space: nowrap; /* Hindari teks terpotong */
+    padding: 0 10px; /* Spasi dalam tombol */
+  }
+
+  .floating-button:hover {
+      width: 100px; /* Lebar tombol saat di-hover */
+      border-radius: 25px; /* Tetap berbentuk persegi panjang dengan ujung membulat */
+      background-color: #b15d5e; /* Opsional: Ubah warna tombol saat hover */
+  }
+
+  .floating-button::before {
+    content: "?"; /* Tanda tanya default */
+  }
+
+  .floating-button:hover::before {
+    content: ""; /* Hapus tanda tanya */
+  }
+
+  .floating-button:hover::before {
+      color: #FFF;
+      content: "FAQ"; /* Teks saat tombol di-hover */
+      font-size: 18px; /* Ukuran font teks FAQ */
+  }
