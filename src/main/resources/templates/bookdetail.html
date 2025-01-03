@@ -516,7 +516,7 @@
               </div>
 
               <!-- Genre -->
-              <div class="genres-container">
+              <!-- <div class="genres-container">
                 <p class="genres-title">Genres:</p>
                 <div class="genres-list">
                   <span
@@ -526,6 +526,22 @@
                   ></span>
                 </div>
               </div>
+               -->
+              <div class="genres-container">
+                <p class="genres-title">Genres:</p>
+                <div class="genres-list">
+                    <!-- Satu loop untuk semua genre -->
+                    <span 
+                        class="genre-item" 
+                        th:each="genre, iterStat : ${genres}" 
+                        th:classappend="${iterStat.index >= 6} ? 'hidden'" 
+                        th:text="${genre}">
+                    </span>
+                </div>
+              </div>
+              <a href="#" class="see-more-btn mt-3"  onclick="toggleGenres()"  style="font-size: 0.9em; text-decoration: underline; display: block; text-align: center;">See More</a>
+            
+            
 
               <!-- Page & Date Info -->
               <div class="page-and-date">
@@ -610,6 +626,31 @@
           }
         });
       });
+
+      
+    </script>
+    <script>
+      function toggleGenres() {
+      const hiddenGenres = document.querySelectorAll('.genre-item.hidden');
+      const visibleGenres = document.querySelectorAll('.genre-item:not(.hidden)');
+      const seeMoreButton = document.querySelector('.see-more-btn');
+
+      if (seeMoreButton.innerText === 'See More') {
+          // Tampilkan elemen tersembunyi
+          hiddenGenres.forEach((genre) => {
+              genre.classList.remove('hidden');
+          });
+          seeMoreButton.innerText = 'See Less';
+      } else {
+          // Sembunyikan elemen kembali
+          visibleGenres.forEach((genre, index) => {
+              if (index >= 5) {
+                  genre.classList.add('hidden');
+              }
+          });
+          seeMoreButton.innerText = 'See More';
+      }
+     }
     </script>
     <svg style="display: none">
       <symbol id="star-fill" viewBox="0 0 16 16">
@@ -695,5 +736,6 @@
         }
       });
     </script>
+    
   </body>
 </html>

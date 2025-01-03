@@ -1841,6 +1841,11 @@ color: #F1EFE3 !important;
   /*----------------------------------------------*/
 
   /* Umum */
+
+  .hidden{
+    display: none;
+
+  }
   .pagination {
     display: flex;
     list-style: none;

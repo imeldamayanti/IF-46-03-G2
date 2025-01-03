@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.tubes.service.BookService;
 
@@ -149,19 +150,28 @@ public class BookController {
 
         // Ngambil yang mirip2
         String genre = genres.get(0);
+        Long bookIdToExclude = bookdet.getId();
         Pageable pageable = PageRequest.of(0, 6); 
         Page<Book> limitedBooks = bookRepository.findBooksByGenre(genre, pageable);
-        limitedBooks.forEach(book -> {
-            String[] words = book.getName().split("\\s+");
-            if (words.length > 2) {
-                book.setName(words[0] + " " + words[1]);
-            }
-        });
+        if(limitedBooks.getTotalElements()>6){
+            pageable = PageRequest.of(1, 6); 
+            limitedBooks = bookRepository.findBooksByGenre(genre, pageable);
+        }
 
-        
-        model.addAttribute("similar", limitedBooks);
-        
-        return "bookdetail";
+        List<Book> filteredBooks = limitedBooks.stream()
+        .filter(book -> !book.getId().equals(bookIdToExclude)) // Mengecualikan buku dengan ID yang sama
+        .collect(Collectors.toList());
+
+        filteredBooks.forEach(book -> {
+    String[] words = book.getName().split("\\s+");
+        if (words.length > 2) {
+            book.setName(words[0] + " " + words[1]);
+        }
+    });
+
+    model.addAttribute("similar", filteredBooks);
+
+    return "bookdetail";
     }
 
 
