@@ -2,6 +2,7 @@ c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\config\Sec
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\AdminController.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\AuthController.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\BookController.java
+c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\BookListController.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\ForumAndReplyController.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\HomeController.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\controllers\UserController.java
@@ -13,6 +14,7 @@ c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\entity\For
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\entity\Reader.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\entity\Reply.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\entity\User.java
+c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\repository\BookListRepository.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\repository\BookRepository.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\repository\ForumRepository.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\repository\ReplyRepository.java
@@ -21,6 +23,7 @@ c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\security\J
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\seeder\BookSeeder.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\seeder\ForumAndReplySeeder.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\seeder\UserSeeder.java
+c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\service\BookListService.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\service\BookService.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\service\ForumService.java
 c:\Users\EKO\Downloads\impal anjg\IF-46-03-G2\src\main\java\com\tubes\service\ReplyService.java

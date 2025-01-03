@@ -195,13 +195,34 @@
                       </svg>
                     </a>
                   </li>
-                  <li class="search-item pe-3">
+                  <li class="search-item position-relative d-flex align-items-center pe-3">
                     <a href="#" class="search-button">
                       <svg class="search">
                         <use xlink:href="#search"></use>
                       </svg>
                     </a>
+                      <input
+                        type="text"
+                        autocomplete="off"
+                        name="searchQuery"
+                        class="form-control search-box position-absolute d-none"
+                        placeholder="Search by name..."
+                        style="
+                          top: 50%;
+                          right: 5px;
+                          transform: translateY(-50%);
+                          width: 180px;
+                        "
+                      />
+                  
+                    <!-- Popup results -->
+                    <div class="search-results position-absolute bg-white border rounded-3 shadow d-none">
+                      <ul id="search-results-list" class="search-list m-0 p-2">
+                        <!-- Results will be inserted here dynamically -->
+                      </ul>
+                    </div>
                   </li>
+                  
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
                       <a id="dropdownUser" class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -258,7 +279,7 @@
                     </h3>
                     <h2 style="color: #f1f1f1;">Find and Rate Book Collection</h2>
                     <p style="color: #f1f1f1;">Discover your next favorite read and share your thoughts!</p>      
-                    <a href="index.html" class="btn mt-3">Discover</a>
+                    <a th:href="@{/mybooks}" class="btn mt-3">Discover</a>
                   </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -573,7 +594,7 @@
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">Romance</h3>
           <!-- <p th:text="${genre}">a</p> -->
-          <a th:href="@{/books(genre='Biography')}" class="btn">View All</a>
+          <a th:href="@{/books(genre='Romance')}" class="btn">View All</a>
         </div>
         <div class="row">
             <div class="col-md-2 posts mb-4" th:each="book : ${rbooks}">
@@ -611,7 +632,7 @@
         <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
           <h3 class="d-flex align-items-center">History</h3>
           <!-- <p th:text="${genre}">a</p> -->
-          <a th:href="@{/books(genre='Biography')}" class="btn">View All</a>
+          <a th:href="@{/books(genre='History')}" class="btn">View All</a>
         </div>
         <div class="row">
             <div class="col-md-2 posts mb-4" th:each="book : ${hbooks}">
@@ -743,5 +764,68 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/main.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+      const searchResults = document.querySelector(".search-results");
+      const resultsList = document.getElementById("search-results-list");
+    
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+    
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (
+          !searchBox.contains(e.target) &&
+          !searchButton.contains(e.target) &&
+          !searchResults.contains(e.target)
+        ) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+          searchResults.classList.add("d-none"); // Sembunyikan hasil pencarian
+        }
+      });
+    
+      // Fetch dan tampilkan hasil pencarian
+      searchBox.addEventListener("input", function () {
+        const query = searchBox.value.trim();
+    
+        if (query.length > 0) {
+          fetch(`/search?searchQuery=${encodeURIComponent(query)}`)
+            .then((response) => response.json())
+            .then((data) => {
+              resultsList.innerHTML = ""; // Hapus hasil sebelumnya
+    
+              if (data.length > 0) {
+                data.forEach((book) => {
+                  const listItem = document.createElement("li");
+                  listItem.classList.add("search-item");
+                  listItem.innerHTML = `<a href="/bookdetail/${book.id}">${book.name}</a>`;
+                  resultsList.appendChild(listItem);
+                });
+                searchResults.classList.remove("d-none"); // Tampilkan hasil
+              } else {
+                searchResults.classList.add("d-none"); // Sembunyikan jika tidak ada hasil
+              }
+            })
+            .catch((err) => {
+              console.error("Error fetching search results:", err);
+            });
+        } else {
+          searchResults.classList.add("d-none"); // Sembunyikan hasil jika query kosong
+        }
+      });
+    </script>
+    
+
+    
+    
   </body>
 </html> 

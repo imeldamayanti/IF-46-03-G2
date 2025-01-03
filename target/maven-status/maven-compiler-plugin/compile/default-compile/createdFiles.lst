@@ -9,12 +9,15 @@ com\tubes\utils\csvUtils.class
 com\tubes\entity\Reply.class
 com\tubes\security\JwtAuthenticationFilter.class
 com\tubes\entity\ContentAccess.class
+com\tubes\service\BookListService.class
 com\tubes\seeder\UserSeeder.class
 com\tubes\utils\jwtUtils.class
+com\tubes\repository\BookListRepository.class
 com\tubes\entity\User.class
 com\tubes\config\SecurityConfig.class
 com\tubes\service\ForumService.class
 com\tubes\controllers\HomeController.class
+com\tubes\controllers\BookListController.class
 com\tubes\seeder\ForumAndReplySeeder.class
 com\tubes\entity\Forum.class
 com\tubes\entity\Reader.class
@@ -26,3 +29,4 @@ com\tubes\repository\ReplyRepository.class
 com\tubes\repository\UserRepository.class
 com\tubes\repository\BookRepository.class
 com\tubes\entity\Admin.class
+com\tubes\controllers\ForumAndReplyController.class

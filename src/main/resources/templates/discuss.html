@@ -335,12 +335,36 @@
                 <ul
                   class="d-flex justify-content-end align-items-center list-unstyled mb-0"
                 >
-                  <li class="search-item pe-3">
+                  <li
+                    class="search-item position-relative d-flex align-items-center pe-3"
+                  >
                     <a href="#" class="search-button">
                       <svg class="search">
                         <use xlink:href="#search"></use>
                       </svg>
                     </a>
+                    <input
+                      type="text"
+                      autocomplete="off"
+                      name="searchQuery"
+                      class="form-control search-box position-absolute d-none"
+                      placeholder="Search by name..."
+                      style="
+                        top: 50%;
+                        right: 5px;
+                        transform: translateY(-50%);
+                        width: 180px;
+                      "
+                    />
+
+                    <!-- Popup results -->
+                    <div
+                      class="search-results position-absolute bg-white border rounded-3 shadow d-none"
+                    >
+                      <ul id="search-results-list" class="search-list m-0 p-2">
+                        <!-- Results will be inserted here dynamically -->
+                      </ul>
+                    </div>
                   </li>
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
@@ -395,8 +419,14 @@
         <!-- Main Forum Details -->
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
-            <div class="post-footer d-flex justify-content-end align-items-center" th:if="${isAdmin}">
-              <a th:href="@{/delete/forum/{forumId}(forumId=${forum.id})}" class="btn-link delete-btn p-0 d-flex align-items-center">
+            <div
+              class="post-footer d-flex justify-content-end align-items-center"
+              th:if="${isAdmin}"
+            >
+              <a
+                th:href="@{/delete/forum/{forumId}(forumId=${forum.id})}"
+                class="btn-link delete-btn p-0 d-flex align-items-center"
+              >
                 <span class="reply-count">
                   <i class="bi bi-trash3"></i>
                   Delete
@@ -468,14 +498,20 @@
                 class="card p-3 shadow-sm border bg-white rounded replies"
                 th:each="reply : ${replies}"
               >
-              <div class="post-footer d-flex justify-content-end align-items-center" th:if="${isAdmin}">
-                <a th:href="@{/delete/{forumId}/{replyId}(forumId=${forum.id}, replyId=${reply.id})}" class="btn-link delete-btn p-0 d-flex align-items-center">
-                  <span class="reply-count">
-                    <i class="bi bi-trash3"></i>
-                    Delete
-                  </span>
-                </a>
-              </div>
+                <div
+                  class="post-footer d-flex justify-content-end align-items-center"
+                  th:if="${isAdmin}"
+                >
+                  <a
+                    th:href="@{/delete/{forumId}/{replyId}(forumId=${forum.id}, replyId=${reply.id})}"
+                    class="btn-link delete-btn p-0 d-flex align-items-center"
+                  >
+                    <span class="reply-count">
+                      <i class="bi bi-trash3"></i>
+                      Delete
+                    </span>
+                  </a>
+                </div>
                 <div class="d-flex align-items-center mb-3">
                   <div class="avatar-reply me-3">
                     <img
@@ -504,36 +540,53 @@
             <nav aria-label="Reply pagination" class="mt-3">
               <ul class="pagination justify-content-center">
                 <!-- Previous Button -->
-                <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                  <a class="page-link" 
-                    th:if="${currentPage > 1}" 
-                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage - 1}, size=${pageSize})}">
+                <li
+                  class="page-item"
+                  th:classappend="${currentPage == 1} ? 'disabled'"
+                >
+                  <a
+                    class="page-link"
+                    th:if="${currentPage > 1}"
+                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage - 1}, size=${pageSize})}"
+                  >
                     Previous
                   </a>
-                  <span class="page-link" th:if="${currentPage == 1}">Previous</span>
+                  <span class="page-link" th:if="${currentPage == 1}"
+                    >Previous</span
+                  >
                 </li>
 
                 <!-- Dynamic Page Numbers -->
-                <li class="page-item" 
-                    th:each="i : ${#numbers.sequence(1, totalPages)}" 
-                    th:classappend="${i == currentPage} ? 'active'">
-                  <a class="page-link" 
-                    th:href="@{/discuss(forumId=${forum.id}, page=${i}, size=${pageSize})}" 
-                    th:text="${i}"></a>
+                <li
+                  class="page-item"
+                  th:each="i : ${#numbers.sequence(1, totalPages)}"
+                  th:classappend="${i == currentPage} ? 'active'"
+                >
+                  <a
+                    class="page-link"
+                    th:href="@{/discuss(forumId=${forum.id}, page=${i}, size=${pageSize})}"
+                    th:text="${i}"
+                  ></a>
                 </li>
 
                 <!-- Next Button -->
-                <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                  <a class="page-link" 
-                    th:if="${currentPage < totalPages}" 
-                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage + 1}, size=${pageSize})}">
+                <li
+                  class="page-item"
+                  th:classappend="${currentPage == totalPages} ? 'disabled'"
+                >
+                  <a
+                    class="page-link"
+                    th:if="${currentPage < totalPages}"
+                    th:href="@{/discuss(forumId=${forum.id}, page=${currentPage + 1}, size=${pageSize})}"
+                  >
                     Next
                   </a>
-                  <span class="page-link" th:if="${currentPage == totalPages}">Next</span>
+                  <span class="page-link" th:if="${currentPage == totalPages}"
+                    >Next</span
+                  >
                 </li>
               </ul>
             </nav>
-
           </div>
         </div>
       </div>
@@ -618,5 +671,64 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+      const searchResults = document.querySelector(".search-results");
+      const resultsList = document.getElementById("search-results-list");
+
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (
+          !searchBox.contains(e.target) &&
+          !searchButton.contains(e.target) &&
+          !searchResults.contains(e.target)
+        ) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+          searchResults.classList.add("d-none"); // Sembunyikan hasil pencarian
+        }
+      });
+
+      // Fetch dan tampilkan hasil pencarian
+      searchBox.addEventListener("input", function () {
+        const query = searchBox.value.trim();
+
+        if (query.length > 0) {
+          fetch(`/search?searchQuery=${encodeURIComponent(query)}`)
+            .then((response) => response.json())
+            .then((data) => {
+              resultsList.innerHTML = ""; // Hapus hasil sebelumnya
+
+              if (data.length > 0) {
+                data.forEach((book) => {
+                  const listItem = document.createElement("li");
+                  listItem.classList.add("search-item");
+                  listItem.innerHTML = `<a href="/bookdetail/${book.id}">${book.name}</a>`;
+                  resultsList.appendChild(listItem);
+                });
+                searchResults.classList.remove("d-none"); // Tampilkan hasil
+              } else {
+                searchResults.classList.add("d-none"); // Sembunyikan jika tidak ada hasil
+              }
+            })
+            .catch((err) => {
+              console.error("Error fetching search results:", err);
+            });
+        } else {
+          searchResults.classList.add("d-none"); // Sembunyikan hasil jika query kosong
+        }
+      });
+    </script>
   </body>
 </html>

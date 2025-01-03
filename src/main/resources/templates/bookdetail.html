@@ -354,12 +354,32 @@
               </ul>
               <div class="user-items d-flex align-items-center">
                 <ul class="d-flex justify-content-end list-unstyled mb-0">
-                  <li class="search-item pe-3">
+                  <li class="search-item position-relative d-flex align-items-center pe-3">
                     <a href="#" class="search-button">
                       <svg class="search">
                         <use xlink:href="#search"></use>
                       </svg>
                     </a>
+                      <input
+                        type="text"
+                        autocomplete="off"
+                        name="searchQuery"
+                        class="form-control search-box position-absolute d-none"
+                        placeholder="Search by name..."
+                        style="
+                          top: 50%;
+                          right: 5px;
+                          transform: translateY(-50%);
+                          width: 180px;;
+                        "
+                      />
+                  
+                    <!-- Popup results -->
+                    <div class="search-results position-absolute bg-white border rounded-3 shadow d-none">
+                      <ul id="search-results-list" class="search-list m-0 p-2">
+                        <!-- Results will be inserted here dynamically -->
+                      </ul>
+                    </div>
                   </li>
                   <!-- Account -->
                   <!--<li th:if="${user != null}" class="nav-item dropdown pe-3 d-flex justify-content-center align-items-center">
@@ -421,22 +441,25 @@
       </div>
 
       <!-- Left and Right Containers -->
-      <div class="content-container">
-        <!-- Left Container: Image -->
-        <div class="left-container">
-          <div class="image-container">
-            <img
-              class="img-fluid rounded-3"
-              th:src="${book.cover}"
-              alt="book cover"
-            />
-          </div>
-          <!-- Add to List Button-->
-          <div class="button-container">
-            <button class="add-to-list" onclick="showPopup()">
-              Add to list
-            </button>
-          </div>
+        <div class="content-container" style="margin-bottom: 10px;">
+          <!-- Left Container: Image -->
+          <div class="left-container">
+            <div class="image-container">
+              <img
+                class="img-fluid rounded-3"
+                th:src="${book.cover}"
+                alt="book cover"
+              />
+            </div>
+            <!-- Add to List Button-->
+            <div class="button-container">
+              <form th:action="@{/booklist/add}" method="post">
+                <input type="hidden" name="bookId" th:value="${book.id}" />
+                <button type="submit" class="add-to-list">Add to Booklist</button>
+            </form> 
+
+            </div>
+          
 
           <div
             id="popup"
@@ -510,251 +533,41 @@
       </div>
     </div>
 
-    <section id="latest-posts" class="padding-large">
+    <section id="latest-posts" class="" style="margin-bottom: 80px;">
       <div class="container">
         <div
-          class="section-title d-md-flex justify-content-between align-items-center mb-4"
+          class="section-title d-md-flex justify-content-between align-items-center "
         >
           <h3 class="d-flex align-items-center">Similar to:</h3>
         </div>
         <div class="row">
-          <div class="col-md-2 posts mb-4">
-            <img
-              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
-              alt="post image"
-              class="img-fluid rounded-3"
-            />
-            <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
+          <div class="col-md-2 posts mb-4" th:each="book : ${similar}">
+           <a th:href="@{/bookdetail/{id}(id=${book.id})}"> <img 
+              th:src="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'https://m.media-amazon.com/images/I/51DPUA--50L._SY445_SX342_.jpg'}" 
+              th:alt="${book.cover != null && !book.cover.isEmpty() ? book.cover : 'Default cover image'}" 
+              class="img-fluid fixed-size-img"
+            ></a>
+
+             <div class="rating text-warning d-flex align-items-center mt-2">
+
+              <svg class="star star-fill" 
+                th:each="i : ${#numbers.sequence(1, T(java.lang.Math).floor(book.rate).intValue())}">
                 <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
+                </svg>
+
+                <svg class="star star-half" th:if="${book.rate % 1 >= 0.1}">
+                  <use xlink:href="#star-half"></use>
+              </svg>         
+              
+              <h4 class="mt-2 mx-2" th:href="@{/}" th:text="${book.rate}"></h4>
+
+              </div>
+
+              <h4 class="card-title mt-1 text-capitalize text-dark">
+              <a th:href="@{/}" th:text="${book.name}+.."></a>
             </div>
-            <h4 class="card-title mb-2 text-capitalize text-dark">
-              <a th:href="@{/}"
-                >10 Must-Read Books of the Year: Our Top Picks!</a
-              >
-            </h4>
-            <p class="mb-2">
-              Dive into the world of cutting-edge technology with our latest
-              blog post, where we highlight five essential gadge.
-              <span
-                ><a
-                  class="text-decoration-underline text-black-50"
-                  th:href="@{/}"
-                  >Read More</a
-                ></span
-              >
-            </p>
           </div>
-          <div class="col-md-2 posts mb-4">
-            <img
-              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
-              alt="post image"
-              class="img-fluid rounded-3"
-            />
-            <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-            </div>
-            <h4 class="card-title mb-2 text-capitalize text-dark">
-              <a th:href="@{/}">The Fascinating Realm of Science Fiction</a>
-            </h4>
-            <p class="mb-2">
-              Explore the intersection of technology and sustainability in our
-              latest blog post. Learn about the innovative
-              <span
-                ><a
-                  class="text-decoration-underline text-black-50"
-                  th:href="@{/}"
-                  >Read More</a
-                ></span
-              >
-            </p>
-          </div>
-          <div class="col-md-2 posts mb-4">
-            <img
-              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
-              alt="post image"
-              class="img-fluid rounded-3"
-            />
-            <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-            </div>
-            <h4 class="card-title mb-2 text-capitalize text-dark">
-              <a th:href="@{/}">Finding Love in the Pages of a Book</a>
-            </h4>
-            <p class="mb-2">
-              Stay ahead of the curve with our insightful look into the rapidly
-              evolving landscape of wearable technology.
-              <span
-                ><a
-                  class="text-decoration-underline text-black-50"
-                  th:href="@{/}"
-                  >Read More</a
-                ></span
-              >
-            </p>
-          </div>
-          <div class="col-md-2 posts mb-4">
-            <img
-              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
-              alt="post image"
-              class="img-fluid rounded-3"
-            />
-            <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-            </div>
-            <h4 class="card-title mb-2 text-capitalize text-dark">
-              <a th:href="@{/}"
-                >Reading for Mental Health: How Books Can Heal and Inspire</a
-              >
-            </h4>
-            <p class="mb-2">
-              In today's remote work environment, productivity is key. Discover
-              the top apps and tools that can help you stay
-              <span
-                ><a
-                  class="text-decoration-underline text-black-50"
-                  th:href="@{/}"
-                  >Read More</a
-                ></span
-              >
-            </p>
-          </div>
-          <div class="col-md-2 posts mb-4">
-            <img
-              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
-              alt="post image"
-              class="img-fluid rounded-3"
-            />
-            <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-            </div>
-            <h4 class="card-title mb-2 text-capitalize text-dark">
-              <a th:href="@{/}"
-                >Reading for Mental Health: How Books Can Heal and Inspire</a
-              >
-            </h4>
-            <p class="mb-2">
-              In today's remote work environment, productivity is key. Discover
-              the top apps and tools that can help you stay
-              <span
-                ><a
-                  class="text-decoration-underline text-black-50"
-                  th:href="@{/}"
-                  >Read More</a
-                ></span
-              >
-            </p>
-          </div>
-          <div class="col-md-2 posts mb-4">
-            <img
-              th:src="@{https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1728476850i/203579177.jpg}"
-              alt="post image"
-              class="img-fluid rounded-3"
-            />
-            <div class="rating d-flex align-items-center">
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-              <svg class="star star-fill">
-                <use xlink:href="#star-fill"></use>
-              </svg>
-            </div>
-            <h4 class="card-title mb-2 text-capitalize text-dark">
-              <a th:href="@{/}"
-                >Reading for Mental Health: How Books Can Heal and Inspire</a
-              >
-            </h4>
-            <p class="mb-2">
-              In today's remote work environment, productivity is key. Discover
-              the top apps and tools that can help you stay
-              <span
-                ><a
-                  class="text-decoration-underline text-black-50"
-                  th:href="@{/}"
-                  >Read More</a
-                ></span
-              >
-            </p>
-          </div>
-        </div>
+      </div>
       </div>
     </section>
 
@@ -816,5 +629,64 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
+    <!-- Search -->
+    <script>
+      const searchButton = document.querySelector(".search-button");
+      const searchBox = document.querySelector(".search-box");
+      const searchResults = document.querySelector(".search-results");
+      const resultsList = document.getElementById("search-results-list");
+    
+      // Tampilkan atau sembunyikan kotak pencarian
+      searchButton.addEventListener("click", function (e) {
+        e.preventDefault(); // Mencegah tindakan default link
+        searchBox.classList.toggle("d-none"); // Toggle class 'd-none'
+        if (!searchBox.classList.contains("d-none")) {
+          searchBox.focus(); // Fokus ke kotak pencarian
+        }
+      });
+    
+      // Tutup kotak pencarian saat klik di luar area pencarian
+      document.addEventListener("click", function (e) {
+        if (
+          !searchBox.contains(e.target) &&
+          !searchButton.contains(e.target) &&
+          !searchResults.contains(e.target)
+        ) {
+          searchBox.classList.add("d-none"); // Sembunyikan kotak pencarian
+          searchResults.classList.add("d-none"); // Sembunyikan hasil pencarian
+        }
+      });
+    
+      // Fetch dan tampilkan hasil pencarian
+      searchBox.addEventListener("input", function () {
+        const query = searchBox.value.trim();
+    
+        if (query.length > 0) {
+          fetch(`/search?searchQuery=${encodeURIComponent(query)}`)
+            .then((response) => response.json())
+            .then((data) => {
+              resultsList.innerHTML = ""; // Hapus hasil sebelumnya
+    
+              if (data.length > 0) {
+                data.forEach((book) => {
+                  const listItem = document.createElement("li");
+                  listItem.classList.add("search-item");
+                  listItem.innerHTML = `<a href="/bookdetail/${book.id}">${book.name}</a>`;
+                  resultsList.appendChild(listItem);
+                });
+                searchResults.classList.remove("d-none"); // Tampilkan hasil
+              } else {
+                searchResults.classList.add("d-none"); // Sembunyikan jika tidak ada hasil
+              }
+            })
+            .catch((err) => {
+              console.error("Error fetching search results:", err);
+            });
+        } else {
+          searchResults.classList.add("d-none"); // Sembunyikan hasil jika query kosong
+        }
+      });
+    </script>
   </body>
 </html>
