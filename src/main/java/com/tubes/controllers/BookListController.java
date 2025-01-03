@@ -94,7 +94,7 @@ public class BookListController {
     @GetMapping("/mybooks")
     public String viewUserBooklist(Model model, @AuthenticationPrincipal UserDetails userDetails,
                                    @RequestParam(defaultValue = "1") int page,
-                                   @RequestParam(defaultValue = "10") int size) {
+                                   @RequestParam(defaultValue = "5") int size) {
         if (userDetails == null) {
             return "redirect:/signin"; // Redirect to sign-in if not logged in
         }
@@ -124,7 +124,7 @@ public class BookListController {
     @ResponseBody
     public List<Book> getUserBooklistJson(@AuthenticationPrincipal UserDetails userDetails,
                                           @RequestParam(defaultValue = "1") int page,
-                                          @RequestParam(defaultValue = "10") int size) {
+                                          @RequestParam(defaultValue = "5") int size) {
         if (userDetails == null) {
             return Collections.emptyList(); // Return an empty list if not logged in
         }

@@ -457,23 +457,23 @@
                   </tbody>
               </table>
           </div>
-  
+
           <!-- Pagination -->
           <nav aria-label="Page navigation example" th:if="${hasBooks}">
             <ul class="pagination">
                 <!-- Previous Button -->
                 <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled previous'">
-                    <a class="page-link" th:href="@{/mybooks(page=${currentPage - 1}, size=${pageSize})}" tabindex="-1" aria-disabled="true">Previous</a>
+                    <a class="page-link" th:href="@{/mybooks(page=${currentPage - 1}, size=5)}" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
 
                 <!-- Page Numbers -->
                 <li class="page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${i == currentPage} ? 'active'">
-                    <a class="page-link" th:href="@{/mybooks(page=${i}, size=${pageSize})}" th:text="${i}"></a>
+                    <a class="page-link" th:href="@{/mybooks(page=${i}, size=5)}" th:text="${i}"></a>
                 </li>
 
                 <!-- Next Button -->
                 <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled next'">
-                    <a class="page-link" th:href="@{/mybooks(page=${currentPage + 1}, size=${pageSize})}" aria-disabled="${currentPage == totalPages}">Next</a>
+                    <a class="page-link" th:href="@{/mybooks(page=${currentPage + 1}, size=5)}" aria-disabled="${currentPage == totalPages}">Next</a>
                 </li>
             </ul>
           </nav>
@@ -481,17 +481,19 @@
       </div>
   </section>
   
-    
-    <a th:href="@{/faq}" class="floating-button"></a>
+  <a th:href="@{/faq}" class="floating-button"></a>
 
-    <script>
-async function loadBooks() {
+  <script>
+  async function loadBooks() {
   const tableBody = document.getElementById("book-list");
-  const currentPage = /*[[${currentPage}]]*/ 1; // Inject currentPage from Thymeleaf using the proper syntax
+  
+  // Get current page from URL query parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentPage = parseInt(urlParams.get('page') || '1');
 
   try {
-    // Fetch books for the current page
-    const response = await fetch(`/mybooks/json?page=${currentPage}`);
+    // Fetch books for the current page, with a maximum of 5 books per page
+    const response = await fetch(`/mybooks/json?page=${currentPage}&size=5`);
     const books = await response.json();
 
     // Clear existing rows
@@ -499,7 +501,7 @@ async function loadBooks() {
 
     if (books.length === 0) {
       const emptyRow = document.createElement("tr");
-      emptyRow.innerHTML = `
+      emptyRow.innerHTML = `        
         <td colspan="5" class="px-6 py-4 text-center text-gray-500">
           No books found in your list.
         </td>
@@ -530,31 +532,28 @@ async function loadBooks() {
         e.stopPropagation();
         if (confirm(`Are you sure you want to delete "${book.name}"?`)) {
           await fetch(`/book/delete/${book.id}`, { method: "GET" });
-          row.remove(); // Remove the row from the table
+          row.remove();
         }
       });
 
       tableBody.appendChild(row);
     });
-  } catch (error) {
-    console.error("Failed to load books:", error);
-    tableBody.innerHTML = `
-      <tr>
-        <td colspan="5" class="px-6 py-4 text-center text-red-500">
-          Failed to load books. Please try again later.
-        </td>
-      </tr>
-    `;
+    } catch (error) {
+      console.error("Failed to load books:", error);
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="5" class="px-6 py-4 text-center text-red-500">
+            Failed to load books. Please try again later.
+          </td>
+        </tr>
+      `;
+    }
   }
-}
 
-document.addEventListener("DOMContentLoaded", loadBooks);
+    document.addEventListener("DOMContentLoaded", loadBooks);
+    tener("DOMContentLoaded", loadBooks);
 
     </script>
-    
-    
-    
-    
     
     <script src="js/jquery-1.11.0.min.js"></script>
     <script

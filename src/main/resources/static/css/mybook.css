@@ -1448,23 +1448,43 @@ CSS STRUCTURE:
   
   /* Search
   /*----------------------------------------------*/
+  /* Search box style */
   .search-box {
     z-index: 10;
     top: 50%;
-    right: 5px; /* Posisi di kiri tombol */
-    transform: translate(-100%, -50%);
-    width: 150px; /* Lebar lebih kecil */
-    padding: 4px 8px; /* Padding minimalis */
-    font-size: 14px; /* Ukuran font kecil */
-    border: 1px solid #ccc; /* Warna border ringan */
-    border-radius: 20px; /* Membulat untuk tampilan modern */
+    right: 5px;
+    transform: translateY(-50%); 
+    width: 150px; 
+    padding: 4px 8px; 
+    font-size: 14px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
     outline: none;
-    transition: all 0.3s ease; /* Transisi halus */
-    box-shadow: none; /* Hilangkan bayangan */
+    transition: all 0.3s ease;
+    box-shadow: none;
   }
 
-  .mybooks-con {
-    padding-top: 150px;
+  /* Search results container */
+  .search-results {
+    top: 102%;
+    right: 10%; 
+    width: 182px;
+    max-height: 200px;
+    overflow-y: hidden; /* Menghilangkan scrollbar vertikal */
+    overflow-x: hidden; /* Menghilangkan scrollbar horizontal */
+    z-index: 999; 
+  }
+
+  /* Individual search item */
+  .search-list .search-item {
+    padding: 8px 12px;
+    font-size: 10pt;
+    cursor: pointer;
+    border-bottom: 1px solid #F86D72;
+  }
+
+  .search-button {
+    color:#232323;
   }
 
   /*----------------------------------------------*/
@@ -1477,12 +1497,12 @@ CSS STRUCTURE:
     list-style: none;
     padding: 0;
     justify-content: center;
-    gap: 4px; /* Jarak antar tombol */
+    gap: 4px; 
   }
 
   /* Tombol Previous Disabled */
   .page-item.disabled.previous .page-link {
-    background-color: #d3d3d3; /* Abu-abu untuk Previous dalam kondisi disable */
+    background-color: #d3d3d3;
     color: #6c757d;
     pointer-events: none;
     border: 1px solid #d3d3d3;
@@ -1494,7 +1514,7 @@ CSS STRUCTURE:
   /* Tombol aktif dan dalam keadaan aktif */
   .page-item.active .page-link {
     background-color: var(--primary-color) !important; 
-    color: #fff !important; /* Putih untuk teks */
+    color: #fff !important; 
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     padding: 6px 8px;
@@ -1503,8 +1523,8 @@ CSS STRUCTURE:
 
   /* Tombol yang bisa diklik normal */
   .page-item:not(.disabled) .page-link {
-    color: var(--primary-color); /* Warna teks default */
-    background-color: #fff; /* Latar belakang putih */
+    color: var(--primary-color); 
+    background-color: #fff; 
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     padding: 6px 8px;
@@ -1522,7 +1542,7 @@ CSS STRUCTURE:
   /* Tombol Disabled untuk kondisi lainnya */
   .page-item.disabled .page-link,
   .page-item.disabled span {
-    background-color: #d3d3d3; /* Abu-abu */
+    background-color: #d3d3d3;
     color: #6c757d;
     pointer-events: none;
     border: 1px solid #d3d3d3;
@@ -1558,42 +1578,42 @@ CSS STRUCTURE:
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 50px; /* Lebar default */
-    height: 50px; /* Tinggi default */
-    background-color: #c76e6f;
+    width: 50px;
+    height: 50px; 
+    background-color: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 25px; /* Membuat tombol bulat */
+    border-radius: 25px; 
     display: flex;
     align-items: center;
-    justify-content: center; /* Konten selalu di tengah */
+    justify-content: center;
     text-decoration: none;
     font-size: 24px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    transition: all 0.3s; /* Animasi transisi */
+    transition: all 0.3s; 
     z-index: 1000;
-    overflow: hidden; /* Sembunyikan teks tambahan sebelum hover */
-    white-space: nowrap; /* Hindari teks terpotong */
-    padding: 0 10px; /* Spasi dalam tombol */
+    overflow: hidden; 
+    white-space: nowrap; 
+    padding: 0 10px; 
   }
 
   .floating-button:hover {
-      width: 100px; /* Lebar tombol saat di-hover */
-      border-radius: 25px; /* Tetap berbentuk persegi panjang dengan ujung membulat */
-      background-color: #b15d5e; /* Opsional: Ubah warna tombol saat hover */
+      width: 100px;
+      border-radius: 25px; 
+      background-color: #b15d5e;
   }
 
   .floating-button::before {
-    content: "?"; /* Tanda tanya default */
+    content: "?"; 
   }
 
   .floating-button:hover::before {
-    content: ""; /* Hapus tanda tanya */
+    content: ""; 
   }
 
   .floating-button:hover::before {
       color: #FFF;
-      content: "FAQ"; /* Teks saat tombol di-hover */
-      font-size: 18px; /* Ukuran font teks FAQ */
+      content: "FAQ"; 
+      font-size: 18px; 
   }
