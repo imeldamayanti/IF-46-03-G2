@@ -1423,21 +1423,17 @@ select#input-sort {
 }
 
 /* Hero Image Section */
-.faq-header {
-  margin-bottom: 0em;
-}
 
 .image-container {
   width: 200px;
   height: 150px;
   overflow: hidden;
-  margin-bottom: 30%;
+  margin-bottom: 10%;
 }
 
 .image-container img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: 75%;
   margin: 0;
   padding: 0;
   top: -2cm;
@@ -1455,7 +1451,7 @@ select#input-sort {
 
 .overlay-text {
   position: absolute;
-  top: 40%;
+  top: 25%;
   transform: translateY(-50%);
   text-align: left;
   color: #fff;
@@ -1530,7 +1526,7 @@ select#input-sort {
   font-size: 1rem;
   font-weight: bold;
   color: white;
-  background-color: #ff6600;
+  background-color: #f86d72;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 50px;
@@ -1539,7 +1535,8 @@ select#input-sort {
 }
 
 .contact-button:hover {
-  background-color: #e05500;
+  background-color: #f08585;
+  color: white;
 }
 
 .btn:hover,
@@ -1598,6 +1595,7 @@ select#input-sort {
   color: #fff;
 }
 
+<<<<<<< HEAD
 /* Search
   /*----------------------------------------------*/
 /* Search box style */
@@ -1633,4 +1631,21 @@ select#input-sort {
   font-size: 10pt;
   cursor: pointer;
   border-bottom: 1px solid #f86d72;
+=======
+/* Auth
+  /*----------------------------------------------*/
+.search-box {
+  z-index: 10;
+  top: 50%;
+  right: 5px; /* Posisi di kiri tombol */
+  transform: translate(-100%, -50%);
+  width: 150px; /* Lebar lebih kecil */
+  padding: 4px 8px; /* Padding minimalis */
+  font-size: 14px; /* Ukuran font kecil */
+  border: 1px solid #ccc; /* Warna border ringan */
+  border-radius: 20px; /* Membulat untuk tampilan modern */
+  outline: none;
+  transition: all 0.3s ease; /* Transisi halus */
+  box-shadow: none; /* Hilangkan bayangan */
+>>>>>>> 6c17668c2404209cd46d5334101b778b2e7b66cc
 }

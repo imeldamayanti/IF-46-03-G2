@@ -1954,6 +1954,7 @@ CSS STRUCTURE:
 
     /* Search
   /*----------------------------------------------*/
+<<<<<<< HEAD
 /* Search box style */
 .search-box {
   z-index: 10;
@@ -1986,4 +1987,64 @@ CSS STRUCTURE:
   font-size: 10pt;
   cursor: pointer;
   border-bottom: 1px solid #F86D72;
+=======
+  .search-box {
+    z-index: 10;
+    top: 50%;
+    right: 5px; /* Posisi di kiri tombol */
+    transform: translate(-100%, -50%);
+    width: 150px; /* Lebar lebih kecil */
+    padding: 4px 8px; /* Padding minimalis */
+    font-size: 14px; /* Ukuran font kecil */
+    border: 1px solid #ccc; /* Warna border ringan */
+    border-radius: 20px; /* Membulat untuk tampilan modern */
+    outline: none;
+    transition: all 0.3s ease; /* Transisi halus */
+    box-shadow: none; /* Hilangkan bayangan */
+  }
+
+  .floating-button {
+    pointer-events: auto;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px; /* Lebar default */
+    height: 50px; /* Tinggi default */
+    background-color: #c76e6f;
+    color: #fff;
+    border: none;
+    border-radius: 25px; /* Membuat tombol bulat */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Konten selalu di tengah */
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s; /* Animasi transisi */
+    z-index: 1000;
+    overflow: hidden; /* Sembunyikan teks tambahan sebelum hover */
+    white-space: nowrap; /* Hindari teks terpotong */
+    padding: 0 10px; /* Spasi dalam tombol */
+}
+
+.floating-button:hover {
+    width: 100px; /* Lebar tombol saat di-hover */
+    border-radius: 25px; /* Tetap berbentuk persegi panjang dengan ujung membulat */
+    background-color: #b15d5e; /* Opsional: Ubah warna tombol saat hover */
+}
+
+.floating-button::before {
+  content: "?"; /* Tanda tanya default */
+}
+
+.floating-button:hover::before {
+  content: ""; /* Hapus tanda tanya */
+}
+
+.floating-button:hover::before {
+    color: #FFF;
+    content: "FAQ"; /* Teks saat tombol di-hover */
+    font-size: 18px; /* Ukuran font teks FAQ */
+>>>>>>> 6c17668c2404209cd46d5334101b778b2e7b66cc
 }
