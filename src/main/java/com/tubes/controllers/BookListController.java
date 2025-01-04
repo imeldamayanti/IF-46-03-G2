@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.tubes.entity.Book;
 import com.tubes.entity.User;
@@ -142,14 +142,20 @@ public class BookListController {
         return userBooksPage.getContent(); // Return the list of books
     }
 
-    @GetMapping("/book/delete/{id}")
-    public String deleteBook(@PathVariable Long id) {
-        bookRepository.deleteById(id);
+    @GetMapping("/book/deleteBL/{id}")
+    public String deleteInBookList(@PathVariable Long id) {
+
+        // Fetch the book by its ID
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            return "redirect:/mybooks";  // Redirect back to My Books page if book is not found
+        }
+        book.clearUser();
         return "redirect:/mybooks";  // Redirect back to the My Books page after deletion
     }
 
-    @PostMapping("/book/remove/{id}")
-    public String removeInBookDetail(
+    @PostMapping("/book/deleteBD/{id}")
+    public String deleteInBookDetail(
         @PathVariable("id") Long id,
         @AuthenticationPrincipal UserDetails userDetails) {
         // Fetch logged-in user
@@ -164,9 +170,7 @@ public class BookListController {
             return "redirect:/mybooks";  // Redirect back to My Books page if book is not found
         }
 
-        // Remove the book from the user's booklist
-        user.getBookList().remove(book);
-        userRepository.save(user);
+        book.clearUser();
 
         // Redirect back to the book detail page
         return "redirect:/bookdetail/" + id;

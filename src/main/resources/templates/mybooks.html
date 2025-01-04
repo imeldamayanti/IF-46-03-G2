@@ -536,7 +536,7 @@ async function loadBooks() {
       row.querySelector(".delete-btn").addEventListener("click", async (e) => {
         e.stopPropagation();
         if (confirm(`Are you sure you want to delete "${book.name}"?`)) {
-          await fetch(`/book/delete/${book.id}`, { method: "GET" });
+          await fetch(`/book/deleteBL/${book.id}`, { method: "GET" });
           row.remove(); // Remove the row from the table
 
           // Check if there are no books left after deletion

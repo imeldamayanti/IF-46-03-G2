@@ -145,6 +145,14 @@ public class Book {
         this.cover = cover;
     }
 
+    public User getUser(){
+        return user;
+    }
+
+    public void clearUser(){
+        this.user = null;
+    }
+
     // toString for debugging purposes
     @Override
     public String toString() {
