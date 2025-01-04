@@ -63,6 +63,9 @@
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn add-btn mt-4" th:text="${book.id == null ? 'Add' : 'Edit'}"></button>
                     </div>
+                    <div th:if="${error}" class="alert alert-danger">
+                        <p th:text="${error}"></p>
+                    </div>                    
                 </form>
             </div>
         </div>

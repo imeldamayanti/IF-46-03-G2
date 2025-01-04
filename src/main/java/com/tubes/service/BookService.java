@@ -83,4 +83,7 @@ public class BookService {
         return bookRepository.findBooksByNameContainingIgnoreCase(searchQuery);
     }
 
+    public boolean isBookExists(String name) {
+        return bookRepository.existsByName(name);
+    }
 }

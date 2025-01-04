@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tubes.service.BookService;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 import com.tubes.entity.Book;
@@ -201,7 +200,12 @@ public class BookController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String formattedDate = LocalDate.parse(book.getDateReleased(), DateTimeFormatter.ISO_DATE).format(formatter);
             book.setDateReleased(formattedDate);
-            // hm
+          
+            if (book.getId() == null && bookService.isBookExists(book.getName())) {
+                redirectAttributes.addFlashAttribute("error", "Book already exists!");
+                String referer = request.getHeader("Referer");
+                return "redirect:" + (referer != null ? referer : "/admin/");
+            }
             bookService.saveBook(book);
             redirectAttributes.addFlashAttribute("message", "Book saved successfully!");
             Long id = book.getId();
